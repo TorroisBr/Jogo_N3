@@ -9,5 +9,7 @@ public class Player {
     public int x,y;
     public Texture tPlayer;
     public Sprite sPlayer;
+    public int larg=64,alt=128;
+    public int velo=8;
 
 }

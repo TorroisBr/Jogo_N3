@@ -43,96 +43,24 @@ public class MyGdxGame2 extends ApplicationAdapter {
 
     @Override
     public void render() {
-        if (fundoatual == 2) {
-            if (jogador.y < 40) {
-                fundoatual = 5;
-                jogador.y = (690);
-            }
-        }
-        if (fundoatual == 3) {
-            if (jogador.y < 40) {
-                fundoatual = 6;
-                jogador.y = (690);
-            }
-        }
-        if (fundoatual == 4) {
-            if (jogador.x > 1200) {
-                fundoatual = 5;
-                jogador.x = (40);
-            }
-        }
-        if (fundoatual == 5) {
-            if (jogador.x < 30) {
-                fundoatual = 4;
-                jogador.x = (1170);
-            }
-            if (jogador.y > 700) {
-                fundoatual = 2;
-                jogador.y = (40);
-            }
-            if (jogador.y < 30) {
-                fundoatual = 8;
-                jogador.y = 690;
-            }
-            if (jogador.x > 1200) {
-                fundoatual = 6;
-                jogador.x = 40;
-            }
-        }
-        if (fundoatual == 6) {
-            if (jogador.x < 30) {
-                fundoatual = 5;
-                jogador.x = 1170;
-            }
-            if (jogador.y > 700){
-                fundoatual = 3;
-                jogador.y = 40;
-            }
-        }
-        if (fundoatual == 8) {
-            if (jogador.y > 700) {
-                fundoatual = 5;
-                jogador.y = 40;
-            }
-        }
+
 
 //Movimento Player-----------------------------------
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
-            jogador.x += (-1f * 8);
+            jogador.x += (-1f * jogador.velo);
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-            jogador.x += (1f * 8);
+            jogador.x += (1f * jogador.velo);
         if (Gdx.input.isKeyPressed(Input.Keys.UP))
-            jogador.y += (1f * 8);
+            jogador.y += (1f * jogador.velo);
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
-            jogador.y += (-1f * 8);
+            jogador.y += (-1f * jogador.velo);
 
 
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
+        MapaCidade();
 
-        switch (fundoatual) {
-            case 2:
-                batch.draw(sa2, sa2.getX(), sa2.getY());
-                break;
-            case 3:
-                batch.draw(sa3, sa3.getX(), sa3.getY());
-                break;
-            case 4:
-                batch.draw(sb1, sb1.getX(), sb1.getY());
-                break;
-            case 5:
-                batch.draw(sb2, sb2.getX(), sb2.getY());
-                break;
-            case 6:
-                batch.draw(sb3, sb3.getX(), sb3.getY());
-                break;
-            case 8:
-                batch.draw(sc2, sc2.getX(), sc2.getY());
-                break;
-
-
-        }
 
         batch.draw(jogador.sPlayer, jogador.x, jogador.y);
         batch.end();
@@ -149,6 +77,113 @@ public class MyGdxGame2 extends ApplicationAdapter {
         tb2.dispose();
         tb3.dispose();
         tc2.dispose();
+    }
+
+    private void MapaCidade() {
+        //Pontos de colisão fim da tela
+        int ladoEsquerdo = 10;
+        int ladoDireito = 1270 - jogador.larg;
+        int ladoTopo = 720 - jogador.alt;
+        int ladoBaixo = 10;
+
+        //Colisões limite da tela
+        if (fundoatual == 2 || fundoatual == 3 || fundoatual == 4 || fundoatual == 8) {
+            if (jogador.x <= ladoEsquerdo) {
+                jogador.x += (jogador.velo);
+            }
+        }
+        if (fundoatual == 2 || fundoatual == 3 || fundoatual == 6 || fundoatual == 8) {
+            if (jogador.x >= ladoDireito) {
+                jogador.x += (-jogador.velo);
+            }
+        }
+        if (fundoatual == 2 || fundoatual == 3 || fundoatual == 4) {
+            if (jogador.y >= ladoTopo) {
+                jogador.y += (-jogador.velo);
+            }
+        }
+
+        if (fundoatual == 4 || fundoatual == 6 || fundoatual == 8) {
+            if (jogador.y <= ladoBaixo) {
+                jogador.y += (jogador.velo);
+            }
+        }
+
+        //Pontos iniciais de transição de tela
+        int xInicial = 40 - (jogador.larg / 2);
+        int xFinal = 1240 - (jogador.larg / 2);
+        int yInicial = 40 - (jogador.alt / 2);
+        int yFinal = 680 - (jogador.alt / 2);
+
+        //Desenhar imagem e transição de tela
+        switch (fundoatual) {
+            case 2:
+                batch.draw(sa2, sa2.getX(), sa2.getY());
+                if (jogador.y < yInicial) {
+                    fundoatual = 5;
+                    jogador.y = (yFinal);
+                }
+                break;
+            case 3:
+                batch.draw(sa3, sa3.getX(), sa3.getY());
+                if (jogador.y < yInicial) {
+                    fundoatual = 6;
+                    jogador.y = (yFinal);
+                }
+                break;
+            case 4:
+                batch.draw(sb1, sb1.getX(), sb1.getY());
+                if (jogador.x > xFinal) {
+                    fundoatual = 5;
+                    jogador.x = (xInicial);
+                }
+                break;
+            case 5:
+                batch.draw(sb2, sb2.getX(), sb2.getY());
+                if (jogador.x < xInicial) {
+                    fundoatual = 4;
+                    jogador.x = (xFinal);
+                }
+                if (jogador.y > yFinal) {
+                    fundoatual = 2;
+                    jogador.y = (yInicial);
+                }
+                if (jogador.y < yInicial) {
+                    fundoatual = 8;
+                    jogador.y = yFinal;
+                }
+                if (jogador.x > xFinal) {
+                    fundoatual = 6;
+                    jogador.x = xInicial;
+                }
+                break;
+            case 6:
+                batch.draw(sb3, sb3.getX(), sb3.getY());
+                if (fundoatual == 6) {
+                    if (jogador.x < xInicial) {
+                        fundoatual = 5;
+                        jogador.x = xFinal;
+                    }
+                    if (jogador.y > yFinal) {
+                        fundoatual = 3;
+                        jogador.y = yInicial;
+                    }
+                }
+                break;
+            case 8:
+                batch.draw(sc2, sc2.getX(), sc2.getY());
+                if (fundoatual == 8) {
+                    if (jogador.y > yFinal) {
+                        fundoatual = 5;
+                        jogador.y = yInicial;
+                    }
+                }
+                break;
+
+
+        }
+
+
     }
 }
 
