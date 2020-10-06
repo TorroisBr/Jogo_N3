@@ -44,7 +44,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
     @Override
     public void render() {
 
-
+ 
 //Movimento Player-----------------------------------
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
             jogador.x += (-1f * jogador.velo);
