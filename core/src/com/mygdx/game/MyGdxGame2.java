@@ -12,7 +12,7 @@ import com.mygdx.game.player.Player;
 
 public class MyGdxGame2 extends ApplicationAdapter {
     SpriteBatch batch;
-    int fundoatual = 1;
+    int fundoatual = 4;
     Casa npcCasa = new Casa();
     Player jogador = new Player();
     Sprite sa2, sa3, sb1, sb2, sb3, sc2;
@@ -43,36 +43,59 @@ public class MyGdxGame2 extends ApplicationAdapter {
 
     @Override
     public void render() {
+        if (fundoatual == 2) {
+            if (jogador.y < 40) {
+                fundoatual = 5;
+                jogador.y = (690);
+            }
+        }
+        if (fundoatual == 3) {
+            if (jogador.y < 40) {
+                fundoatual = 6;
+                jogador.y = (690);
+            }
+        }
+        if (fundoatual == 4) {
+            if (jogador.x > 1200) {
+                fundoatual = 5;
+                jogador.x = (40);
+            }
+        }
+        if (fundoatual == 5) {
+            if (jogador.x < 30) {
+                fundoatual = 4;
+                jogador.x = (1170);
+            }
+            if (jogador.y > 700) {
+                fundoatual = 2;
+                jogador.y = (40);
+            }
+            if (jogador.y < 30) {
+                fundoatual = 8;
+                jogador.y = 690;
+            }
+            if (jogador.x > 1200) {
+                fundoatual = 6;
+                jogador.x = 40;
+            }
+        }
+        if (fundoatual == 6) {
+            if (jogador.x < 30) {
+                fundoatual = 5;
+                jogador.x = 1170;
+            }
+            if (jogador.y > 700){
+                fundoatual = 3;
+                jogador.y = 40;
+            }
+        }
+        if (fundoatual == 8) {
+            if (jogador.y > 700) {
+                fundoatual = 5;
+                jogador.y = 40;
+            }
+        }
 
-		if (jogador.x>1200){
-			fundoatual = 2;
-			jogador.x =(40);
-		}
-		if (jogador.x<30){
-			fundoatual = 1;
-			jogador.x = (1170);
-		}
-////Camera
-//		if (jogador.x>1100){
-//			jogador.x+=(-9);
-//			fundo.x+=(-25);
-//			npcCasa.x+=(-25);
-//		}
-//		if (jogador.x<100){
-//			jogador.x+=(+9);
-//			fundo.x+=(+25);
-//			npcCasa.x+=(+25);
-//		}
-//		if (jogador.y>500){
-//			jogador.y+=(-9);
-//			fundo.y+=(-25);
-//			npcCasa.y+=(-25);
-//		}
-//		if (jogador.y<100){
-//			jogador.y+=(+9);
-//			fundo.y+=(+25);
-//			npcCasa.y+=(+25);
-//		}
 //Movimento Player-----------------------------------
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
             jogador.x += (-1f * 8);
@@ -89,12 +112,26 @@ public class MyGdxGame2 extends ApplicationAdapter {
         batch.begin();
 
         switch (fundoatual) {
-            case 1:
+            case 2:
+                batch.draw(sa2, sa2.getX(), sa2.getY());
+                break;
+            case 3:
+                batch.draw(sa3, sa3.getX(), sa3.getY());
+                break;
+            case 4:
                 batch.draw(sb1, sb1.getX(), sb1.getY());
                 break;
-			case 2:
-				batch.draw(sb2, sb2.getX(), sb2.getY());
-				break;
+            case 5:
+                batch.draw(sb2, sb2.getX(), sb2.getY());
+                break;
+            case 6:
+                batch.draw(sb3, sb3.getX(), sb3.getY());
+                break;
+            case 8:
+                batch.draw(sc2, sc2.getX(), sc2.getY());
+                break;
+
+
         }
 
         batch.draw(jogador.sPlayer, jogador.x, jogador.y);
@@ -114,17 +151,4 @@ public class MyGdxGame2 extends ApplicationAdapter {
         tc2.dispose();
     }
 }
-//	public void construircasa(){
-//		npcCasa.tCasa=new Texture("Casa_do_Personagem_principal.png");
-//		npcCasa.sCasa=new Sprite(npcCasa.tCasa);
-//		npcCasa.sCasa.translate(npcCasa.x=1280/2, npcCasa.y=720/2);
-//
-//	}
-//
-//	public void escolheMundo(){
-//
-//	}
-//	public void desenharcasa(){
-//		batch.draw(npcCasa.sCasa, npcCasa.x,npcCasa.y);
-//	}
-//}
+
