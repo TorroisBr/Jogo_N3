@@ -7,20 +7,23 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.cidade.Casa;
-import com.mygdx.game.cidade.Quadrante2;
-import com.mygdx.game.cidade.Quadrante3;
+import com.mygdx.game.cidade.*;
 import com.mygdx.game.player.Player;
+import com.mygdx.game.quadrante.*;
 
 public class MyGdxGame2 extends ApplicationAdapter {
     Quadrante2 Q2=new Quadrante2();
     Quadrante3 Q3=new Quadrante3();
+    Quadrante4 Q4=new Quadrante4();
+    Quadrante5 Q5=new Quadrante5();
+    Quadrante6 Q6=new Quadrante6();
+    Quadrante8 Q8=new Quadrante8();
     SpriteBatch batch;
     int fundoatual = 4;
     Casa npcCasa = new Casa();
     Player jogador = new Player();
-    Sprite sa2, sa3, sb1, sb2, sb3, sc2;
-    Texture ta2, ta3, tb1, tb2, tb3, tc2;
+//    Sprite sa2, sa3, sb1, sb2, sb3, sc2;
+//    Texture ta2, ta3, tb1, tb2, tb3, tc2;
 
     @Override
     public void create() {
@@ -28,19 +31,22 @@ public class MyGdxGame2 extends ApplicationAdapter {
         jogador.tPlayer = new Texture("player.png");
         Q2.criar();
         Q3.criar();
+        Q4.criar();
+        Q5.criar();
+        Q6.criar();
+        Q8.criar();
 //        ta2 = new Texture("A2.png");
 //        sa2 = new Sprite(ta2);
-
 //        ta3 = new Texture("A3.png");
 //        sa3 = new Sprite(ta3);
-        tb1 = new Texture("B1.png");
-        sb1 = new Sprite(tb1);
-        tb2 = new Texture("B2.png");
-        sb2 = new Sprite(tb2);
-        tb3 = new Texture("B3.png");
-        sb3 = new Sprite(tb3);
-        tc2 = new Texture("C2.png");
-        sc2 = new Sprite(tc2);
+//        tb1 = new Texture("B1.png");
+//        sb1 = new Sprite(tb1);
+//        tb2 = new Texture("B2.png");
+//        sb2 = new Sprite(tb2);
+//        tb3 = new Texture("B3.png");
+//        sb3 = new Sprite(tb3);
+//        tc2 = new Texture("C2.png");
+//        sc2 = new Sprite(tc2);
 
         jogador.sPlayer = new Sprite(jogador.tPlayer);
 
@@ -80,12 +86,16 @@ public class MyGdxGame2 extends ApplicationAdapter {
         jogador.tPlayer.dispose();
         Q2.textura.dispose();
         Q3.textura.dispose();
-        //ta2.dispose();
-        ta3.dispose();
-        tb1.dispose();
-        tb2.dispose();
-        tb3.dispose();
-        tc2.dispose();
+        Q4.textura.dispose();
+        Q5.textura.dispose();
+        Q6.textura.dispose();
+        Q8.textura.dispose();
+//        ta2.dispose();
+//        ta3.dispose();
+//        tb1.dispose();
+//        tb2.dispose();
+//        tb3.dispose();
+//        tc2.dispose();
     }
 
     private void MapaCidade() {
@@ -129,6 +139,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
             case 2:
                 //batch.draw(sa2, sa2.getX(), sa2.getY());
                 batch.draw(Q2.sprite, Q2.sprite.getX(), Q2.sprite.getY());
+
                 if (jogador.y < yInicial) {
                     fundoatual = 5;
                     jogador.y = (yFinal);
@@ -142,7 +153,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 }
                 break;
             case 4:
-                batch.draw(sb1, sb1.getX(), sb1.getY());
+                batch.draw(Q4.sprite, Q4.sprite.getX(), Q4.sprite.getY());
 
                 if (jogador.x > xFinal) {
                     fundoatual = 5;
@@ -150,7 +161,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 }
                 break;
             case 5:
-                batch.draw(sb2, sb2.getX(), sb2.getY());
+                batch.draw(Q5.sprite, Q5.sprite.getX(), Q5.sprite.getY());
                 if (jogador.x < xInicial) {
                     fundoatual = 4;
                     jogador.x = (xFinal);
@@ -169,7 +180,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 }
                 break;
             case 6:
-                batch.draw(sb3, sb3.getX(), sb3.getY());
+                batch.draw(Q6.sprite, Q6.sprite.getX(), Q6.sprite.getY());
                 if (fundoatual == 6) {
                     if (jogador.x < xInicial) {
                         fundoatual = 5;
@@ -182,7 +193,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 }
                 break;
             case 8:
-                batch.draw(sc2, sc2.getX(), sc2.getY());
+                batch.draw(Q8.sprite, Q8.sprite.getX(), Q8.sprite.getY());
                 if (fundoatual == 8) {
                     if (jogador.y > yFinal) {
                         fundoatual = 5;
