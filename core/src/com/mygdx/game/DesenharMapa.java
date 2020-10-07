@@ -12,7 +12,9 @@ public class DesenharMapa extends ApplicationAdapter {
     Quadrante6 Q6=new Quadrante6();
     Quadrante8 Q8=new Quadrante8();
     SpriteBatch batch;
-    public void Desenhar(Quadrante2 Q2){
+
+    public SpriteBatch Desenhar(Quadrante2 Q2){
         batch.draw(Q2.sprite, Q2.sprite.getX(), Q2.sprite.getY());
+        return batch;
     }
 }

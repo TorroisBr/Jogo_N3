@@ -11,6 +11,7 @@ public class Quadrante3 extends ApplicationAdapter {
     public int tam,larg;
     public Texture textura;
     public Sprite sprite;
+    //metodo de criação da imagem/textura
     public void criar(){
         textura= new Texture("A3.png");
         sprite= new Sprite(textura);

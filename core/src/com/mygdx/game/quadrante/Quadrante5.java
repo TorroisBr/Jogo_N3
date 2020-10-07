@@ -10,6 +10,7 @@ public class Quadrante5 extends ApplicationAdapter {
     public int tam,larg;
     public Texture textura;
     public Sprite sprite;
+    //metodo de criação da imagem/textura
     public void criar(){
         textura= new Texture("b2.png");
         sprite= new Sprite(textura);

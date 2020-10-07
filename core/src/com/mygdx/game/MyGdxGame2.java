@@ -12,12 +12,13 @@ import com.mygdx.game.player.Player;
 import com.mygdx.game.quadrante.*;
 
 public class MyGdxGame2 extends ApplicationAdapter {
-    Quadrante2 Q2=new Quadrante2();
-    Quadrante3 Q3=new Quadrante3();
-    Quadrante4 Q4=new Quadrante4();
-    Quadrante5 Q5=new Quadrante5();
-    Quadrante6 Q6=new Quadrante6();
-    Quadrante8 Q8=new Quadrante8();
+    //Criando objetos dos quadrantes
+    Quadrante2 Q2 = new Quadrante2();
+    Quadrante3 Q3 = new Quadrante3();
+    Quadrante4 Q4 = new Quadrante4();
+    Quadrante5 Q5 = new Quadrante5();
+    Quadrante6 Q6 = new Quadrante6();
+    Quadrante8 Q8 = new Quadrante8();
     SpriteBatch batch;
     int fundoatual = 4;
     Casa npcCasa = new Casa();
@@ -29,6 +30,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         jogador.tPlayer = new Texture("player.png");
+        //metodo de criação das texturas e sprites
         Q2.criar();
         Q3.criar();
         Q4.criar();
@@ -57,7 +59,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
     @Override
     public void render() {
 
- 
+
 //Movimento Player-----------------------------------
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
             jogador.x += (-1f * jogador.velo);
@@ -84,6 +86,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
     public void dispose() {
         batch.dispose();
         jogador.tPlayer.dispose();
+        //Deletando as texturas
         Q2.textura.dispose();
         Q3.textura.dispose();
         Q4.textura.dispose();
@@ -137,9 +140,9 @@ public class MyGdxGame2 extends ApplicationAdapter {
         //Desenhar imagem e transição de tela
         switch (fundoatual) {
             case 2:
-                //batch.draw(sa2, sa2.getX(), sa2.getY());
+                //OLD batch.draw(sa2, sa2.getX(), sa2.getY());
+                //Metodos para desenhar o fundo-objeto da classe. o sprite
                 batch.draw(Q2.sprite, Q2.sprite.getX(), Q2.sprite.getY());
-
                 if (jogador.y < yInicial) {
                     fundoatual = 5;
                     jogador.y = (yFinal);
@@ -201,7 +204,6 @@ public class MyGdxGame2 extends ApplicationAdapter {
                     }
                 }
                 break;
-
 
         }
 
