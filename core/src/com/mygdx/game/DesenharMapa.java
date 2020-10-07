@@ -14,7 +14,9 @@ public class DesenharMapa extends ApplicationAdapter {
     SpriteBatch batch;
 
     public SpriteBatch Desenhar(Quadrante2 Q2){
+        batch.begin();
         batch.draw(Q2.sprite, Q2.sprite.getX(), Q2.sprite.getY());
+        batch.end();
         return batch;
     }
 }
