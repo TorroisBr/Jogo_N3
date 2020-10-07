@@ -8,9 +8,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.cidade.Casa;
+import com.mygdx.game.cidade.Quadrante2;
+import com.mygdx.game.cidade.Quadrante3;
 import com.mygdx.game.player.Player;
 
 public class MyGdxGame2 extends ApplicationAdapter {
+    Quadrante2 Q2=new Quadrante2();
+    Quadrante3 Q3=new Quadrante3();
     SpriteBatch batch;
     int fundoatual = 4;
     Casa npcCasa = new Casa();
@@ -22,10 +26,13 @@ public class MyGdxGame2 extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         jogador.tPlayer = new Texture("player.png");
-        ta2 = new Texture("A2.png");
-        sa2 = new Sprite(ta2);
-        ta3 = new Texture("A3.png");
-        sa3 = new Sprite(ta3);
+        Q2.criar();
+        Q3.criar();
+//        ta2 = new Texture("A2.png");
+//        sa2 = new Sprite(ta2);
+
+//        ta3 = new Texture("A3.png");
+//        sa3 = new Sprite(ta3);
         tb1 = new Texture("B1.png");
         sb1 = new Sprite(tb1);
         tb2 = new Texture("B2.png");
@@ -71,7 +78,9 @@ public class MyGdxGame2 extends ApplicationAdapter {
     public void dispose() {
         batch.dispose();
         jogador.tPlayer.dispose();
-        ta2.dispose();
+        Q2.textura.dispose();
+        Q3.textura.dispose();
+        //ta2.dispose();
         ta3.dispose();
         tb1.dispose();
         tb2.dispose();
@@ -118,14 +127,15 @@ public class MyGdxGame2 extends ApplicationAdapter {
         //Desenhar imagem e transição de tela
         switch (fundoatual) {
             case 2:
-                batch.draw(sa2, sa2.getX(), sa2.getY());
+                //batch.draw(sa2, sa2.getX(), sa2.getY());
+                batch.draw(Q2.sprite, Q2.sprite.getX(), Q2.sprite.getY());
                 if (jogador.y < yInicial) {
                     fundoatual = 5;
                     jogador.y = (yFinal);
                 }
                 break;
             case 3:
-                batch.draw(sa3, sa3.getX(), sa3.getY());
+                batch.draw(Q3.sprite, Q3.sprite.getX(), Q3.sprite.getY());
                 if (jogador.y < yInicial) {
                     fundoatual = 6;
                     jogador.y = (yFinal);
@@ -133,6 +143,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 break;
             case 4:
                 batch.draw(sb1, sb1.getX(), sb1.getY());
+
                 if (jogador.x > xFinal) {
                     fundoatual = 5;
                     jogador.x = (xInicial);
