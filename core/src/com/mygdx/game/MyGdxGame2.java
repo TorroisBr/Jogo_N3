@@ -12,6 +12,7 @@ import com.mygdx.game.player.Player;
 import com.mygdx.game.quadrante.*;
 
 public class MyGdxGame2 extends ApplicationAdapter {
+    int telaLarg=1280,telaAlt=720;
     //Criando objetos dos quadrantes
     Quadrante2 Q2 = new Quadrante2();
     Quadrante3 Q3 = new Quadrante3();
@@ -23,43 +24,26 @@ public class MyGdxGame2 extends ApplicationAdapter {
     int fundoatual = 4;
     Casa npcCasa = new Casa();
     Player jogador = new Player();
-//    Sprite sa2, sa3, sb1, sb2, sb3, sc2;
-//    Texture ta2, ta3, tb1, tb2, tb3, tc2;
+
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         jogador.tPlayer = new Texture("player.png");
         //metodo de criação das texturas e sprites
-        Q2.criar();
-        Q3.criar();
-        Q4.criar();
-        Q5.criar();
-        Q6.criar();
-        Q8.criar();
-//        ta2 = new Texture("A2.png");
-//        sa2 = new Sprite(ta2);
-//        ta3 = new Texture("A3.png");
-//        sa3 = new Sprite(ta3);
-//        tb1 = new Texture("B1.png");
-//        sb1 = new Sprite(tb1);
-//        tb2 = new Texture("B2.png");
-//        sb2 = new Sprite(tb2);
-//        tb3 = new Texture("B3.png");
-//        sb3 = new Sprite(tb3);
-//        tc2 = new Texture("C2.png");
-//        sc2 = new Sprite(tc2);
-
+        Q2.Criar();
+        Q3.Criar();
+        Q4.Criar();
+        Q5.Criar();
+        Q6.Criar();
+        Q8.Criar();
         jogador.sPlayer = new Sprite(jogador.tPlayer);
-
-        jogador.x = (1280 / 2);
-        jogador.y = (720 / 2);
+        jogador.x = (telaLarg / 2);
+        jogador.y = (telaAlt / 2);
     }
 
     @Override
     public void render() {
-
-
 //Movimento Player-----------------------------------
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
             jogador.x += (-1f * jogador.velo);
@@ -74,11 +58,12 @@ public class MyGdxGame2 extends ApplicationAdapter {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        MapaCidade();
-
-
+        Scroll(Q4.x, Q4.y, Q4.larg,Q4.alt);
+        MapaCidadeHitbox();
+        MapaCidadeDesenhar();
         batch.draw(jogador.sPlayer, jogador.x, jogador.y);
         batch.end();
+        //Scroll();
     }
 
 
@@ -87,21 +72,37 @@ public class MyGdxGame2 extends ApplicationAdapter {
         batch.dispose();
         jogador.tPlayer.dispose();
         //Deletando as texturas
-        Q2.textura.dispose();
-        Q3.textura.dispose();
-        Q4.textura.dispose();
-        Q5.textura.dispose();
-        Q6.textura.dispose();
-        Q8.textura.dispose();
-//        ta2.dispose();
-//        ta3.dispose();
-//        tb1.dispose();
-//        tb2.dispose();
-//        tb3.dispose();
-//        tc2.dispose();
+        Q2.Deletar();
+        Q3.Deletar();
+        Q4.Deletar();
+        Q5.Deletar();
+        Q6.Deletar();
+        Q8.Deletar();
     }
 
-    private void MapaCidade() {
+    public void Scroll(int x,int y,int lar,int alt) {
+        int a;
+        a = telaLarg - lar;
+        if (x >= a) {
+            if (jogador.x >= (telaLarg / 3) * 2) {
+                Q4.x += -16;
+                jogador.x -= jogador.velo;
+            }
+        }
+        int b;
+        b=0;
+        if (x <= b) {
+            if (jogador.x <= (telaLarg / 3)) {
+                Q4.x += +16;
+                jogador.x += jogador.velo;
+            }
+
+
+            System.out.println(Q4.x);
+        }
+    }
+
+    private void MapaCidadeHitbox() {
         //Pontos de colisão fim da tela
         int ladoEsquerdo = 10;
         int ladoDireito = 1270 - jogador.larg;
@@ -130,7 +131,8 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 jogador.y += (jogador.velo);
             }
         }
-
+    }
+    public void MapaCidadeDesenhar(){
         //Pontos iniciais de transição de tela
         int xInicial = 40 - (jogador.larg / 2);
         int xFinal = 1240 - (jogador.larg / 2);
@@ -140,23 +142,21 @@ public class MyGdxGame2 extends ApplicationAdapter {
         //Desenhar imagem e transição de tela
         switch (fundoatual) {
             case 2:
-                //OLD batch.draw(sa2, sa2.getX(), sa2.getY());
-                //Metodos para desenhar o fundo-objeto da classe. o sprite
-                batch.draw(Q2.sprite, Q2.sprite.getX(), Q2.sprite.getY());
+                Q2.Desenhar();
                 if (jogador.y < yInicial) {
                     fundoatual = 5;
                     jogador.y = (yFinal);
                 }
                 break;
             case 3:
-                batch.draw(Q3.sprite, Q3.sprite.getX(), Q3.sprite.getY());
+                Q3.Desenhar();
                 if (jogador.y < yInicial) {
                     fundoatual = 6;
                     jogador.y = (yFinal);
                 }
                 break;
             case 4:
-                batch.draw(Q4.sprite, Q4.sprite.getX(), Q4.sprite.getY());
+                Q4.Desenhar();
 
                 if (jogador.x > xFinal) {
                     fundoatual = 5;
@@ -164,7 +164,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 }
                 break;
             case 5:
-                batch.draw(Q5.sprite, Q5.sprite.getX(), Q5.sprite.getY());
+                Q5.Desenhar();
                 if (jogador.x < xInicial) {
                     fundoatual = 4;
                     jogador.x = (xFinal);
@@ -183,7 +183,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 }
                 break;
             case 6:
-                batch.draw(Q6.sprite, Q6.sprite.getX(), Q6.sprite.getY());
+                Q6.Desenhar();
                 if (fundoatual == 6) {
                     if (jogador.x < xInicial) {
                         fundoatual = 5;
@@ -196,7 +196,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 }
                 break;
             case 8:
-                batch.draw(Q8.sprite, Q8.sprite.getX(), Q8.sprite.getY());
+                Q8.Desenhar();
                 if (fundoatual == 8) {
                     if (jogador.y > yFinal) {
                         fundoatual = 5;
@@ -209,5 +209,9 @@ public class MyGdxGame2 extends ApplicationAdapter {
 
 
     }
+
+
+
 }
+
 

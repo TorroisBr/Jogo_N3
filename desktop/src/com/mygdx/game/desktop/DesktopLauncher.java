@@ -8,8 +8,9 @@ import com.mygdx.game.MyGdxGame2;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
+		int telaLarg=1280,telaAlt=720;
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setWindowedMode(1280,720);
+		config.setWindowedMode(telaLarg,telaAlt);
 		config.setResizable(false);
 		config.useVsync(true);
 		new Lwjgl3Application(new MyGdxGame2(), config);
