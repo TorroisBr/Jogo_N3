@@ -12,95 +12,48 @@ import com.mygdx.game.player.Player;
 import com.mygdx.game.quadrante.*;
 
 public class MyGdxGame2 extends ApplicationAdapter {
-    int telaLarg=1280,telaAlt=720;
+    int telaLarg = 1280, telaAlt = 720;
     //Criando objetos dos quadrantes
-    Quadrante2 Q2 = new Quadrante2();
-    Quadrante3 Q3 = new Quadrante3();
-    Quadrante4 Q4 = new Quadrante4();
-    Quadrante5 Q5 = new Quadrante5();
-    Quadrante6 Q6 = new Quadrante6();
-    Quadrante8 Q8 = new Quadrante8();
+    Quadrante Q = new Quadrante();
     SpriteBatch batch;
-    int fundoatual = 4;
-    Casa npcCasa = new Casa();
+    public int fundoatual = 4;
     Player jogador = new Player();
 
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        jogador.tPlayer = new Texture("player.png");
+
         //metodo de criação das texturas e sprites
-        Q2.Criar();
-        Q3.Criar();
-        Q4.Criar();
-        Q5.Criar();
-        Q6.Criar();
-        Q8.Criar();
-        jogador.sPlayer = new Sprite(jogador.tPlayer);
-        jogador.x = (telaLarg / 2);
-        jogador.y = (telaAlt / 2);
+        Q.Criar();
+        jogador.Criar();
     }
 
     @Override
     public void render() {
-//Movimento Player-----------------------------------
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
-            jogador.x += (-1f * jogador.velo);
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-            jogador.x += (1f * jogador.velo);
-        if (Gdx.input.isKeyPressed(Input.Keys.UP))
-            jogador.y += (1f * jogador.velo);
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
-            jogador.y += (-1f * jogador.velo);
-
-
+        Mover();
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        Scroll(Q4.x, Q4.y, Q4.larg,Q4.alt);
+        Scroll();
+        //jogador.Desenhar();
+        batch.draw(jogador.sPlayer, jogador.x, jogador.y);
         MapaCidadeHitbox();
         MapaCidadeDesenhar();
-        batch.draw(jogador.sPlayer, jogador.x, jogador.y);
         batch.end();
-        //Scroll();
     }
 
 
     @Override
     public void dispose() {
+        //Deletando as texturas
         batch.dispose();
         jogador.tPlayer.dispose();
-        //Deletando as texturas
-        Q2.Deletar();
-        Q3.Deletar();
-        Q4.Deletar();
-        Q5.Deletar();
-        Q6.Deletar();
-        Q8.Deletar();
+        Q.Deletar();
+        jogador.Deletar();
     }
 
-    public void Scroll(int x,int y,int lar,int alt) {
-        int a;
-        a = telaLarg - lar;
-        if (x >= a) {
-            if (jogador.x >= (telaLarg / 3) * 2) {
-                Q4.x += -16;
-                jogador.x -= jogador.velo;
-            }
-        }
-        int b;
-        b=0;
-        if (x <= b) {
-            if (jogador.x <= (telaLarg / 3)) {
-                Q4.x += +16;
-                jogador.x += jogador.velo;
-            }
 
-
-            System.out.println(Q4.x);
-        }
-    }
 
     private void MapaCidadeHitbox() {
         //Pontos de colisão fim da tela
@@ -132,7 +85,8 @@ public class MyGdxGame2 extends ApplicationAdapter {
             }
         }
     }
-    public void MapaCidadeDesenhar(){
+
+    public void MapaCidadeDesenhar() {
         //Pontos iniciais de transição de tela
         int xInicial = 40 - (jogador.larg / 2);
         int xFinal = 1240 - (jogador.larg / 2);
@@ -142,21 +96,21 @@ public class MyGdxGame2 extends ApplicationAdapter {
         //Desenhar imagem e transição de tela
         switch (fundoatual) {
             case 2:
-                Q2.Desenhar();
+
                 if (jogador.y < yInicial) {
                     fundoatual = 5;
                     jogador.y = (yFinal);
                 }
                 break;
             case 3:
-                Q3.Desenhar();
+
                 if (jogador.y < yInicial) {
                     fundoatual = 6;
                     jogador.y = (yFinal);
                 }
                 break;
             case 4:
-                Q4.Desenhar();
+
 
                 if (jogador.x > xFinal) {
                     fundoatual = 5;
@@ -164,7 +118,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 }
                 break;
             case 5:
-                Q5.Desenhar();
+
                 if (jogador.x < xInicial) {
                     fundoatual = 4;
                     jogador.x = (xFinal);
@@ -183,7 +137,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 }
                 break;
             case 6:
-                Q6.Desenhar();
+
                 if (fundoatual == 6) {
                     if (jogador.x < xInicial) {
                         fundoatual = 5;
@@ -196,7 +150,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 }
                 break;
             case 8:
-                Q8.Desenhar();
+
                 if (fundoatual == 8) {
                     if (jogador.y > yFinal) {
                         fundoatual = 5;
@@ -206,11 +160,92 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 break;
 
         }
-
+        Q.Desenhar(fundoatual);
 
     }
 
+    private void Mover() {
+        //Movimento Player-----------------------------------
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+            jogador.x += (-1f * jogador.velo);
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+            jogador.x += (1f * jogador.velo);
+        if (Gdx.input.isKeyPressed(Input.Keys.UP))
+            jogador.y += (1f * jogador.velo);
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
+            jogador.y += (-1f * jogador.velo);
+    }
+    public void Scroll(){
+        if (fundoatual == 2) {
+            Q.x2 = ScrollH(Q.x2, Q.larg2);
+            Q.y2 = ScrollV(Q.y2, Q.tam2);
+        }
+        if (fundoatual == 3) {
+            Q.x3 = ScrollH(Q.x3, Q.larg3);
+            Q.y3 = ScrollV(Q.y3, Q.tam3);
+        }
+        if (fundoatual == 4) {
+            Q.x4 = ScrollH(Q.x4, Q.larg4);
+            Q.y4 = ScrollV(Q.y4, Q.tam4);
+        }
+        if (fundoatual == 5) {
+            Q.x5 = ScrollH(Q.x5, Q.larg5);
+            Q.y5 = ScrollV(Q.y5, Q.tam5);
+        }
+        if (fundoatual == 6) {
+            Q.x6 = ScrollH(Q.x6, Q.larg6);
+            Q.y6 = ScrollV(Q.y6, Q.tam6);
+        }
+        if (fundoatual == 8) {
+            Q.x8 = ScrollH(Q.x8, Q.larg8);
+            Q.y8 = ScrollV(Q.y8, Q.tam8);
+        }
+    }
+    public int ScrollH(int x, int lar) {
 
+        int a;
+        a = telaLarg - lar;
+        if (x >= a) {
+            if (jogador.x >= (telaLarg / 3) * 2) {
+                x += -16;
+                jogador.x -= jogador.velo;
+                return x;
+            }
+        }
+
+        int b;
+        b = 0;
+        if (x <= b) {
+            if (jogador.x <= (telaLarg / 3)) {
+                x += +16;
+                jogador.x += jogador.velo;
+                return x;
+            }
+
+        }
+        return x;
+    }
+    public int ScrollV(int y, int alt) {
+        int c;
+        c = telaAlt - alt;
+        if (y >= c) {
+            if (jogador.y >= (telaAlt / 3) * 2) {
+                y += -16;
+                jogador.y -= jogador.velo;
+                return y;
+            }
+        }
+        int d;
+        d = 0;
+        if (y <= d) {
+            if (jogador.y <= (telaAlt / 3)) {
+                y += +16;
+                jogador.y += jogador.velo;
+                return y;
+            }
+        }
+        return y;
+    }
 
 }
 
