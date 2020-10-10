@@ -22,9 +22,10 @@ public class Player {
         sPlayer = new Sprite(tPlayer);
     }
     public void Deletar(){
-       tPlayer.dispose();
+
+        tPlayer.dispose();
     }
-    public void Desenhar(){
+    public void Desenharr(){
         batch.begin();
         batch.draw(sPlayer, x, y);
         batch.end();

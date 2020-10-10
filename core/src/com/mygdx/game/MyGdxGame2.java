@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.cidade.*;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.quadrante.*;
@@ -18,34 +20,49 @@ public class MyGdxGame2 extends ApplicationAdapter {
     SpriteBatch batch;
     public int fundoatual = 4;
     Player jogador = new Player();
-
-
+    Rectangle doorHitbox,playerHitbox;
+    ShapeRenderer renderer;
+    int recX= Q.larg2-500;
+    int recY;
     @Override
     public void create() {
         batch = new SpriteBatch();
-
+        playerHitbox=new Rectangle(jogador.x, jogador.y, jogador.larg, jogador.alt);
+        doorHitbox=new Rectangle(recX,recY, jogador.larg, jogador.alt );
         //metodo de criação das texturas e sprites
         Q.Criar();
         jogador.Criar();
+        renderer=new ShapeRenderer();
     }
 
     @Override
     public void render() {
+
         Mover();
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        playerHitbox.setPosition(jogador.x, jogador.y);
+        if(fundoatual==4 && playerHitbox.overlaps(doorHitbox)){
+            System.out.println("ajjj");
+        }
         batch.begin();
+
+        System.out.println();
         Scroll();
-        //jogador.Desenhar();
-        batch.draw(jogador.sPlayer, jogador.x, jogador.y);
+        //batch.draw(jogador.sPlayer, jogador.x, jogador.y);
         MapaCidadeHitbox();
         MapaCidadeDesenhar();
+        jogador.Desenharr();
         batch.end();
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        renderer.rect(recX,recY, jogador.larg, jogador.alt);
+        renderer.end();
     }
 
 
     @Override
     public void dispose() {
+        renderer.dispose();
         //Deletando as texturas
         batch.dispose();
         jogador.tPlayer.dispose();
@@ -66,6 +83,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
         if (fundoatual == 2 || fundoatual == 3 || fundoatual == 4 || fundoatual == 8) {
             if (jogador.x <= ladoEsquerdo) {
                 jogador.x += (jogador.velo);
+
             }
         }
         if (fundoatual == 2 || fundoatual == 3 || fundoatual == 6 || fundoatual == 8) {
@@ -115,6 +133,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 if (jogador.x > xFinal) {
                     fundoatual = 5;
                     jogador.x = (xInicial);
+
                 }
                 break;
             case 5:
@@ -208,6 +227,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
         if (x >= a) {
             if (jogador.x >= (telaLarg / 3) * 2) {
                 x += -16;
+                recX+=-16;
                 jogador.x -= jogador.velo;
                 return x;
             }
@@ -218,6 +238,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
         if (x <= b) {
             if (jogador.x <= (telaLarg / 3)) {
                 x += +16;
+                recX+=+16;
                 jogador.x += jogador.velo;
                 return x;
             }
@@ -231,6 +252,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
         if (y >= c) {
             if (jogador.y >= (telaAlt / 3) * 2) {
                 y += -16;
+                recY+=-16;
                 jogador.y -= jogador.velo;
                 return y;
             }
@@ -240,6 +262,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
         if (y <= d) {
             if (jogador.y <= (telaAlt / 3)) {
                 y += +16;
+                recY+=+16;
                 jogador.y += jogador.velo;
                 return y;
             }
