@@ -37,14 +37,15 @@ public class Quadrante extends ApplicationAdapter {
         t8= new Texture("c2.png");
         s8= new Sprite(t8);
     }
-    public void Desenhar(int aux){
+    public int Desenhar(int aux){
         batch.begin();
         if(aux==2)
             batch.draw(s2,x2,y2);
         if(aux==3)
             batch.draw(s3,x3,y3);
-        if(aux==4)
+        if(aux==4){
             batch.draw(s4,x4,y4);
+        }
         if(aux==5)
             batch.draw(s5,x5,y5);
         if(aux==6)
@@ -53,7 +54,7 @@ public class Quadrante extends ApplicationAdapter {
             batch.draw(s8,x8,y8);
         batch.end();
 
-
+    return x4;
     }
     public void Deletar(){
         t2.dispose();

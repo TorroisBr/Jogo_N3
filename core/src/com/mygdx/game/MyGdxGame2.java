@@ -1,61 +1,93 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.cidade.*;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.quadrante.*;
 
-public class MyGdxGame2 extends ApplicationAdapter {
+public class MyGdxGame2 extends Game {
+    private
     int telaLarg = 1280, telaAlt = 720;
     //Criando objetos dos quadrantes
     Quadrante Q = new Quadrante();
     SpriteBatch batch;
     public int fundoatual = 4;
     Player jogador = new Player();
-    Rectangle doorHitbox,playerHitbox;
+    Rectangle doorHitbox, playerHitbox;
     ShapeRenderer renderer;
-    int recX= Q.larg2-500;
-    int recY;
+    private OrthographicCamera camera;
+    private Viewport viewport;
+
+    int recX=Q.larg2-700;
+    int recY=50;
+    int res=0;
+
     @Override
     public void create() {
         batch = new SpriteBatch();
-        playerHitbox=new Rectangle(jogador.x, jogador.y, jogador.larg, jogador.alt);
-        doorHitbox=new Rectangle(recX,recY, jogador.larg, jogador.alt );
+        playerHitbox = new Rectangle(jogador.x, jogador.y, jogador.larg, jogador.alt);
+        doorHitbox = new Rectangle(recX, recY, jogador.larg, jogador.alt);
         //metodo de criação das texturas e sprites
         Q.Criar();
         jogador.Criar();
-        renderer=new ShapeRenderer();
+        renderer = new ShapeRenderer();
+
+        camera = new OrthographicCamera();
+        viewport = new FitViewport(telaLarg,telaAlt,camera);
+        camera.setToOrtho(false, 1280.0F, 4720.0F);
+        camera.position.set(1280.0F, 720.0F, 0.0F);
+        camera.update();
+    }
+    @Override
+    public void resize(int width, int height) {
+        //updated our game viewport
+        viewport.update(width,height);
+
     }
 
     @Override
     public void render() {
 
+
+        camera.position.x = jogador.x + jogador.larg / 2.0F;
+        camera.position.y = jogador.y + jogador.alt / 2.0F;
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
         Mover();
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+
         playerHitbox.setPosition(jogador.x, jogador.y);
-        if(fundoatual==4 && playerHitbox.overlaps(doorHitbox)){
+
+
+        if (fundoatual == 4 && playerHitbox.overlaps(doorHitbox)) {
             System.out.println("ajjj");
         }
-        batch.begin();
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            System.out.println("JOGADOR X: "+jogador.x+"\nCAMERA X: "+camera.position.x+"\nMAPA X: "+res);
+        }
 
+
+        batch.begin();
         System.out.println();
-        Scroll();
+        //Scroll();
         //batch.draw(jogador.sPlayer, jogador.x, jogador.y);
-        MapaCidadeHitbox();
+        //MapaCidadeHitbox();
         MapaCidadeDesenhar();
         jogador.Desenharr();
         batch.end();
         renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.rect(recX,recY, jogador.larg, jogador.alt);
+        renderer.rect(recX, recY, jogador.larg, jogador.alt);
         renderer.end();
     }
 
@@ -69,7 +101,6 @@ public class MyGdxGame2 extends ApplicationAdapter {
         Q.Deletar();
         jogador.Deletar();
     }
-
 
 
     private void MapaCidadeHitbox() {
@@ -179,22 +210,27 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 break;
 
         }
-        Q.Desenhar(fundoatual);
+        res=Q.Desenhar(fundoatual);
 
     }
 
     private void Mover() {
         //Movimento Player-----------------------------------
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
-            jogador.x += (-1f * jogador.velo);
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-            jogador.x += (1f * jogador.velo);
-        if (Gdx.input.isKeyPressed(Input.Keys.UP))
-            jogador.y += (1f * jogador.velo);
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
-            jogador.y += (-1f * jogador.velo);
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            jogador.x += (-1f * jogador.velo);}
+
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            jogador.x += (1f * jogador.velo);}
+
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+            jogador.y += (1f * jogador.velo);}
+
+
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            jogador.y += (-1f * jogador.velo);}
     }
-    public void Scroll(){
+
+    public void Scroll() {
         if (fundoatual == 2) {
             Q.x2 = ScrollH(Q.x2, Q.larg2);
             Q.y2 = ScrollV(Q.y2, Q.tam2);
@@ -220,6 +256,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
             Q.y8 = ScrollV(Q.y8, Q.tam8);
         }
     }
+
     public int ScrollH(int x, int lar) {
 
         int a;
@@ -227,7 +264,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
         if (x >= a) {
             if (jogador.x >= (telaLarg / 3) * 2) {
                 x += -16;
-                recX+=-16;
+                recX += -16;
                 jogador.x -= jogador.velo;
                 return x;
             }
@@ -238,7 +275,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
         if (x <= b) {
             if (jogador.x <= (telaLarg / 3)) {
                 x += +16;
-                recX+=+16;
+                recX += +16;
                 jogador.x += jogador.velo;
                 return x;
             }
@@ -246,13 +283,14 @@ public class MyGdxGame2 extends ApplicationAdapter {
         }
         return x;
     }
+
     public int ScrollV(int y, int alt) {
         int c;
         c = telaAlt - alt;
         if (y >= c) {
             if (jogador.y >= (telaAlt / 3) * 2) {
                 y += -16;
-                recY+=-16;
+                recY += -16;
                 jogador.y -= jogador.velo;
                 return y;
             }
@@ -262,7 +300,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
         if (y <= d) {
             if (jogador.y <= (telaAlt / 3)) {
                 y += +16;
-                recY+=+16;
+                recY += +16;
                 jogador.y += jogador.velo;
                 return y;
             }
