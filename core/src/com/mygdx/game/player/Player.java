@@ -14,20 +14,15 @@ public class Player {
     public Sprite sPlayer;
     public int larg=64,alt=128;
     public int velo=8;
-    SpriteBatch batch;
 
     public void Criar(){
-        batch = new SpriteBatch();
         tPlayer = new Texture("player.png");
         sPlayer = new Sprite(tPlayer);
     }
     public void Deletar(){
-
         tPlayer.dispose();
     }
-    public void Desenharr(){
-        batch.begin();
-        batch.draw(sPlayer, x, y);
-        batch.end();
+    public void Desenharr(SpriteBatch aux){
+        aux.draw(sPlayer, x, y);
     }
 }

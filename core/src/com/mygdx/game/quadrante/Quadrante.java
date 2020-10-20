@@ -17,8 +17,6 @@ public class Quadrante extends ApplicationAdapter {
     SpriteBatch batch;
     //metodo de criação da imagem/textura
     public void Criar(){
-        batch = new SpriteBatch();
-
         t2= new Texture("A2.png");
         s2= new Sprite(t2);
 
@@ -37,24 +35,20 @@ public class Quadrante extends ApplicationAdapter {
         t8= new Texture("c2.png");
         s8= new Sprite(t8);
     }
-    public int Desenhar(int aux){
-        batch.begin();
+    public int Desenhar(int aux,SpriteBatch Desenho){
         if(aux==2)
-            batch.draw(s2,x2,y2);
+            Desenho.draw(s2,x2,y2);
         if(aux==3)
-            batch.draw(s3,x3,y3);
-        if(aux==4){
-            batch.draw(s4,x4,y4);
-        }
+            Desenho.draw(s3,x3,y3);
+        if(aux==4)
+            Desenho.draw(s4,x4,y4);
         if(aux==5)
-            batch.draw(s5,x5,y5);
+            Desenho.draw(s5,x5,y5);
         if(aux==6)
-            batch.draw(s6,x6,y6);
+            Desenho.draw(s6,x6,y6);
         if(aux==8)
-            batch.draw(s8,x8,y8);
-        batch.end();
-
-    return x4;
+            Desenho.draw(s8,x8,y8);
+        return 0;
     }
     public void Deletar(){
         t2.dispose();

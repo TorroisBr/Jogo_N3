@@ -1,5 +1,4 @@
 package com.mygdx.game;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -24,8 +23,8 @@ public class MyGdxGame2 extends Game {
     Player jogador = new Player();
     Rectangle doorHitbox, playerHitbox;
     ShapeRenderer renderer;
-    private OrthographicCamera camera;
-    private Viewport viewport;
+    public OrthographicCamera camera;
+    public Viewport viewport;
 
     int recX=Q.larg2-700;
     int recY=50;
@@ -56,15 +55,13 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void render() {
-
-
-        camera.position.x = jogador.x + jogador.larg / 2.0F;
-        camera.position.y = jogador.y + jogador.alt / 2.0F;
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
-        Mover();
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+
+        batch.setProjectionMatrix(camera.combined);
+        Mover();
+
 
 
         playerHitbox.setPosition(jogador.x, jogador.y);
@@ -79,15 +76,14 @@ public class MyGdxGame2 extends Game {
 
 
         batch.begin();
-        System.out.println();
+
         //Scroll();
-        //batch.draw(jogador.sPlayer, jogador.x, jogador.y);
         //MapaCidadeHitbox();
         MapaCidadeDesenhar();
-        jogador.Desenharr();
+        jogador.Desenharr(batch);
         batch.end();
         renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.rect(recX, recY, jogador.larg, jogador.alt);
+        renderer.rect(camera.position.x, recY, jogador.larg, jogador.alt);
         renderer.end();
     }
 
@@ -210,16 +206,19 @@ public class MyGdxGame2 extends Game {
                 break;
 
         }
-        res=Q.Desenhar(fundoatual);
+
+        res=Q.Desenhar(fundoatual,batch);
 
     }
 
     private void Mover() {
         //Movimento Player-----------------------------------
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+
             jogador.x += (-1f * jogador.velo);}
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+
             jogador.x += (1f * jogador.velo);}
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)){
@@ -228,85 +227,16 @@ public class MyGdxGame2 extends Game {
 
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
             jogador.y += (-1f * jogador.velo);}
+
+
+        camera.position.x= jogador.x+ jogador.larg/ 2.0F;
+        camera.position.y = jogador.y + jogador.alt / 2.0F;
+
+        camera.update();
     }
 
-    public void Scroll() {
-        if (fundoatual == 2) {
-            Q.x2 = ScrollH(Q.x2, Q.larg2);
-            Q.y2 = ScrollV(Q.y2, Q.tam2);
-        }
-        if (fundoatual == 3) {
-            Q.x3 = ScrollH(Q.x3, Q.larg3);
-            Q.y3 = ScrollV(Q.y3, Q.tam3);
-        }
-        if (fundoatual == 4) {
-            Q.x4 = ScrollH(Q.x4, Q.larg4);
-            Q.y4 = ScrollV(Q.y4, Q.tam4);
-        }
-        if (fundoatual == 5) {
-            Q.x5 = ScrollH(Q.x5, Q.larg5);
-            Q.y5 = ScrollV(Q.y5, Q.tam5);
-        }
-        if (fundoatual == 6) {
-            Q.x6 = ScrollH(Q.x6, Q.larg6);
-            Q.y6 = ScrollV(Q.y6, Q.tam6);
-        }
-        if (fundoatual == 8) {
-            Q.x8 = ScrollH(Q.x8, Q.larg8);
-            Q.y8 = ScrollV(Q.y8, Q.tam8);
-        }
-    }
 
-    public int ScrollH(int x, int lar) {
 
-        int a;
-        a = telaLarg - lar;
-        if (x >= a) {
-            if (jogador.x >= (telaLarg / 3) * 2) {
-                x += -16;
-                recX += -16;
-                jogador.x -= jogador.velo;
-                return x;
-            }
-        }
-
-        int b;
-        b = 0;
-        if (x <= b) {
-            if (jogador.x <= (telaLarg / 3)) {
-                x += +16;
-                recX += +16;
-                jogador.x += jogador.velo;
-                return x;
-            }
-
-        }
-        return x;
-    }
-
-    public int ScrollV(int y, int alt) {
-        int c;
-        c = telaAlt - alt;
-        if (y >= c) {
-            if (jogador.y >= (telaAlt / 3) * 2) {
-                y += -16;
-                recY += -16;
-                jogador.y -= jogador.velo;
-                return y;
-            }
-        }
-        int d;
-        d = 0;
-        if (y <= d) {
-            if (jogador.y <= (telaAlt / 3)) {
-                y += +16;
-                recY += +16;
-                jogador.y += jogador.velo;
-                return y;
-            }
-        }
-        return y;
-    }
 
 }
 
