@@ -26,9 +26,9 @@ public class MyGdxGame2 extends Game {
     public OrthographicCamera camera;
     public Viewport viewport;
 
-    int recX=Q.larg2-700;
+    int recX=50;
     int recY=50;
-    int res=0;
+
 
     @Override
     public void create() {
@@ -62,29 +62,22 @@ public class MyGdxGame2 extends Game {
         batch.setProjectionMatrix(camera.combined);
         Mover();
 
-
-
         playerHitbox.setPosition(jogador.x, jogador.y);
 
 
-        if (fundoatual == 4 && playerHitbox.overlaps(doorHitbox)) {
-            System.out.println("ajjj");
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-            System.out.println("JOGADOR X: "+jogador.x+"\nCAMERA X: "+camera.position.x+"\nMAPA X: "+res);
-        }
-
 
         batch.begin();
-
-        //Scroll();
         //MapaCidadeHitbox();
         MapaCidadeDesenhar();
         jogador.Desenharr(batch);
         batch.end();
         renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.rect(camera.position.x, recY, jogador.larg, jogador.alt);
+        renderer.rect(recX, recY, jogador.larg, jogador.alt);
         renderer.end();
+
+        if(playerHitbox.overlaps(doorHitbox)){
+            System.out.println("AJAIOJIOAJIK");
+        }
     }
 
 
@@ -207,7 +200,7 @@ public class MyGdxGame2 extends Game {
 
         }
 
-        res=Q.Desenhar(fundoatual,batch);
+        Q.Desenhar(fundoatual,batch);
 
     }
 
