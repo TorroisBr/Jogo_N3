@@ -20,7 +20,8 @@ public class MyGdxGame2 extends Game {
 
 
     public static int telaLarg = 1280, telaAlt = 720;
-
+    private float timeSeconds = 0f;
+    private float period = 1f;
     //Criando objetos dos quadrantes
     Quadrante Q = new Quadrante();
     SpriteBatch batch;
@@ -68,6 +69,7 @@ public class MyGdxGame2 extends Game {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
         renderer.setProjectionMatrix(camera.combined);
         batch.setProjectionMatrix(camera.combined);
         Mover();
@@ -86,17 +88,18 @@ public class MyGdxGame2 extends Game {
                 renderer.begin(ShapeRenderer.ShapeType.Filled);
                 renderer.rect(recX + i * 10, recY, jogador.larg + i * 10, jogador.alt);
                 renderer.end();
+
             }
         }*/
 
-
-
-
-
-
-        if (playerHitbox.overlaps(doorHitbox)) {
-            System.out.println("AJAIOJIOAJIK");
+        timeSeconds += Gdx.graphics.getRawDeltaTime();
+        if (timeSeconds > period) {
+            timeSeconds -= period;
+            System.out.println("tempo: "+timeSeconds);
         }
+
+
+
     }
 
     @Override
@@ -120,21 +123,36 @@ public class MyGdxGame2 extends Game {
     private void Mover() {
         //Movimento Player-----------------------------------
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            jogador.direita = false;
+            jogador.cima = false;
+            jogador.baixo = false;
 
+            jogador.esquerda = true;
             jogador.x += (-1f * jogador.velo);
-        }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            jogador.cima = false;
+            jogador.baixo = false;
+            jogador.esquerda = false;
 
+            jogador.direita = true;
             jogador.x += (1f * jogador.velo);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            jogador.baixo = false;
+            jogador.esquerda = false;
+            jogador.direita = false;
+
+            jogador.cima = true;
             jogador.y += (1f * jogador.velo);
-        }
 
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            jogador.esquerda = false;
+            jogador.direita = false;
+            jogador.cima = false;
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            jogador.baixo = true;
             jogador.y += (-1f * jogador.velo);
         }
 
