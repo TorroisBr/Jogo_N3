@@ -23,6 +23,7 @@ public class Player {
         tPlayer.dispose();
     }
     public void Desenharr(SpriteBatch aux){
+
         aux.draw(sPlayer, x, y);
     }
 }

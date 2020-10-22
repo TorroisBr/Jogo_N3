@@ -14,9 +14,13 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.quadrante.*;
 
+import static com.mygdx.game.CameraView.naAreaDaCamera;
+
 public class MyGdxGame2 extends Game {
-    private
-    int telaLarg = 1280, telaAlt = 720;
+
+
+    public static int telaLarg = 1280, telaAlt = 720;
+
     //Criando objetos dos quadrantes
     Quadrante Q = new Quadrante();
     SpriteBatch batch;
@@ -24,7 +28,7 @@ public class MyGdxGame2 extends Game {
     Player jogador = new Player();
     Rectangle doorHitbox, playerHitbox;
     ShapeRenderer renderer;
-    public OrthographicCamera camera;
+    public static OrthographicCamera camera;
     public Viewport viewport;
 
     int recX = 50;
@@ -33,6 +37,7 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void create() {
+
         batch = new SpriteBatch();
         playerHitbox = new Rectangle(jogador.x, jogador.y, jogador.larg, jogador.alt);
         doorHitbox = new Rectangle(recX, recY, jogador.larg, jogador.alt);
@@ -48,6 +53,7 @@ public class MyGdxGame2 extends Game {
         camera.position.x = jogador.x + jogador.larg / 2.0F;
         camera.position.y = jogador.y + jogador.alt / 2.0F;
         camera.update();
+
     }
 
     @Override
@@ -74,15 +80,24 @@ public class MyGdxGame2 extends Game {
         MapaCidadeDesenhar();
         jogador.Desenharr(batch);
         batch.end();
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.rect(recX, recY, jogador.larg, jogador.alt);
-        renderer.end();
+
+        /*for (int i = 0; i < 50000; i++) {
+            if (naAreaDaCamera(recX + i * 10, recY, jogador.tPlayer, camera)) {
+                renderer.begin(ShapeRenderer.ShapeType.Filled);
+                renderer.rect(recX + i * 10, recY, jogador.larg + i * 10, jogador.alt);
+                renderer.end();
+            }
+        }*/
+
+
+
+
+
 
         if (playerHitbox.overlaps(doorHitbox)) {
             System.out.println("AJAIOJIOAJIK");
         }
     }
-
 
     @Override
     public void dispose() {
@@ -123,12 +138,12 @@ public class MyGdxGame2 extends Game {
             jogador.y += (-1f * jogador.velo);
         }
 
-        if (jogador.x >= telaLarg / 2 && jogador.x <= telaLarg)
-            camera.position.x = jogador.x;
+        //if (jogador.x >= telaLarg / 2 && jogador.x <= telaLarg)
+        camera.position.x = jogador.x;
 
-        //So ta funcionando um
-        if (jogador.y >= telaAlt / 2 && jogador.y <= telaAlt)
-            camera.position.y = jogador.y;
+
+        //if (jogador.y >= telaAlt / 2 && jogador.y <= telaAlt)
+        camera.position.y = jogador.y;
 
 
         camera.update();

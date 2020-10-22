@@ -23,7 +23,7 @@ public class Quadrante extends ApplicationAdapter {
         t3= new Texture("A3.png");
         s3= new Sprite(t3);
 
-        t4= new Texture("b1.png");
+        t4= new Texture("MapaNovo.png");
         s4= new Sprite(t4);
 
         t5= new Texture("b2.png");
