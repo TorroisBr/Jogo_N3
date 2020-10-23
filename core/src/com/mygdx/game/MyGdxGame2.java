@@ -95,9 +95,8 @@ public class MyGdxGame2 extends Game {
         timeSeconds += Gdx.graphics.getRawDeltaTime();
         if (timeSeconds > period) {
             timeSeconds -= period;
-            System.out.println("tempo: "+timeSeconds);
+            System.out.println(jogador.currentFrame);
         }
-
 
 
     }
@@ -115,7 +114,6 @@ public class MyGdxGame2 extends Game {
 
     public void MapaCidadeDesenhar() {
 
-
         Q.Desenhar(fundoatual, batch);
 
     }
@@ -130,6 +128,17 @@ public class MyGdxGame2 extends Game {
             jogador.esquerda = true;
             jogador.x += (-1f * jogador.velo);
 
+            if (jogador.currentAnimation != jogador.animEsquerdaSprite) {
+                jogador.currentAnimation = jogador.animEsquerdaSprite;
+                jogador.currentFrame = 0;
+            } else {
+                jogador.currentFrame += Gdx.graphics.getRawDeltaTime()*4;
+                if ((int)jogador.currentFrame > jogador.currentAnimation.length -1) {
+                    //tranformar esse 5 em variavel de controle de velocidade
+                    jogador.currentFrame = 0;
+                }
+            }
+
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             jogador.cima = false;
             jogador.baixo = false;
@@ -137,6 +146,17 @@ public class MyGdxGame2 extends Game {
 
             jogador.direita = true;
             jogador.x += (1f * jogador.velo);
+
+            if (jogador.currentAnimation != jogador.animDireitaSprite) {
+                jogador.currentAnimation = jogador.animDireitaSprite;
+                jogador.currentFrame = 0;
+            } else {
+                jogador.currentFrame += Gdx.graphics.getRawDeltaTime()*4;
+                if ((int)jogador.currentFrame > jogador.currentAnimation.length -1) {
+                    //tranformar esse 5 em variavel de controle de velocidade
+                    jogador.currentFrame = 0;
+                }
+            }
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
@@ -147,14 +167,39 @@ public class MyGdxGame2 extends Game {
             jogador.cima = true;
             jogador.y += (1f * jogador.velo);
 
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            if (jogador.currentAnimation != jogador.animCimaSprite) {
+                jogador.currentAnimation = jogador.animCimaSprite;
+                jogador.currentFrame = 0;
+            } else {
+                jogador.currentFrame += Gdx.graphics.getRawDeltaTime()*4;
+                if ((int)jogador.currentFrame > jogador.currentAnimation.length -1) {
+                    //tranformar esse 5 em variavel de controle de velocidade
+                    jogador.currentFrame = 0;
+                }
+            }
+        }
+
+         else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             jogador.esquerda = false;
             jogador.direita = false;
             jogador.cima = false;
 
             jogador.baixo = true;
             jogador.y += (-1f * jogador.velo);
+
+            if (jogador.currentAnimation != jogador.animBaixoSprite) {
+                jogador.currentAnimation = jogador.animBaixoSprite;
+                jogador.currentFrame = 0;
+            } else {
+                jogador.currentFrame += Gdx.graphics.getRawDeltaTime()*4;
+                if ((int)jogador.currentFrame > jogador.currentAnimation.length -1) {
+                    //tranformar esse 5 em variavel de controle de velocidade
+                    jogador.currentFrame = 0;
+                }
+            }
         }
+
+
 
         //if (jogador.x >= telaLarg / 2 && jogador.x <= telaLarg)
         camera.position.x = jogador.x;
