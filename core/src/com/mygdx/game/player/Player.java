@@ -1,8 +1,11 @@
 package com.mygdx.game.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import java.lang.reflect.Array;
 
 public class Player {
     int telaLarg = 1280, telaAlt = 720;
@@ -10,7 +13,7 @@ public class Player {
     public int y = (telaAlt / 2);
     public Texture tPlayer;
     public Sprite sPlayer;
-    public Sprite upAnimation [];
+
     public Sprite currentAnimation [];
     public float currentFrame = 0;
     public int larg = 64, alt = 128;
@@ -112,4 +115,17 @@ public class Player {
         }
 
     }
+    public void animar (Player aux, Sprite[] direcao){
+        if (aux.currentAnimation != direcao) {
+            aux.currentAnimation = direcao;
+            aux.currentFrame = 0;
+        } else {
+            aux.currentFrame += Gdx.graphics.getRawDeltaTime()*5;
+            if ((int)aux.currentFrame > aux.currentAnimation.length -1) {
+                //tranformar esse 5 em variavel de controle de velocidade
+                aux.currentFrame = 0;
+            }
+        }
+    }
+
 }
