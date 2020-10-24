@@ -15,6 +15,7 @@ import com.mygdx.game.player.Player;
 import com.mygdx.game.quadrante.*;
 
 import static com.mygdx.game.CameraView.naAreaDaCamera;
+import static com.mygdx.game.colisão.Hitbox.*;
 
 public class MyGdxGame2 extends Game {
 
@@ -29,6 +30,7 @@ public class MyGdxGame2 extends Game {
     Player jogador = new Player();
     Rectangle doorHitbox, playerHitbox;
     ShapeRenderer renderer;
+    Rectangle recCasa;
     public static OrthographicCamera camera;
     public Viewport viewport;
 
@@ -38,7 +40,7 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void create() {
-
+        recCasa = new Rectangle(110, 3043, 330 - 110, 3201 - 3043);
         batch = new SpriteBatch();
         playerHitbox = new Rectangle(jogador.x, jogador.y, jogador.larg, jogador.alt);
         doorHitbox = new Rectangle(recX, recY, jogador.larg, jogador.alt);
@@ -82,15 +84,22 @@ public class MyGdxGame2 extends Game {
         MapaCidadeDesenhar();
         jogador.Desenharr(batch);
         batch.end();
-
-        /*for (int i = 0; i < 50000; i++) {
-            if (naAreaDaCamera(recX + i * 10, recY, jogador.tPlayer, camera)) {
-                renderer.begin(ShapeRenderer.ShapeType.Filled);
-                renderer.rect(recX + i * 10, recY, jogador.larg + i * 10, jogador.alt);
-                renderer.end();
-
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        renderer.rect(jogador.x, jogador.y, jogador.larg, jogador.alt);
+        renderer.end();
+        if (Hitbox(playerHitbox, recCasa)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+                jogador.x = 800;
+                jogador.y = 4265;
             }
-        }*/
+        }
+
+//        for (int i = 0; i < 50000; i++) {
+//            if (naAreaDaCamera(recX + i * 10, recY, jogador.tPlayer, camera)) {
+//
+//
+//            }
+//        }
 
         timeSeconds += Gdx.graphics.getRawDeltaTime();
         if (timeSeconds > period) {
@@ -113,8 +122,8 @@ public class MyGdxGame2 extends Game {
 
 
     public void MapaCidadeDesenhar() {
-
-        Q.Desenhar(fundoatual, batch);
+        if (naAreaDaCamera(Q.x4, Q.y4, Q.t4, camera))
+            Q.Desenhar(fundoatual, batch);
 
     }
 
@@ -150,9 +159,7 @@ public class MyGdxGame2 extends Game {
             jogador.y += (1f * jogador.velo);
 
             jogador.animar(jogador, jogador.animCimaSprite);
-        }
-
-         else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             jogador.esquerda = false;
             jogador.direita = false;
             jogador.cima = false;
@@ -162,8 +169,6 @@ public class MyGdxGame2 extends Game {
 
             jogador.animar(jogador, jogador.animBaixoSprite);
         }
-
-
 
 
         //if (jogador.x >= telaLarg / 2 && jogador.x <= telaLarg)

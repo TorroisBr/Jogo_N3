@@ -1,11 +1,15 @@
 package com.mygdx.game.colisão;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.player.Player;
 
 public class Hitbox {
 
-   public void Hitbox(int x1,int x2, int y1,int y2){
-
-
+   public static boolean Hitbox(Rectangle rec1,Rectangle rec2){
+      if(rec1.overlaps(rec2)){
+         return true;
+      }
+      else
+         return false;
    }
 }
