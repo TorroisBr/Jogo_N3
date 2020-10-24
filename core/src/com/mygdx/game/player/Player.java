@@ -14,7 +14,7 @@ public class Player {
     public Sprite currentAnimation [];
     public float currentFrame = 0;
     public int larg = 64, alt = 128;
-    public int velo = 8;
+    public int velo = 5;
 
     public boolean espelhado;
     public boolean idle;
