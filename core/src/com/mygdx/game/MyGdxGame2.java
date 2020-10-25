@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.player.Arco;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.quadrante.*;
 
@@ -28,6 +29,7 @@ public class MyGdxGame2 extends Game {
     SpriteBatch batch;
     public int fundoatual = 4;
     Player jogador = new Player();
+    Arco flecha = new Arco();
     Rectangle doorHitbox, playerHitbox;
     ShapeRenderer renderer;
     Rectangle recCasa;
@@ -107,6 +109,11 @@ public class MyGdxGame2 extends Game {
             System.out.println(jogador.currentFrame);
         }
 
+        flecha.criar();
+        //if (Gdx.input.isKeyPressed(Input.Keys.S)){
+            batch.begin();
+            flecha.Desenhar(batch,jogador.x, jogador.y);
+            batch.end();
 
     }
 
@@ -118,6 +125,7 @@ public class MyGdxGame2 extends Game {
         jogador.tPlayer.dispose();
         Q.Deletar();
         jogador.Deletar();
+        flecha.Deletar();
     }
 
 
@@ -169,6 +177,8 @@ public class MyGdxGame2 extends Game {
 
             jogador.animar(jogador, jogador.animBaixoSprite);
         }
+
+
 
 
         //if (jogador.x >= telaLarg / 2 && jogador.x <= telaLarg)
