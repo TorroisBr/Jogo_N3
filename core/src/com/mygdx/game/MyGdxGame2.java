@@ -11,8 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.player.Arco;
-import com.mygdx.game.player.Player;
+import com.mygdx.game.player.*;
 import com.mygdx.game.quadrante.*;
 
 import static com.mygdx.game.CameraView.naAreaDaCamera;
@@ -24,15 +23,16 @@ public class MyGdxGame2 extends Game {
     public static int telaLarg = 1280, telaAlt = 720;
     private float timeSeconds = 0f;
     private float period = 1f;
-    //Criando objetos dos quadrantes
-    Quadrante Q = new Quadrante();
-    SpriteBatch batch;
-    public int fundoatual = 4;
+    //Criando objetos
     Player jogador = new Player();
     Arco flecha = new Arco();
+    Quadrante Q = new Quadrante();
+
+    SpriteBatch batch;
     Rectangle doorHitbox, playerHitbox;
     ShapeRenderer renderer;
     Rectangle recCasa;
+    public int fundoatual = 4;
     public static OrthographicCamera camera;
     public Viewport viewport;
 
@@ -42,21 +42,24 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void create() {
+        //RETANGULO DE COLISÂO DA CASA
         recCasa = new Rectangle(110, 3043, 330 - 110, 3201 - 3043);
+        //BATCH OBJETO QUE DESENHA precisa de um tipo Sprite
         batch = new SpriteBatch();
-        playerHitbox = new Rectangle(jogador.x, jogador.y, jogador.larg, jogador.alt);
-        doorHitbox = new Rectangle(recX, recY, jogador.larg, jogador.alt);
-        //metodo de criação das texturas e sprites
+        //HITOBX do retangulo
+        playerHitbox = new Rectangle(jogador.x, jogador.y, jogador.largHitbox, jogador.altHitbox);
+        //metodo de criação das texturas e sprites mapas e jogador
         Q.Criar();
         jogador.Criar();
         renderer = new ShapeRenderer();
 
+        //CRIACAO DE CAMERA
         camera = new OrthographicCamera();
         viewport = new FitViewport(telaLarg, telaAlt, camera);
         camera.setToOrtho(false, 1280.0F, 4720.0F);
         camera.position.set(1280.0F, 720.0F, 0.0F);
-        camera.position.x = jogador.x + jogador.larg / 2.0F;
-        camera.position.y = jogador.y + jogador.alt / 2.0F;
+        camera.position.x = jogador.x + jogador.largHitbox / 2.0F;
+        camera.position.y = jogador.y + jogador.altHitbox / 2.0F;
         camera.update();
 
     }
@@ -73,22 +76,31 @@ public class MyGdxGame2 extends Game {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
+        //ACOMPANHA A CAMERA
         renderer.setProjectionMatrix(camera.combined);
         batch.setProjectionMatrix(camera.combined);
+        //METODO DE MOVIMENTO
         Mover();
 
+        //Hitbox acompanha o xy do player
         playerHitbox.setPosition(jogador.x, jogador.y);
 
-
+        //batch é o que desenha sempre tem que ter begin e end
         batch.begin();
-        //MapaCidadeHitbox();
+        //Onde desenha a cidade (mas tem que arruma)
         MapaCidadeDesenhar();
+        batch.end();
+        //render utiliza para fazer formas geometricas
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        //HITBOX DE HIT INIMIGO
+        renderer.rect(jogador.x, jogador.y, jogador.largHitbox, jogador.altHitbox - 9);
+        renderer.end();
+        batch.begin();
+        //desenha o jogador passando o batch
         jogador.Desenharr(batch);
         batch.end();
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.rect(jogador.x, jogador.y, jogador.larg, jogador.alt);
-        renderer.end();
+
+        //Teste de overlaps se o player estiver encima da casa da esquerda superior e apertar o espaço toma tp
         if (Hitbox(playerHitbox, recCasa)) {
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
                 jogador.x = 800;
@@ -96,31 +108,24 @@ public class MyGdxGame2 extends Game {
             }
         }
 
-//        for (int i = 0; i < 50000; i++) {
-//            if (naAreaDaCamera(recX + i * 10, recY, jogador.tPlayer, camera)) {
-//
-//
-//            }
-//        }
 
+        //Compara o tempo e
         timeSeconds += Gdx.graphics.getRawDeltaTime();
         if (timeSeconds > period) {
             timeSeconds -= period;
-            System.out.println(jogador.currentFrame);
         }
 
-        flecha.criar();
-        //if (Gdx.input.isKeyPressed(Input.Keys.S)){
-            batch.begin();
-            flecha.Desenhar(batch,jogador.x, jogador.y);
-            batch.end();
+//        flecha.criar();
+//        if (Gdx.input.isKeyPressed(Input.Keys.S)){
+//        batch.begin();
+//        flecha.Desenhar(batch, jogador.x, jogador.y);
+//        batch.end();}
 
     }
 
-    @Override
+    @Override   //metodo dispose deleta as texturas e exclui os objetos
     public void dispose() {
         renderer.dispose();
-        //Deletando as texturas
         batch.dispose();
         jogador.tPlayer.dispose();
         Q.Deletar();
@@ -128,7 +133,7 @@ public class MyGdxGame2 extends Game {
         flecha.Deletar();
     }
 
-
+        //METODO DE DESNHAR O MAPA (ELE ESTA DESATUALIZADO)
     public void MapaCidadeDesenhar() {
         if (naAreaDaCamera(Q.x4, Q.y4, Q.t4, camera))
             Q.Desenhar(fundoatual, batch);
@@ -143,6 +148,7 @@ public class MyGdxGame2 extends Game {
             jogador.baixo = false;
 
             jogador.esquerda = true;
+            //QUANDO O PLAYER ANDA PRA UM LADO OS OUTROS FICAM FALSO
             jogador.x += (-1f * jogador.velo);
 
             jogador.animar(jogador, jogador.animEsquerdaSprite);
@@ -179,12 +185,10 @@ public class MyGdxGame2 extends Game {
         }
 
 
-
-
         //if (jogador.x >= telaLarg / 2 && jogador.x <= telaLarg)
+
+        //ATUALIZA A CAMERA PRA POSIÇÂO DO JOGADOR
         camera.position.x = jogador.x;
-
-
         //if (jogador.y >= telaAlt / 2 && jogador.y <= telaAlt)
         camera.position.y = jogador.y;
 

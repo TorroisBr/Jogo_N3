@@ -14,6 +14,7 @@ public class CameraView {
         int alt = imagem.getHeight();
         boolean resposta;
 
+        //Calculo para ver se o objeto esta dentro da  area da camera
         if ((x < camera.position.x + telaLarg / 2 && x + larg > camera.position.x - telaLarg / 2) && (y < camera.position.y + telaAlt / 2 && y + alt > camera.position.y - telaAlt / 2)) {
             resposta = true;
         } else
