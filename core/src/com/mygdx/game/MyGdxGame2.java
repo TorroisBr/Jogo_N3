@@ -27,7 +27,8 @@ public class MyGdxGame2 extends Game {
     Player jogador = new Player();
     Arco flecha = new Arco();
     Quadrante Q = new Quadrante();
-
+    Mapa1 Q1=new Mapa1();
+    Mapa2 Q2=new Mapa2();
     SpriteBatch batch;
     Rectangle doorHitbox, playerHitbox;
     ShapeRenderer renderer;
@@ -50,6 +51,8 @@ public class MyGdxGame2 extends Game {
         playerHitbox = new Rectangle(jogador.x, jogador.y, jogador.largHitbox, jogador.altHitbox);
         //metodo de criação das texturas e sprites mapas e jogador
         Q.Criar();
+        Q1.Criar();
+        Q2.Criar();
         jogador.Criar();
         renderer = new ShapeRenderer();
 
@@ -133,11 +136,9 @@ public class MyGdxGame2 extends Game {
         flecha.Deletar();
     }
 
-        //METODO DE DESNHAR O MAPA (ELE ESTA DESATUALIZADO)
+    //METODO DE DESNHAR O MAPA (ELE ESTA DESATUALIZADO)
     public void MapaCidadeDesenhar() {
-        if (naAreaDaCamera(Q.x4, Q.y4, Q.t4, camera))
-            Q.Desenhar(fundoatual, batch);
-
+        naAreaDaCamera(0, 0, camera, batch, Q1.sprite);
     }
 
     private void Mover() {

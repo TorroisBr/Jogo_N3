@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.lang.reflect.Array;
 
 public class Player {
-    int telaLarg = 1280, telaAlt = 720;
     public int x = 0;
     public int y = 0;
 
@@ -44,12 +43,12 @@ public class Player {
 
     public void Criar() {
         //IMPORT DAS IMAGENS EM TEXTURA E TRANSFORMAR EM SPRITE
+        carregarPlayer();
         largImagen = tPlayer.getWidth();
         altImagen = tPlayer.getHeight();
         largHitbox = largImagen;
 
 
-        carregarPlayer();
     }
         //DELETA AS TEXTURAS
     public void Deletar() {
