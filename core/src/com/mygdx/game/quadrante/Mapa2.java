@@ -7,9 +7,10 @@ public class Mapa2 {
     public Texture texture;
     public Sprite sprite;
 
-    public void Criar(){
+    public boolean  Criar(){
         texture= new Texture("A3.png");
         sprite= new Sprite(texture);
+        return true;
     }
 
     public void Deletar(){

@@ -4,7 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
+import static com.mygdx.game.CameraView.*;
+import static com.mygdx.game.MyGdxGame2.*;
 import java.lang.reflect.Array;
 
 public class Player {
@@ -56,21 +57,25 @@ public class Player {
 
     }
         //VERIFICA QUAL LADO o player esta olhando e desenha com o batch passado
-    public void Desenharr(SpriteBatch aux) {
+    public void Desenharr() {
         if (cima) {
-            aux.draw(currentAnimation[(int) currentFrame], x + largHitbox / 2 - largImagen / 2, y - altImagen / 2);
+            Desenhar(x + largHitbox / 2 - largImagen / 2, y - altImagen / 2,currentAnimation[(int) currentFrame],batch,camera);
         }
         if (baixo) {
-            aux.draw(currentAnimation[(int) currentFrame], x, y - altImagen / 2);
+            Desenhar(x + largHitbox / 2 - largImagen / 2, y - altImagen / 2,currentAnimation[(int) currentFrame],batch,camera);
+
         }
         if (direita) {
-            aux.draw(currentAnimation[(int) currentFrame], x, y - altImagen / 2);
+            Desenhar(x + largHitbox / 2 - largImagen / 2, y - altImagen / 2,currentAnimation[(int) currentFrame],batch,camera);
+
         }
         if (esquerda) {
-            aux.draw(currentAnimation[(int) currentFrame], x, y - altImagen / 2);
+            Desenhar(x + largHitbox / 2 - largImagen / 2, y - altImagen / 2,currentAnimation[(int) currentFrame],batch,camera);
+
         }
         if (idle) {
-            aux.draw(currentAnimation[0], x, y);
+            Desenhar(x,y ,currentAnimation[0],batch,camera);
+
         }
 
     }
@@ -93,7 +98,7 @@ public class Player {
         sPlayer = new Sprite(tPlayer);
 
         animCimaTextura = new Texture[3];
-        animCimaSprite = new Sprite[3];
+        animCimaSprite = new Sprite[4];
 
         animCimaTextura[0] = new Texture("player/severinoCI.png");
         animCimaTextura[1] = new Texture("player/severinoCA01.png");
@@ -101,11 +106,12 @@ public class Player {
 
         animCimaSprite[0] = new Sprite(animCimaTextura[0]);
         animCimaSprite[1] = new Sprite(animCimaTextura[1]);
-        animCimaSprite[2] = new Sprite(animCimaTextura[2]);
+        animCimaSprite[2] = new Sprite(animCimaTextura[0]);
+        animCimaSprite[3] = new Sprite(animCimaTextura[2]);
 
         // animação para baixo
         animBaixoTextura = new Texture[3];
-        animBaixoSprite = new Sprite[3];
+        animBaixoSprite = new Sprite[4];
 
         animBaixoTextura[0] = new Texture("player/severinoFI.png");
         animBaixoTextura[1] = new Texture("player/severinoFA01.png");
@@ -113,11 +119,12 @@ public class Player {
 
         animBaixoSprite[0] = new Sprite(animBaixoTextura[0]);
         animBaixoSprite[1] = new Sprite(animBaixoTextura[1]);
-        animBaixoSprite[2] = new Sprite(animBaixoTextura[2]);
+        animBaixoSprite[2] = new Sprite(animBaixoTextura[0]);
+        animBaixoSprite[3] = new Sprite(animBaixoTextura[2]);
 
         // animação para direita
         animDireitaTextura = new Texture[3];
-        animDireitaSprite = new Sprite[3];
+        animDireitaSprite = new Sprite[4];
 
         animDireitaTextura[0] = new Texture("player/severinoLI.png");
         animDireitaTextura[1] = new Texture("player/severinoLA01.png");
@@ -125,11 +132,12 @@ public class Player {
 
         animDireitaSprite[0] = new Sprite(animDireitaTextura[0]);
         animDireitaSprite[1] = new Sprite(animDireitaTextura[1]);
-        animDireitaSprite[2] = new Sprite(animDireitaTextura[2]);
+        animDireitaSprite[2] = new Sprite(animDireitaTextura[0]);
+        animDireitaSprite[3] = new Sprite(animDireitaTextura[2]);
 
         // animação esquerda
         animEsquerdaTextura = new Texture[3];
-        animEsquerdaSprite = new Sprite[3];
+        animEsquerdaSprite = new Sprite[4];
 
         animEsquerdaTextura[0] = new Texture("player/severinoLI.png");
         animEsquerdaTextura[1] = new Texture("player/severinoLA01.png");
@@ -137,10 +145,13 @@ public class Player {
 
         animEsquerdaSprite[0] = new Sprite(animEsquerdaTextura[0]);
         animEsquerdaSprite[1] = new Sprite(animEsquerdaTextura[1]);
-        animEsquerdaSprite[2] = new Sprite(animEsquerdaTextura[2]);
+        animEsquerdaSprite[2] = new Sprite(animEsquerdaTextura[0]);
+        animEsquerdaSprite[3] = new Sprite(animEsquerdaTextura[2]);
+
         animEsquerdaSprite[0].flip(true, false);
         animEsquerdaSprite[1].flip(true, false);
         animEsquerdaSprite[2].flip(true, false);
+        animEsquerdaSprite[3].flip(true, false);
     }
 
 }

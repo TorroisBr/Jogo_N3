@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.player.*;
 import com.mygdx.game.quadrante.*;
 
-import static com.mygdx.game.CameraView.naAreaDaCamera;
+import static com.mygdx.game.CameraView.*;
 import static com.mygdx.game.colisão.Hitbox.*;
 
 public class MyGdxGame2 extends Game {
@@ -26,23 +26,25 @@ public class MyGdxGame2 extends Game {
     //Criando objetos
     Player jogador = new Player();
     Arco flecha = new Arco();
-    Quadrante Q = new Quadrante();
-    Mapa1 Q1=new Mapa1();
-    Mapa2 Q2=new Mapa2();
-    SpriteBatch batch;
+
+
+    public static SpriteBatch batch;
     Rectangle doorHitbox, playerHitbox;
     ShapeRenderer renderer;
     Rectangle recCasa;
-    public int fundoatual = 4;
+    public int fundoatual = 1;
     public static OrthographicCamera camera;
     public Viewport viewport;
-
     int recX = 50;
     int recY = 50;
-
+    int VRX = 0;
+    int VRY = 0;
 
     @Override
     public void create() {
+        Q1.Criar();
+        Q2.Criar();
+
         //RETANGULO DE COLISÂO DA CASA
         recCasa = new Rectangle(110, 3043, 330 - 110, 3201 - 3043);
         //BATCH OBJETO QUE DESENHA precisa de um tipo Sprite
@@ -50,9 +52,7 @@ public class MyGdxGame2 extends Game {
         //HITOBX do retangulo
         playerHitbox = new Rectangle(jogador.x, jogador.y, jogador.largHitbox, jogador.altHitbox);
         //metodo de criação das texturas e sprites mapas e jogador
-        Q.Criar();
-        Q1.Criar();
-        Q2.Criar();
+
         jogador.Criar();
         renderer = new ShapeRenderer();
 
@@ -76,6 +76,8 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void render() {
+
+
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -88,19 +90,16 @@ public class MyGdxGame2 extends Game {
         //Hitbox acompanha o xy do player
         playerHitbox.setPosition(jogador.x, jogador.y);
 
-        //batch é o que desenha sempre tem que ter begin e end
         batch.begin();
-        //Onde desenha a cidade (mas tem que arruma)
         MapaCidadeDesenhar();
         batch.end();
-        //render utiliza para fazer formas geometricas
+
         renderer.begin(ShapeRenderer.ShapeType.Filled);
-        //HITBOX DE HIT INIMIGO
         renderer.rect(jogador.x, jogador.y, jogador.largHitbox, jogador.altHitbox - 9);
         renderer.end();
-        batch.begin();
         //desenha o jogador passando o batch
-        jogador.Desenharr(batch);
+        batch.begin();
+        jogador.Desenharr();
         batch.end();
 
         //Teste de overlaps se o player estiver encima da casa da esquerda superior e apertar o espaço toma tp
@@ -113,10 +112,7 @@ public class MyGdxGame2 extends Game {
 
 
         //Compara o tempo e
-        timeSeconds += Gdx.graphics.getRawDeltaTime();
-        if (timeSeconds > period) {
-            timeSeconds -= period;
-        }
+
 
 //        flecha.criar();
 //        if (Gdx.input.isKeyPressed(Input.Keys.S)){
@@ -131,14 +127,28 @@ public class MyGdxGame2 extends Game {
         renderer.dispose();
         batch.dispose();
         jogador.tPlayer.dispose();
-        Q.Deletar();
+
         jogador.Deletar();
         flecha.Deletar();
     }
 
     //METODO DE DESNHAR O MAPA (ELE ESTA DESATUALIZADO)
     public void MapaCidadeDesenhar() {
-        naAreaDaCamera(0, 0, camera, batch, Q1.sprite);
+        Mapa(VRX, VRY, camera, batch, fundoatual);
+
+//        if (jogador.x > MapaNum(fundoatual).getWidth()) {
+//            fundoatual++;
+//            VRX = (int) MapaNum(fundoatual).getWidth()-telaLarg/2;
+//            jogador.x=VRX+50;
+//            camera.position.x= jogador.x;
+//
+//        }
+
+//        else if (jogador.x < VRX) {
+//            fundoatual = 1;
+//            VRX = 0;
+//        }
+
     }
 
     private void Mover() {
@@ -189,7 +199,9 @@ public class MyGdxGame2 extends Game {
         //if (jogador.x >= telaLarg / 2 && jogador.x <= telaLarg)
 
         //ATUALIZA A CAMERA PRA POSIÇÂO DO JOGADOR
-        camera.position.x = jogador.x;
+        if (jogador.x + telaLarg / 2 <= MapaNum(fundoatual).getWidth())
+            camera.position.x = jogador.x;
+
         //if (jogador.y >= telaAlt / 2 && jogador.y <= telaAlt)
         camera.position.y = jogador.y;
 
