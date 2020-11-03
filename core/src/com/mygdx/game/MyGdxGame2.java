@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -14,8 +15,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.player.*;
 import com.mygdx.game.quadrante.*;
 
+
 import static com.mygdx.game.CameraView.*;
-import static com.mygdx.game.colisão.Hitbox.*;
 
 public class MyGdxGame2 extends Game {
 
@@ -24,15 +25,13 @@ public class MyGdxGame2 extends Game {
     private float timeSeconds = 0f;
     private float period = 1f;
     //Criando objetos
-    Player jogador = new Player();
+    public static Player jogador = new Player();
     Arco flecha = new Arco();
-
-
+    public static int esquerdo = 0, direito = 0, cima = 0, baixo = 0;
     public static SpriteBatch batch;
-    Rectangle doorHitbox, playerHitbox;
-    ShapeRenderer renderer;
-    Rectangle recCasa;
-    public int fundoatual = 1;
+    public static ShapeRenderer renderer;
+
+    public static int fundoatual = 1;
     public static OrthographicCamera camera;
     public Viewport viewport;
     int recX = 50;
@@ -42,18 +41,17 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void create() {
+
+        //INICIANDO OS MAPAS
         Q1.Criar();
         Q2.Criar();
+        Q3.Criar();
+        Q4.Criar();
+        jogador.Criar();
 
-        //RETANGULO DE COLISÂO DA CASA
-        recCasa = new Rectangle(110, 3043, 330 - 110, 3201 - 3043);
+
         //BATCH OBJETO QUE DESENHA precisa de um tipo Sprite
         batch = new SpriteBatch();
-        //HITOBX do retangulo
-        playerHitbox = new Rectangle(jogador.x, jogador.y, jogador.largHitbox, jogador.altHitbox);
-        //metodo de criação das texturas e sprites mapas e jogador
-
-        jogador.Criar();
         renderer = new ShapeRenderer();
 
         //CRIACAO DE CAMERA
@@ -80,35 +78,32 @@ public class MyGdxGame2 extends Game {
 
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        Mover();
+        //METODO DE MOVIMENTO
+        jogador.Movimento();
         //ACOMPANHA A CAMERA
         renderer.setProjectionMatrix(camera.combined);
         batch.setProjectionMatrix(camera.combined);
-        //METODO DE MOVIMENTO
-        Mover();
-
-        //Hitbox acompanha o xy do player
-        playerHitbox.setPosition(jogador.x, jogador.y);
 
         batch.begin();
         MapaCidadeDesenhar();
         batch.end();
 
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.rect(jogador.x, jogador.y, jogador.largHitbox, jogador.altHitbox - 9);
-        renderer.end();
+
+
+
+        //CONFERINDO HITBOX DE TROCA DE MAPA PASSANDO O RETANGULO DO PLAYER
+        Q4.porta1.conferindoInteracao(jogador.playerColHitbox);
+
+//        renderer.end();
+//        renderer.begin(ShapeRenderer.ShapeType.Filled);
+
+
         //desenha o jogador passando o batch
         batch.begin();
         jogador.Desenharr();
         batch.end();
 
-        //Teste de overlaps se o player estiver encima da casa da esquerda superior e apertar o espaço toma tp
-        if (Hitbox(playerHitbox, recCasa)) {
-            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-                jogador.x = 800;
-                jogador.y = 4265;
-            }
-        }
 
 
         //Compara o tempo e
@@ -127,7 +122,6 @@ public class MyGdxGame2 extends Game {
         renderer.dispose();
         batch.dispose();
         jogador.tPlayer.dispose();
-
         jogador.Deletar();
         flecha.Deletar();
     }
@@ -135,75 +129,89 @@ public class MyGdxGame2 extends Game {
     //METODO DE DESNHAR O MAPA (ELE ESTA DESATUALIZADO)
     public void MapaCidadeDesenhar() {
         Mapa(VRX, VRY, camera, batch, fundoatual);
-
-//        if (jogador.x > MapaNum(fundoatual).getWidth()) {
-//            fundoatual++;
-//            VRX = (int) MapaNum(fundoatual).getWidth()-telaLarg/2;
-//            jogador.x=VRX+50;
-//            camera.position.x= jogador.x;
-//
-//        }
-
-//        else if (jogador.x < VRX) {
-//            fundoatual = 1;
-//            VRX = 0;
-//        }
-
+        //DESENHA O MACA PASSANDO O FUNDOATUAL
     }
 
     private void Mover() {
+
+        //ATUALIZA OS LIMITES DA CAMERA
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            DefinirLimites(Q1.sprite, Q1.xy);
+
+
+        }
         //Movimento Player-----------------------------------
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            jogador.movX = -jogador.velo;
+
             jogador.direita = false;
             jogador.cima = false;
             jogador.baixo = false;
 
             jogador.esquerda = true;
-            //QUANDO O PLAYER ANDA PRA UM LADO OS OUTROS FICAM FALSO
-            jogador.x += (-1f * jogador.velo);
+
 
             jogador.animar(jogador, jogador.animEsquerdaSprite);
 
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            jogador.movX = jogador.velo;
+
             jogador.cima = false;
             jogador.baixo = false;
             jogador.esquerda = false;
 
             jogador.direita = true;
-            jogador.x += (1f * jogador.velo);
 
             jogador.animar(jogador, jogador.animDireitaSprite);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            jogador.movY = jogador.velo;
+
             jogador.baixo = false;
             jogador.esquerda = false;
             jogador.direita = false;
 
             jogador.cima = true;
-            jogador.y += (1f * jogador.velo);
+
 
             jogador.animar(jogador, jogador.animCimaSprite);
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            jogador.movY = -jogador.velo;
+
             jogador.esquerda = false;
             jogador.direita = false;
             jogador.cima = false;
 
             jogador.baixo = true;
-            jogador.y += (-1f * jogador.velo);
+
 
             jogador.animar(jogador, jogador.animBaixoSprite);
         }
 
 
-        //if (jogador.x >= telaLarg / 2 && jogador.x <= telaLarg)
 
-        //ATUALIZA A CAMERA PRA POSIÇÂO DO JOGADOR
-        if (jogador.x + telaLarg / 2 <= MapaNum(fundoatual).getWidth())
-            camera.position.x = jogador.x;
 
-        //if (jogador.y >= telaAlt / 2 && jogador.y <= telaAlt)
+        //TRAVA DE CAMERA CONFORME CAMERAVIEWLIMITES
+
+        camera.position.x = jogador.x;
         camera.position.y = jogador.y;
+
+        if (camera.position.x < esquerdo + telaLarg / 2) {
+            camera.position.x = esquerdo + telaLarg / 2;
+        }
+
+        if (camera.position.x > direito - telaLarg / 2)
+            camera.position.x = direito - telaLarg / 2;
+
+        if (camera.position.y > cima - telaAlt / 2) {
+            camera.position.y = cima - telaAlt / 2;
+        }
+
+        if (camera.position.y < baixo + telaAlt / 2)
+            camera.position.y = baixo + telaAlt / 2;
+
+
 
 
         camera.update();

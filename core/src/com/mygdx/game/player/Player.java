@@ -4,16 +4,24 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+
 import static com.mygdx.game.CameraView.*;
 import static com.mygdx.game.MyGdxGame2.*;
+
 import java.lang.reflect.Array;
 
 public class Player {
-    public int x = 0;
-    public int y = 0;
+    public  int x = 300;
+    public int y = 300;
+    public Rectangle playerHitbox, playerColHitbox;
+    public int direcao;
+    //direcao: 0=esquerda , 1=cima , 2= direita , 3=baixo;
+
 
     public int largImagen, altImagen;
-    public int largHitbox=86, altHitbox=122;
+    public int largHitbox = 56, altHitbox = 122 - 9;
+    public int colHitboxLarg = 56, colHitboxAlt = 39;
 
     public Texture tPlayer;
     public Sprite sPlayer;
@@ -21,7 +29,7 @@ public class Player {
 
     public Sprite currentAnimation[];
     public float currentFrame = 0;
-
+    public float movX = 0, movY = 0;
 
     //LADOS DO PLAYER
     public boolean espelhado;
@@ -47,52 +55,106 @@ public class Player {
         carregarPlayer();
         largImagen = tPlayer.getWidth();
         altImagen = tPlayer.getHeight();
-        largHitbox = largImagen;
 
-
+        playerHitbox = new Rectangle(x, y, largHitbox, altHitbox);
+        playerColHitbox = new Rectangle(x, y, colHitboxLarg, colHitboxAlt);
     }
-        //DELETA AS TEXTURAS
+
+    //DELETA AS TEXTURAS
     public void Deletar() {
         tPlayer.dispose();
 
     }
-        //VERIFICA QUAL LADO o player esta olhando e desenha com o batch passado
+
+    //VERIFICA QUAL LADO o player esta olhando e desenha com o batch passado
     public void Desenharr() {
-        if (cima) {
-            Desenhar(x + largHitbox / 2 - largImagen / 2, y - altImagen / 2,currentAnimation[(int) currentFrame],batch,camera);
-        }
-        if (baixo) {
-            Desenhar(x + largHitbox / 2 - largImagen / 2, y - altImagen / 2,currentAnimation[(int) currentFrame],batch,camera);
+        //CHAMA A FUNÇÂO DE DESENHO DA CLASSE CAMERAVIEW
+//        switch (direcao){
+//            case 0:Desenhar(x + largHitbox / 2 - largImagen / 2, y - altImagen / 2, currentAnimation[(int) currentFrame], batch, camera);
+//                return;
+//            case 1:Desenhar(x + largHitbox / 2 - largImagen / 2, y - altImagen / 2, currentAnimation[(int) currentFrame], batch, camera);
+//                return;
+//        }
+//
+//        if (cima) {
+//
+//        }
+        if (baixo || direita || cima || esquerda) {
+            Desenhar(x + largHitbox / 2 - largImagen / 2, y - altImagen / 2, currentAnimation[(int) currentFrame], batch, camera);
 
         }
-        if (direita) {
-            Desenhar(x + largHitbox / 2 - largImagen / 2, y - altImagen / 2,currentAnimation[(int) currentFrame],batch,camera);
+//        if (direita) {
+//            Desenhar(x + largHitbox / 2 - largImagen / 2, y - altImagen / 2, currentAnimation[(int) currentFrame], batch, camera);
+//
+//        }
 
-        }
-        if (esquerda) {
-            Desenhar(x + largHitbox / 2 - largImagen / 2, y - altImagen / 2,currentAnimation[(int) currentFrame],batch,camera);
 
-        }
-        if (idle) {
-            Desenhar(x,y ,currentAnimation[0],batch,camera);
-
-        }
-
+        AtualizaRetangulos();
+    }
+    //ATUALIZA AS HITBOX DO PLAYER CONFORME ELE ANDA
+    public void AtualizaRetangulos() {
+        playerHitbox.set(x, y, largHitbox, altHitbox);
+        playerColHitbox.set(x, y, colHitboxLarg, colHitboxAlt);
     }
 
+    //METODO DE ANIMAÇÂO
     public void animar(Player aux, Sprite[] direcao) {
-        if (aux.currentAnimation != direcao) {
-            aux.currentAnimation = direcao;
-            aux.currentFrame = 0;
+        if (currentAnimation != direcao) {
+            currentAnimation = direcao;
+            currentFrame = 0;
         } else {
-            aux.currentFrame += Gdx.graphics.getRawDeltaTime() * 5;
-            if ((int) aux.currentFrame > aux.currentAnimation.length - 1) {
+            currentFrame += Gdx.graphics.getRawDeltaTime() * 5;
+            if ((int) currentFrame > currentAnimation.length - 1) {
                 //tranformar esse 5 em variavel de controle de velocidade
-                aux.currentFrame = 0;
+                currentFrame = 0;
             }
         }
     }
-            //CARREGA TODAS IMAGENS EM SEUS VETORES
+
+    //METODO DE MOVIMENTO
+    public void Movimento() {
+        if (movX > 0) {//Direita
+            x += movX;
+
+        } else if (movX < 0) {//Esquerda
+            x -= -movX;
+
+        }
+
+
+        if (movY > 0) {//Cima
+            y += movY;
+        } else if (movY < 0) {//Baixo
+            y -= -movY;
+        }
+
+
+        movX = 0;
+        movY = 0;
+//        if (movY != 0) {
+//            y += movY;
+//            while (ColisaoComCenario(rectangles)) {
+//                if (movY > 0)
+//                    y--;
+//                else
+//                    y++;
+//                AtualizaRetangulos();
+//            }
+//            movY = 0;
+//        }
+
+    }
+
+    public boolean ColisaoComCenario(Rectangle rectangles[]) {
+        for (Rectangle retangulo : rectangles) {
+            if (playerColHitbox.overlaps(retangulo))
+                return true;
+        }
+        return false;
+    }
+
+
+    //CARREGA TODAS IMAGENS EM SEUS ARRAYS
     public void carregarPlayer() {
         tPlayer = new Texture("player.png");
         sPlayer = new Sprite(tPlayer);
