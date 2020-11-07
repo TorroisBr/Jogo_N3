@@ -1,15 +1,12 @@
-package com.mygdx.game.player;
+package com.mygdx.game.unidade;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 import static com.mygdx.game.CameraView.*;
 import static com.mygdx.game.MyGdxGame2.*;
-
-import java.lang.reflect.Array;
 
 public class Player {
     public  int x = 300;
