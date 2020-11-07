@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.controladores;
 
 public class MissionController {
 
