@@ -2,6 +2,7 @@ package com.mygdx.game.quadrante;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.mapa.Portas;
 
 public class CIDADE {
     public Texture texture[];

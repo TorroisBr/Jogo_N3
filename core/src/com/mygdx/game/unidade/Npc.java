@@ -4,71 +4,50 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Jogador extends Unidade {
+public class Npc extends Unidade {
     Texture texture[][][];
     Sprite sprite[][][];
-    public int vida;
     public int direcao;
-    public int velo;
     public float movX = 0, movY = 0;
     Rectangle hitboxMapa;
     int HitBoxMapaLarg, HitBoxMapaAlt;
 
     //CONSTRUTOR
-    public Jogador(int x, int y, int direcao, Rectangle hitboxDano, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt) {
-        hitboxDano = new Rectangle(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
+    public Npc(int x, int y, int direcao, Rectangle hitboxDano, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt) {
+        hitboxDano = new Rectangle(x, y, HitBoxDanoLarg * 1.25F, HitBoxDanoAlt * 1.25F);
         this.hitboxMapa = new Rectangle(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
         this.x = x;
         this.y = y;
         this.direcao = direcao;
-        this.vida = 3;
-        this.velo = 5;
+
         this.HitBoxMapaLarg = HitBoxMapaLarg;
         this.HitBoxMapaAlt = HitBoxMapaAlt;
+
     }
-
-    //RECEBE DANO
-    public void tomarDano(int dano) {
-        vida -= dano;
-        if (vida <= 0)
-            morrer();
-    }
-
-    //RECEBE INPUT
-    public void input() {
-        //APERTO DE TECLAS
-    }
-
-    //MORRER
-    public void morrer() {
-
-        //MORRI
-    }
-
 
     //MOVIMENTA O JOGADOR
     public void Movimento() {
-        if (movX > 0) {//Direita
-            x += movX;
 
-        } else if (movX < 0) {//Esquerda
-            x -= -movX;
-
-        }
-
-        if (movY > 0) {//Cima
-            y += movY;
-        } else if (movY < 0) {//Baixo
-            y -= -movY;
-        }
-
-        movX = 0;
-        movY = 0;
     }
 
-    public void AtualizaRetangulos() {
-        hitboxDano.set(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
-        hitboxMapa.set(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
+    //DIALOGO
+    public void Falar() {
+
+    }
+
+    //CAMINIHO DO NPC
+    public void Rotina(){
+
+    }
+
+    public void ChamarMissao(){
+        //WHATEVER
+    }
+
+    //VERIFICAR SE O PLAYER ESTA INTERAGINDO
+    public void checarInteracao() {
+        //if(hitboxMapa.overlaps(jogador.hitboxMapa && APERTAR A TECLA))
+        Falar();
     }
 
 

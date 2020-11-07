@@ -1,4 +1,4 @@
-package com.mygdx.game.quadrante;
+package com.mygdx.game.mapa;
 import static com.mygdx.game.MyGdxGame2.fundoatual;
 import com.badlogic.gdx.math.Rectangle;
 import static   com.mygdx.game.CameraView.*;
