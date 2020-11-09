@@ -5,31 +5,34 @@ import com.badlogic.gdx.math.Rectangle;
 public abstract class Inimigo extends Unidade {
 
     public int vida;
+    public int x;
+    public int y;
     public int direcao;
-    public int vela;
-    public float movX = 0, movY = 0;
     public int velo;
-    Rectangle hitboxMapa;
-    int hitboxMapaLarg, hitboxMapaAlt;
+    public int estado;
+    public Rectangle hitboxMapa;
 
     public abstract void Andar();
 
     public abstract void Atacar();
 
-    public void tomarDano(int dano){
+    public void tomarDano(int dano) {
         vida -= dano;
         if (vida <= 0)
             morrer();
 
     }
 
-    public void morrer(){
-        if (vida == 0){
-            //AIIII
-        }
+    public void morrer() {
+        //AIIII
     }
 
-    public void Drop(){
+    public void Drop() {
         //Pegar itens da lista de itens do GameController
+    }
+
+    public void AtualizaRetangulos() {
+        hitboxDano.set(x, y, hitboxDano.width, hitboxDano.height);
+        hitboxMapa.set(x, y, hitboxMapa.width, hitboxMapa.height);
     }
 }
