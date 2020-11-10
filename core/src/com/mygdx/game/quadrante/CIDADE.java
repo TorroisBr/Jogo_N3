@@ -9,6 +9,7 @@ public class CIDADE {
     public Sprite sprite[];
     public int xy[][];
     public static Portas porta1;
+    public boolean jooj;
 
     public boolean Criar(){
         sprite=new Sprite[2];

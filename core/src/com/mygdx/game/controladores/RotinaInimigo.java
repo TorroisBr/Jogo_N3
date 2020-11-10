@@ -1,7 +1,7 @@
 package com.mygdx.game.controladores;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.unidade.Inimigo;
+import com.mygdx.game.unidade.inimigo.Inimigo;
 
 public class RotinaInimigo {
 

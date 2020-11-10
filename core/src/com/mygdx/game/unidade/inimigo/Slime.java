@@ -1,9 +1,8 @@
 package com.mygdx.game.unidade.inimigo;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.unidade.Inimigo;
 
-public class Slime extends Inimigo {
+public abstract class Slime extends Inimigo {
 
     public Slime(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt){
         this.x = x;
@@ -31,10 +30,10 @@ public class Slime extends Inimigo {
         }
     }
 
-    @Override
-    public void Atacar() {
-        if (hitboxDano.overlaps())
-    }
+//    @Override
+//    public void Atacar() {
+//        if (hitboxDano.overlaps())
+//    }
 
     @Override
     public void iniciar() {

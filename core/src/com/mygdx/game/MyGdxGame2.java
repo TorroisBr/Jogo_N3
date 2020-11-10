@@ -7,22 +7,26 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.player.*;
+import com.mygdx.game.unidade.Jogador;
 import com.mygdx.game.unidade.Player;
 
 
 import static com.mygdx.game.CameraView.*;
 
 public class MyGdxGame2 extends Game {
+    public int largHitbox = 56, altHitbox = 122 - 9;
+    public int colHitboxLarg = 56, colHitboxAlt = 39;
 
+    public Jogador jogador = new Jogador(10, 10, 0, largHitbox, altHitbox, colHitboxLarg, colHitboxAlt);
 
     public static int telaLarg = 1280, telaAlt = 720;
     private float timeSeconds = 0f;
     private float period = 1f;
-    //Criando objetos
-    public static Player jogador = new Player();
+
     Arco flecha = new Arco();
     public static int esquerdo = 0, direito = 0, cima = 0, baixo = 0;
     public static SpriteBatch batch;
@@ -31,8 +35,6 @@ public class MyGdxGame2 extends Game {
     public static int fundoatual = 1;
     public static OrthographicCamera camera;
     public Viewport viewport;
-    int recX = 50;
-    int recY = 50;
     int VRX = 0;
     int VRY = 0;
 
@@ -44,7 +46,7 @@ public class MyGdxGame2 extends Game {
         Q2.Criar();
         Q3.Criar();
         Q4.Criar();
-        jogador.Criar();
+        jogador.iniciar();
 
 
         //BATCH OBJETO QUE DESENHA precisa de um tipo Sprite
@@ -56,8 +58,8 @@ public class MyGdxGame2 extends Game {
         viewport = new FitViewport(telaLarg, telaAlt, camera);
         camera.setToOrtho(false, 1280.0F, 4720.0F);
         camera.position.set(1280.0F, 720.0F, 0.0F);
-        camera.position.x = jogador.x + jogador.largHitbox / 2.0F;
-        camera.position.y = jogador.y + jogador.altHitbox / 2.0F;
+        camera.position.x = jogador.x + jogador.hitboxDano.getHeight() / 2.0F;
+        camera.position.y = jogador.y + jogador.hitboxDano.getWidth() / 2.0F;
         camera.update();
 
     }
@@ -87,10 +89,8 @@ public class MyGdxGame2 extends Game {
         batch.end();
 
 
-
-
         //CONFERINDO HITBOX DE TROCA DE MAPA PASSANDO O RETANGULO DO PLAYER
-        Q4.porta1.conferindoInteracao(jogador.playerColHitbox);
+        Q4.porta1.conferindoInteracao(jogador.hitboxMapa, jogador);
 
 //        renderer.end();
 //        renderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -98,9 +98,8 @@ public class MyGdxGame2 extends Game {
 
         //desenha o jogador passando o batch
         batch.begin();
-        jogador.Desenharr();
+        jogador.Draw();
         batch.end();
-
 
 
         //Compara o tempo e
@@ -118,8 +117,6 @@ public class MyGdxGame2 extends Game {
     public void dispose() {
         renderer.dispose();
         batch.dispose();
-        jogador.tPlayer.dispose();
-        jogador.Deletar();
         flecha.Deletar();
     }
 
@@ -134,59 +131,10 @@ public class MyGdxGame2 extends Game {
         //ATUALIZA OS LIMITES DA CAMERA
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             DefinirLimites(Q1.sprite, Q1.xy);
-
-
         }
+
         //Movimento Player-----------------------------------
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            jogador.movX = -jogador.velo;
-
-            jogador.direita = false;
-            jogador.cima = false;
-            jogador.baixo = false;
-
-            jogador.esquerda = true;
-
-
-            jogador.animar(jogador, jogador.animEsquerdaSprite);
-
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            jogador.movX = jogador.velo;
-
-            jogador.cima = false;
-            jogador.baixo = false;
-            jogador.esquerda = false;
-
-            jogador.direita = true;
-
-            jogador.animar(jogador, jogador.animDireitaSprite);
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            jogador.movY = jogador.velo;
-
-            jogador.baixo = false;
-            jogador.esquerda = false;
-            jogador.direita = false;
-
-            jogador.cima = true;
-
-
-            jogador.animar(jogador, jogador.animCimaSprite);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            jogador.movY = -jogador.velo;
-
-            jogador.esquerda = false;
-            jogador.direita = false;
-            jogador.cima = false;
-
-            jogador.baixo = true;
-
-
-            jogador.animar(jogador, jogador.animBaixoSprite);
-        }
-
-
+        jogador.input();
 
 
         //TRAVA DE CAMERA CONFORME CAMERAVIEWLIMITES
@@ -207,8 +155,6 @@ public class MyGdxGame2 extends Game {
 
         if (camera.position.y < baixo + telaAlt / 2)
             camera.position.y = baixo + telaAlt / 2;
-
-
 
 
         camera.update();

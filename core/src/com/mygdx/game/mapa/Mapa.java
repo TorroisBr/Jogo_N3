@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.tiro.Tiro;
 import com.mygdx.game.unidade.Npc;
 import com.mygdx.game.unidade.Unidade;
+import com.mygdx.game.unidade.inimigo.Inimigo;
 
 
 public class Mapa {

@@ -1,22 +1,31 @@
 package com.mygdx.game.unidade;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
+import static com.mygdx.game.CameraView.Desenhar;
+import static com.mygdx.game.MyGdxGame2.batch;
+import static com.mygdx.game.MyGdxGame2.camera;
+
 public class Jogador extends Unidade {
     Texture texture[][][];
-    Sprite sprite[][][];
+    public Sprite sprite[][][];
     public int vida;
     public int direcao;
     public int velo;
     public float movX = 0, movY = 0;
-    Rectangle hitboxMapa;
+    public Rectangle hitboxMapa;
     int HitBoxMapaLarg, HitBoxMapaAlt;
+    public float currentFrame = 0;
+    public int animAtual = 1;
+    public int andar = 0;
 
     //CONSTRUTOR
-    public Jogador(int x, int y, int direcao, Rectangle hitboxDano, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt) {
-        hitboxDano = new Rectangle(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
+    public Jogador(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt) {
+        this.hitboxDano = new Rectangle(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
         this.hitboxMapa = new Rectangle(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
         this.x = x;
         this.y = y;
@@ -34,17 +43,45 @@ public class Jogador extends Unidade {
             morrer();
     }
 
-    //RECEBE INPUT
-    public void input() {
-        //APERTO DE TECLAS
-    }
 
     //MORRER
     public void morrer() {
 
         //MORRI
     }
+    //input movimento
+    public void input() {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            movX = -velo;
+            if (direcao != 0 || direcao != 3) {
+                direcao = 1;
+                andar = 1;
+            }
 
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            movX = velo;
+            if (direcao != 0 || direcao != 3) {
+                direcao = 3;
+                andar = 1;
+            }
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            movY = velo;
+            direcao = 2;
+            andar = 1;
+
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            movY = -velo;
+            direcao = 0;
+            andar = 1;
+        }
+
+        if (andar == 1) {
+            animar(sprite);
+            andar = 0;
+        }
+
+    }
 
     //MOVIMENTA O JOGADOR
     public void Movimento() {
@@ -70,6 +107,25 @@ public class Jogador extends Unidade {
         hitboxDano.set(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
         hitboxMapa.set(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
     }
+
+    public void animar(Sprite[][][] array) {
+        if (sprite != array) {
+            sprite = array;
+            currentFrame = 0;
+        } else {
+            currentFrame += Gdx.graphics.getRawDeltaTime() * 5;
+            if ((int) currentFrame > sprite.length - 1) {
+                currentFrame = 0;
+
+            }
+        }
+    }
+
+    public void Draw() {
+        Desenhar(x + (int) hitboxDano.getWidth() / 2 - (int) hitboxDano.getWidth() / 2, y - (int) hitboxDano.getHeight() / 2, sprite[direcao][animAtual][(int) currentFrame], batch, camera);
+    }
+
+
 
 
     @Override
@@ -154,7 +210,8 @@ public class Jogador extends Unidade {
 
         sprite[0][1][0] = new Sprite(texture[0][1][0]);
         sprite[0][1][1] = new Sprite(texture[0][1][1]);
-        sprite[0][1][2] = new Sprite(texture[0][1][2]);
+        sprite[0][1][2] = new Sprite(texture[0][1][0]);
+        sprite[0][1][3] = new Sprite(texture[0][1][2]);
 
         //ANDAR ESQUERDA
         texture[1][1][0] = new Texture("player/severinoLI.png");
@@ -178,7 +235,8 @@ public class Jogador extends Unidade {
 
         sprite[2][1][0] = new Sprite(texture[2][1][0]);
         sprite[2][1][1] = new Sprite(texture[2][1][1]);
-        sprite[2][1][2] = new Sprite(texture[2][1][2]);
+        sprite[2][1][2] = new Sprite(texture[2][1][0]);
+        sprite[2][1][3] = new Sprite(texture[2][1][2]);
 
         //ANDAR DIREITA
         texture[3][1][0] = new Texture("player/severinoLI.png");

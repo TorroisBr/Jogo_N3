@@ -5,6 +5,7 @@ import com.mygdx.game.mapa.Portas;
 import com.mygdx.game.tiro.Tiro;
 import com.mygdx.game.unidade.Bau;
 import com.mygdx.game.unidade.Npc;
+import com.mygdx.game.unidade.inimigo.Inimigo;
 
 public class GameController {
     public Inimigo inimigoGeral[];

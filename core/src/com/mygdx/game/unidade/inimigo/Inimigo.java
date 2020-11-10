@@ -1,6 +1,7 @@
-package com.mygdx.game.unidade;
+package com.mygdx.game.unidade.inimigo;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.unidade.Unidade;
 
 public abstract class Inimigo extends Unidade {
 
