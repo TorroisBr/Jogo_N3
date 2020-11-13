@@ -50,6 +50,13 @@ public class CameraView {
 
         }
     }
+    public static void DesenharHitbox(int x,int y,Sprite sprite,int larg,int alt){
+        if (naAreaDaCamera(x, y, camera, batch, sprite)) {
+            renderer.begin(ShapeRenderer.ShapeType.Line);
+            renderer.rect(x,y,larg,alt);
+            renderer.end();
+        }
+    }
 
 
 //CHAMA PERCORRER ARRAY COM O FUNDO ATUAL

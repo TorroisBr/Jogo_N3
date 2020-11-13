@@ -13,15 +13,18 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.player.*;
 import com.mygdx.game.unidade.Jogador;
 import com.mygdx.game.unidade.Player;
+import com.mygdx.game.unidade.inimigo.Slime;
 
 
 import static com.mygdx.game.CameraView.*;
 
 public class MyGdxGame2 extends Game {
-    public int largHitbox = 56, altHitbox = 122 - 9;
-    public int colHitboxLarg = 56, colHitboxAlt = 39;
+    public static int largHitbox = 56, altHitbox = 122 - 9;
+    public static int colHitboxLarg = 56, colHitboxAlt = 39;
 
-    public Jogador jogador = new Jogador(10, 10, 0, largHitbox, altHitbox, colHitboxLarg, colHitboxAlt);
+    public static Jogador jogador = new Jogador(500, 500, 0, largHitbox, altHitbox, colHitboxLarg, colHitboxAlt,1);
+    public Slime slime = new Slime(600,600,3,largHitbox,altHitbox,colHitboxLarg,colHitboxAlt);
+
 
     public static int telaLarg = 1280, telaAlt = 720;
     private float timeSeconds = 0f;
@@ -47,6 +50,7 @@ public class MyGdxGame2 extends Game {
         Q3.Criar();
         Q4.Criar();
         jogador.iniciar();
+        slime.iniciar();
 
 
         //BATCH OBJETO QUE DESENHA precisa de um tipo Sprite
@@ -80,6 +84,8 @@ public class MyGdxGame2 extends Game {
         Mover();
         //METODO DE MOVIMENTO
         jogador.Movimento();
+        slime.Andar();
+        slime.Atacar();
         //ACOMPANHA A CAMERA
         renderer.setProjectionMatrix(camera.combined);
         batch.setProjectionMatrix(camera.combined);
@@ -90,7 +96,7 @@ public class MyGdxGame2 extends Game {
 
 
         //CONFERINDO HITBOX DE TROCA DE MAPA PASSANDO O RETANGULO DO PLAYER
-        Q4.porta1.conferindoInteracao(jogador.hitboxMapa, jogador);
+//        Q4.porta1.conferindoInteracao(jogador.hitboxMapa, jogador);
 
 //        renderer.end();
 //        renderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -98,6 +104,7 @@ public class MyGdxGame2 extends Game {
 
         //desenha o jogador passando o batch
         batch.begin();
+        slime.Draw();
         jogador.Draw();
         batch.end();
 
