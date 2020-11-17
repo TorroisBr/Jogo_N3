@@ -23,6 +23,8 @@ public class Jogador extends Unidade {
     public int animAtual = 1;
     public int andar = 0;
     public int estado;
+    public float espadacdr = 10;
+
 
     //CONSTRUTOR
     public Jogador(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt, int estado) {
@@ -45,6 +47,10 @@ public class Jogador extends Unidade {
 
     }
 
+    public void cdr() {
+        espadacdr += Gdx.graphics.getRawDeltaTime() * 5;
+    }
+
 
     //MORRER
     public void morrer() {
@@ -55,8 +61,18 @@ public class Jogador extends Unidade {
     //input movimento
     public void input() {
         if (Gdx.input.isKeyPressed(Input.Keys.V)) {
+            if (espadacdr > 5) {
+                espadacdr = 0;
+            }
+        }
+
+        if (espadacdr < 5) {
+            Espadada();
+        }
 
 
+        if (Gdx.input.isKeyPressed(Input.Keys.C)) {
+            Arcada();
         }
 
         if (estado == 1) {
@@ -149,22 +165,29 @@ public class Jogador extends Unidade {
     }
 
     public void animar(Sprite[][][] array) {
-        if (array != sprite) {
-            array = sprite;
-            currentFrame = 0;
-        } else {
-            currentFrame += Gdx.graphics.getRawDeltaTime() * 5;
-            if ((int) currentFrame > array.length - 1) {
+        for (int i = 0; i < sprite[direcao][animAtual].length; i++) {
+            currentFrame += Gdx.graphics.getDeltaTime();
+            if ((int) currentFrame > array[direcao][animAtual].length - 1) {
                 currentFrame = 0;
-
+                animAtual = 0;
             }
         }
     }
+
 
     public void Draw() {
         Desenhar(x + (int) hitboxDano.getWidth() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getWidth() / 2, y + (int) hitboxDano.getHeight() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getHeight() / 2, sprite[direcao][animAtual][(int) currentFrame], batch, camera);
     }
 
+    public void Espadada() {
+        animAtual = 2;
+        animar(sprite);
+    }
+
+    public void Arcada() {
+        animAtual = 3;
+        animar(sprite);
+    }
 
     @Override
     public void iniciar() {
@@ -240,7 +263,8 @@ public class Jogador extends Unidade {
         carregarArco();
 
     }
-    public void carregarIdle(){
+
+    public void carregarIdle() {
         //IDLE BAIXO
 
         texture[0][0][0] = new Texture("player/severinoFI.png");
