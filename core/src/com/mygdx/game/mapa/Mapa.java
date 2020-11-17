@@ -7,6 +7,8 @@ import com.mygdx.game.unidade.Npc;
 import com.mygdx.game.unidade.Unidade;
 import com.mygdx.game.unidade.inimigo.Inimigo;
 
+import java.util.Map;
+
 
 public class Mapa {
     public Sprite spriteLocal[];
@@ -16,5 +18,11 @@ public class Mapa {
     public Npc npcLocal[];
     public Tiro tiroLocal[];
     public Portas portaLocal[];
+
     // public Unidade propsLocal[];
+    public Mapa() {
+
+
+    }
 }
+

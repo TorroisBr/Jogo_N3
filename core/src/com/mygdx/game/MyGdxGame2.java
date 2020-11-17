@@ -19,11 +19,10 @@ import com.mygdx.game.unidade.inimigo.Slime;
 import static com.mygdx.game.CameraView.*;
 
 public class MyGdxGame2 extends Game {
-    public static int largHitbox = 56, altHitbox = 122 - 9;
-    public static int colHitboxLarg = 56, colHitboxAlt = 39;
-
-    public static Jogador jogador = new Jogador(500, 500, 0, largHitbox, altHitbox, colHitboxLarg, colHitboxAlt,1);
-    public Slime slime = new Slime(600,600,3,largHitbox,altHitbox,colHitboxLarg,colHitboxAlt);
+    Rectangle rec1, rec2, rec3;
+    Rectangle rec[];
+    public static Jogador jogador = new Jogador(500, 500, 0, 56, 126,56, 39, 1);
+    public Slime slime = new Slime(600, 600, 3, 56, 122, 56, 39);
 
 
     public static int telaLarg = 1280, telaAlt = 720;
@@ -56,6 +55,13 @@ public class MyGdxGame2 extends Game {
         //BATCH OBJETO QUE DESENHA precisa de um tipo Sprite
         batch = new SpriteBatch();
         renderer = new ShapeRenderer();
+        rec1 = new Rectangle(900, 900, 30, 30);
+        rec2 = new Rectangle(200, 200, 500, 80);
+        rec3 = new Rectangle(700, 700, 300, 300);
+        rec = new Rectangle[3];
+        rec[0] = rec1;
+        rec[1] = rec2;
+        rec[2] = rec3;
 
         //CRIACAO DE CAMERA
         camera = new OrthographicCamera();
@@ -83,9 +89,10 @@ public class MyGdxGame2 extends Game {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Mover();
         //METODO DE MOVIMENTO
-        jogador.Movimento();
-        slime.Andar();
+        jogador.Movimento(rec);
+        //slime.Andar();
         slime.Atacar();
+        //slime.ColisaoPlayer();
         //ACOMPANHA A CAMERA
         renderer.setProjectionMatrix(camera.combined);
         batch.setProjectionMatrix(camera.combined);
@@ -106,8 +113,16 @@ public class MyGdxGame2 extends Game {
         batch.begin();
         slime.Draw();
         jogador.Draw();
-        batch.end();
 
+        batch.end();
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        for (Rectangle retangulo : rec) {
+//            renderer.rect(retangulo.x, retangulo.y, retangulo.width, retangulo.height);
+        }
+
+//        renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
+//        renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
+        renderer.end();
 
         //Compara o tempo e
 

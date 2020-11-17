@@ -19,7 +19,6 @@ public class Jogador extends Unidade {
     public int velo;
     public float movX = 0, movY = 0;
     public Rectangle hitboxMapa;
-    public int HitBoxMapaLarg, HitBoxMapaAlt;
     public float currentFrame = 0;
     public int animAtual = 1;
     public int andar = 0;
@@ -34,16 +33,16 @@ public class Jogador extends Unidade {
         this.direcao = direcao;
         this.vida = 3;
         this.velo = 5;
-        this.HitBoxMapaLarg = HitBoxMapaLarg;
-        this.HitBoxMapaAlt = HitBoxMapaAlt;
         this.estado = estado;
     }
 
     //RECEBE DANO
     public void tomarDano(int dano) {
-        vida -= dano;
         if (vida <= 0)
             morrer();
+
+        vida -= dano;
+
     }
 
 
@@ -56,13 +55,11 @@ public class Jogador extends Unidade {
     //input movimento
     public void input() {
         if (Gdx.input.isKeyPressed(Input.Keys.V)) {
-            movX=0;
-            movY=0;
-            animAtual=2;
-            
+
+
         }
 
-        if (estado != 0) {
+        if (estado == 1) {
 
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 movX = -velo;
@@ -99,6 +96,7 @@ public class Jogador extends Unidade {
 
             //jogador não rodar animação sem apertar nenhum botão
             if (andar == 1) {
+                animAtual = 1;
                 animar(sprite);
                 andar = 0;
             }
@@ -108,38 +106,55 @@ public class Jogador extends Unidade {
     }
 
     //MOVIMENTA O JOGADOR
-    public void Movimento() {
-        if (movX > 0) {//Direita
+    public void Movimento(Rectangle retangulo[]) {
+        if (movX != 0) {
             x += movX;
-
-        } else if (movX < 0) {//Esquerda
-            x -= -movX;
-
+            AtualizaRetangulos();
+            while (ColisaoComCenario(retangulo)) {
+                if (movX > 0)
+                    x--;
+                else
+                    x++;
+                AtualizaRetangulos();
+            }
+            movX = 0;
         }
-
-        if (movY > 0) {//Cima
+        if (movY != 0) {
             y += movY;
-        } else if (movY < 0) {//Baixo
-            y -= -movY;
+            AtualizaRetangulos();
+            while (ColisaoComCenario(retangulo)) {
+                if (movY > 0)
+                    y--;
+                else
+                    y++;
+                AtualizaRetangulos();
+            }
+            movY = 0;
         }
 
-        movX = 0;
-        movY = 0;
-        AtualizaRetangulos();
+
+    }
+
+    public boolean ColisaoComCenario(Rectangle rectangles[]) {
+        for (Rectangle retangulo : rectangles) {
+            if (hitboxMapa.overlaps(retangulo))
+                return true;
+        }
+        return false;
     }
 
     public void AtualizaRetangulos() {
-        hitboxDano.set(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
-        hitboxMapa.set(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
+        hitboxDano.set(x, y, hitboxDano.width, hitboxDano.height);
+        hitboxMapa.set(x, y, hitboxMapa.width, hitboxMapa.height);
     }
 
     public void animar(Sprite[][][] array) {
-        if (sprite != array) {
-            sprite = array;
+        if (array != sprite) {
+            array = sprite;
             currentFrame = 0;
         } else {
             currentFrame += Gdx.graphics.getRawDeltaTime() * 5;
-            if ((int) currentFrame > sprite.length - 1) {
+            if ((int) currentFrame > array.length - 1) {
                 currentFrame = 0;
 
             }
@@ -147,8 +162,7 @@ public class Jogador extends Unidade {
     }
 
     public void Draw() {
-
-        Desenhar(x + (int) hitboxDano.getWidth() / 2 - (int) hitboxDano.getWidth() / 2, y - (int) hitboxDano.getHeight() / 2, sprite[direcao][animAtual][(int) currentFrame], batch, camera);
+        Desenhar(x + (int) hitboxDano.getWidth() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getWidth() / 2, y + (int) hitboxDano.getHeight() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getHeight() / 2, sprite[direcao][animAtual][(int) currentFrame], batch, camera);
     }
 
 
@@ -177,7 +191,7 @@ public class Jogador extends Unidade {
         texture[2][0] = new Texture[1];
         texture[2][1] = new Texture[4];
         texture[2][2] = new Texture[6];
-        texture[2][3] = new Texture[2];
+        texture[2][3] = new Texture[1];
         texture[2][4] = new Texture[2];
 
         texture[3][0] = new Texture[1];
@@ -208,7 +222,7 @@ public class Jogador extends Unidade {
         sprite[2][0] = new Sprite[1];
         sprite[2][1] = new Sprite[4];
         sprite[2][2] = new Sprite[6];
-        sprite[2][3] = new Sprite[2];
+        sprite[2][3] = new Sprite[1];
         sprite[2][4] = new Sprite[2];
 
         sprite[3][0] = new Sprite[1];
@@ -219,14 +233,38 @@ public class Jogador extends Unidade {
 
 
         //CARREGANDO AS IMAGENS
+
+        carregarIdle();
         carregarAndar();
         carregarEspada();
+        carregarArco();
 
+    }
+    public void carregarIdle(){
+        //IDLE BAIXO
 
+        texture[0][0][0] = new Texture("player/severinoFI.png");
+        sprite[0][0][0] = new Sprite(texture[0][0][0]);
+
+        //IDLE ESQUERDO
+
+        texture[1][0][0] = new Texture("player/severinoLI.png");
+        sprite[1][0][0] = new Sprite(texture[1][0][0]);
+        sprite[1][0][0].flip(true, false);
+
+        //IDLE CIMA
+
+        texture[2][0][0] = new Texture("player/severinoCI.png");
+        sprite[2][0][0] = new Sprite(texture[2][0][0]);
+
+        //IDLE DIREITA
+
+        texture[3][0][0] = new Texture("player/severinoLI.png");
+        sprite[3][0][0] = new Sprite(texture[3][0][0]);
     }
 
     //IMPORTA OS SPRITES DE MOVIMENTAMENTO
-    public void carregarAndar(){
+    public void carregarAndar() {
         //ANDAR BAIXO
 
         texture[0][1][0] = new Texture("player/severinoFI.png");
@@ -274,7 +312,7 @@ public class Jogador extends Unidade {
         sprite[3][1][3] = new Sprite(texture[3][1][2]);
     }
 
-    public void carregarEspada(){
+    public void carregarEspada() {
         //ATACAR ESPADA BAIXO
 
         texture[0][2][0] = new Texture("player/severinoFAt01.png");
@@ -345,6 +383,43 @@ public class Jogador extends Unidade {
         sprite[3][2][3] = new Sprite(texture[3][2][3]);
         sprite[3][2][4] = new Sprite(texture[3][2][4]);
         sprite[3][2][5] = new Sprite(texture[3][2][5]);
+
+    }
+
+    public void carregarArco() {
+
+        //ATACAR ARCO FRENTE
+
+        texture[0][3][0] = new Texture("player/severinoFAr01.png");
+        texture[0][3][1] = new Texture("player/severinoFAr02.png");
+
+        sprite[0][3][0] = new Sprite(texture[0][3][0]);
+        sprite[0][3][1] = new Sprite(texture[0][3][1]);
+
+        //ATACAR ARCO LADO ESQUERDO
+
+        texture[1][3][0] = new Texture("player/severinoLAr01.png");
+        texture[1][3][1] = new Texture("player/severinoLAr02.png");
+
+        sprite[1][3][0] = new Sprite(texture[1][3][0]);
+        sprite[1][3][1] = new Sprite(texture[1][3][1]);
+
+        sprite[1][3][0].flip(true, false);
+        sprite[1][3][1].flip(true, false);
+
+        //ATACAR ARCO COSTAS
+
+        texture[2][3][0] = new Texture("player/severinoCAr01.png");
+
+        sprite[2][3][0] = new Sprite(texture[2][3][0]);
+
+        //ATACAR ARCO DIREITA
+
+        texture[3][3][0] = new Texture("player/severinoLAr01.png");
+        texture[3][3][1] = new Texture("player/severinoLAr02.png");
+
+        sprite[3][3][0] = new Sprite(texture[3][3][0]);
+        sprite[3][3][1] = new Sprite(texture[3][3][1]);
 
     }
 }

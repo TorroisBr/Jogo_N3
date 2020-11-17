@@ -33,9 +33,13 @@ public class Slime extends Inimigo {
 
     }
 
+    public void ColisaoPlayer() {
+
+    }
+
 
     public void Draw() {
-        Desenhar(x + (int) hitboxDano.getWidth() / 2 - (int) hitboxDano.getWidth() / 2, y - (int) hitboxDano.getHeight() / 2, sprite[direcao][animAtual][(int) currentFrame], batch, camera);
+        Desenhar(x + (int) hitboxDano.getWidth() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getWidth() / 2, y + (int) hitboxDano.getHeight() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getHeight() / 2, sprite[direcao][animAtual][(int) currentFrame], batch, camera);
     }
 
     public void animar(Sprite[][][] array) {
@@ -50,14 +54,15 @@ public class Slime extends Inimigo {
             }
         }
     }
-//Atualiza a hitbox do inimigo
+
+    //Atualiza a hitbox do inimigo
     public void AtualizaRetangulos() {
         hitboxDano.set(x, y, hitboxDano.getWidth(), hitboxDano.getHeight());
         hitboxMapa.set(x, y, hitboxMapa.getWidth(), hitboxMapa.getHeight());
     }
 
 
-//Moviemnta o slime baseado no movX ou movY
+    //Moviemnta o slime baseado no movX ou movY
     public void Move() {
         if (movX > 0) {
             x += movX;
@@ -74,6 +79,7 @@ public class Slime extends Inimigo {
         movX = 0;
         movY = 0;
     }
+
     //Seguir o jogador
     public void Seguir() {
 //MOVIMENTO Y
@@ -109,7 +115,9 @@ public class Slime extends Inimigo {
             else
                 direcao = 1;
         }
+        ColisaoPlayer();
     }
+
     @Override
     public void Atacar() {
 
