@@ -150,17 +150,17 @@ public class Jogador extends Unidade {
         hitboxMapa.set(x, y, hitboxMapa.width, hitboxMapa.height);
     }
 
-//    public void animar(Sprite[][][] array, int velocidade) {
-//        for (int i = 0; i < array[direcao][animAtual].length; i++) {
-//            currentFrame += Gdx.graphics.getRawDeltaTime() * velocidade;
-//            System.out.println();
-//
-//            if ((int) currentFrame > array[direcao][animAtual].length - 1) {
-//                animAtual = 0;
-//                currentFrame = 0;
-//            }
-//        }
-//    }
+    public void animar(Sprite[][][] array, int velocidade) {
+        for (int i = 0; i < array[direcao][animAtual].length; i++) {
+            currentFrame += Gdx.graphics.getRawDeltaTime() * velocidade;
+            System.out.println();
+
+            if ((int) currentFrame > array[direcao][animAtual].length - 1) {
+                animAtual = 0;
+                currentFrame = 0;
+            }
+        }
+    }
 
     public void Draw() {
         System.out.println(Gdx.graphics.getDeltaTime());
