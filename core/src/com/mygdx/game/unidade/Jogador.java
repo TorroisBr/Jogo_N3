@@ -23,6 +23,8 @@ public class Jogador extends Unidade {
     public int animAtual = 1;
     public int andar = 0;
     public int estado;
+    public float espadacdr = 10;
+
 
     //CONSTRUTOR
     public Jogador(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt, int estado) {
@@ -45,6 +47,10 @@ public class Jogador extends Unidade {
 
     }
 
+    public void cdr() {
+        espadacdr += Gdx.graphics.getRawDeltaTime() * 5;
+    }
+
 
     //MORRER
     public void morrer() {
@@ -54,9 +60,25 @@ public class Jogador extends Unidade {
 
     //input movimento
     public void input() {
+<<<<<<< HEAD
+        if (Gdx.input.isKeyJustPressed(Input.Keys.V)) {
+            animAtual = 2;
+            animar(sprite, 6);
+=======
         if (Gdx.input.isKeyPressed(Input.Keys.V)) {
+            if (espadacdr > 5) {
+                espadacdr = 0;
+            }
+        }
 
+        if (espadacdr < 5) {
+            Espadada();
+        }
 
+>>>>>>> 6d0b5dcae2807248929c3da7ab34f7d01adc06cb
+
+        if (Gdx.input.isKeyPressed(Input.Keys.C)) {
+            Arcada();
         }
 
         if (estado == 1) {
@@ -97,7 +119,7 @@ public class Jogador extends Unidade {
             //jogador não rodar animação sem apertar nenhum botão
             if (andar == 1) {
                 animAtual = 1;
-                animar(sprite);
+                animar(sprite, 1);
                 andar = 0;
             }
 
@@ -132,6 +154,7 @@ public class Jogador extends Unidade {
             movY = 0;
         }
 
+        System.out.println(sprite[0][0].length);
 
     }
 
@@ -148,63 +171,91 @@ public class Jogador extends Unidade {
         hitboxMapa.set(x, y, hitboxMapa.width, hitboxMapa.height);
     }
 
+<<<<<<< HEAD
+//    public void animar(Sprite[][][] array, int velocidade) {
+//        for (int i = 0; i < array[direcao][animAtual].length; i++) {
+//            currentFrame += Gdx.graphics.getRawDeltaTime() * velocidade;
+//            System.out.println();
+//
+//            if ((int) currentFrame > array[direcao][animAtual].length - 1) {
+//                animAtual = 0;
+//                currentFrame = 0;
+//            }
+//        }
+//    }
+=======
     public void animar(Sprite[][][] array) {
-        if (array != sprite) {
-            array = sprite;
-            currentFrame = 0;
-        } else {
-            currentFrame += Gdx.graphics.getRawDeltaTime() * 5;
-            if ((int) currentFrame > array.length - 1) {
+        for (int i = 0; i < sprite[direcao][animAtual].length; i++) {
+            currentFrame += Gdx.graphics.getDeltaTime();
+            if ((int) currentFrame > array[direcao][animAtual].length - 1) {
                 currentFrame = 0;
-
+                animAtual = 0;
             }
         }
     }
+>>>>>>> 6d0b5dcae2807248929c3da7ab34f7d01adc06cb
+
 
     public void Draw() {
+        System.out.println(Gdx.graphics.getDeltaTime());
+
         Desenhar(x + (int) hitboxDano.getWidth() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getWidth() / 2, y + (int) hitboxDano.getHeight() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getHeight() / 2, sprite[direcao][animAtual][(int) currentFrame], batch, camera);
     }
 
+    public void Espadada() {
+        animAtual = 2;
+        animar(sprite);
+    }
+
+    public void Arcada() {
+        animAtual = 3;
+        animar(sprite);
+    }
 
     @Override
     public void iniciar() {
         //INICIALIZANDO OS ARRAYS ONDE SERÂO GUARDADOS OS SPRITES DOS PERSONAGENS
 
         texture = new Texture[4][][];
-        texture[0] = new Texture[5][];
-        texture[1] = new Texture[5][];
-        texture[2] = new Texture[5][];
-        texture[3] = new Texture[5][];
+        texture[0] = new Texture[6][];
+        texture[1] = new Texture[6][];
+        texture[2] = new Texture[6][];
+        texture[3] = new Texture[6][];
 
         texture[0][0] = new Texture[1];
         texture[0][1] = new Texture[4];
         texture[0][2] = new Texture[6];
         texture[0][3] = new Texture[2];
         texture[0][4] = new Texture[2];
+        texture[0][5] = new Texture[2];
 
         texture[1][0] = new Texture[1];
         texture[1][1] = new Texture[4];
         texture[1][2] = new Texture[6];
         texture[1][3] = new Texture[2];
         texture[1][4] = new Texture[2];
+        texture[1][5] = new Texture[2];
 
         texture[2][0] = new Texture[1];
         texture[2][1] = new Texture[4];
         texture[2][2] = new Texture[6];
         texture[2][3] = new Texture[1];
         texture[2][4] = new Texture[2];
+        texture[2][5] = new Texture[2];
 
         texture[3][0] = new Texture[1];
         texture[3][1] = new Texture[4];
         texture[3][2] = new Texture[6];
         texture[3][3] = new Texture[2];
         texture[3][4] = new Texture[2];
+        texture[3][5] = new Texture[2];
+
 
         sprite = new Sprite[4][][];
-        sprite[0] = new Sprite[5][];
-        sprite[1] = new Sprite[5][];
-        sprite[2] = new Sprite[5][];
-        sprite[3] = new Sprite[5][];
+        sprite[0] = new Sprite[6][];
+        sprite[1] = new Sprite[6][];
+        sprite[2] = new Sprite[6][];
+        sprite[3] = new Sprite[6][];
 
 
         sprite[0][0] = new Sprite[1];
@@ -212,24 +263,28 @@ public class Jogador extends Unidade {
         sprite[0][2] = new Sprite[6];
         sprite[0][3] = new Sprite[2];
         sprite[0][4] = new Sprite[2];
+        sprite[0][5] = new Sprite[2];
 
         sprite[1][0] = new Sprite[1];
         sprite[1][1] = new Sprite[4];
         sprite[1][2] = new Sprite[6];
         sprite[1][3] = new Sprite[2];
         sprite[1][4] = new Sprite[2];
+        sprite[1][5] = new Sprite[2];
 
         sprite[2][0] = new Sprite[1];
         sprite[2][1] = new Sprite[4];
         sprite[2][2] = new Sprite[6];
         sprite[2][3] = new Sprite[1];
         sprite[2][4] = new Sprite[2];
+        sprite[2][5] = new Sprite[2];
 
         sprite[3][0] = new Sprite[1];
         sprite[3][1] = new Sprite[4];
         sprite[3][2] = new Sprite[6];
         sprite[3][3] = new Sprite[2];
         sprite[3][4] = new Sprite[2];
+        sprite[3][5] = new Sprite[2];
 
 
         //CARREGANDO AS IMAGENS
@@ -238,9 +293,16 @@ public class Jogador extends Unidade {
         carregarAndar();
         carregarEspada();
         carregarArco();
+        carregarDano();
+        carregarMorte();
 
     }
-    public void carregarIdle(){
+<<<<<<< HEAD
+    //IMPORTA OS SPRITES DE MOVIMENTAMENTO
+=======
+>>>>>>> 6d0b5dcae2807248929c3da7ab34f7d01adc06cb
+
+    public void carregarIdle() {
         //IDLE BAIXO
 
         texture[0][0][0] = new Texture("player/severinoFI.png");
@@ -263,7 +325,6 @@ public class Jogador extends Unidade {
         sprite[3][0][0] = new Sprite(texture[3][0][0]);
     }
 
-    //IMPORTA OS SPRITES DE MOVIMENTAMENTO
     public void carregarAndar() {
         //ANDAR BAIXO
 
@@ -421,5 +482,52 @@ public class Jogador extends Unidade {
         sprite[3][3][0] = new Sprite(texture[3][3][0]);
         sprite[3][3][1] = new Sprite(texture[3][3][1]);
 
+    }
+
+    public void carregarDano(){
+        //DANO BAIXO
+        texture[0][4][0] = new Texture("player/severinoFDa01.png");
+        sprite[0][4][0] = new Sprite(texture[0][4][0]);
+
+        //DANO ESQUERDO
+
+        texture[1][4][0] = new Texture("player/severinoLDa01.png");
+        sprite[1][4][0] = new Sprite(texture[1][4][0]);
+
+        sprite[1][4][0].flip(true, false);
+
+        //DANO COSTAS
+
+        texture[2][4][0] = new Texture("player/severinoCDa01.png");
+        sprite[2][4][0] = new Sprite(texture[2][4][0]);
+
+        //DANO DIREITA
+
+        texture[3][4][0] = new Texture("player/severinoLDa01.png");
+        sprite[3][4][0] = new Sprite(texture[3][4][0]);
+    }
+
+    public void carregarMorte(){
+
+        //MORTE BAIXO
+        texture[0][5][0] = new Texture("player/severinoFMo01.png");
+        sprite[0][5][0] = new Sprite(texture[0][5][0]);
+
+        //MORTE ESQUERDO
+
+        texture[1][5][0] = new Texture("player/severinoLMo01.png");
+        sprite[1][5][0] = new Sprite(texture[1][5][0]);
+
+        sprite[1][5][0].flip(true, false);
+
+        //MORTE COSTAS
+
+        texture[2][5][0] = new Texture("player/severinoCMo01.png");
+        sprite[2][5][0] = new Sprite(texture[2][5][0]);
+
+        //MORTE DIREITA
+
+        texture[3][5][0] = new Texture("player/severinoLMo01.png");
+        sprite[3][5][0] = new Sprite(texture[3][5][0]);
     }
 }
