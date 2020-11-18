@@ -24,6 +24,7 @@ public class Jogador extends Unidade {
     public int andar = 0;
     public int estado;
     public float espadacdr = 10;
+    public double bufalobill = 0.03;
 
 
     //CONSTRUTOR
@@ -48,7 +49,7 @@ public class Jogador extends Unidade {
     }
 
     public void cdr() {
-        espadacdr += Gdx.graphics.getRawDeltaTime() * 5;
+        espadacdr += bufalobill;
     }
 
 
@@ -60,19 +61,24 @@ public class Jogador extends Unidade {
 
     //input movimento
     public void input() {
-        if (Gdx.input.isKeyPressed(Input.Keys.V)) {
-            if (espadacdr > 5) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.V)) {
+            currentFrame = 0;
+            if (espadacdr > 1) {
                 espadacdr = 0;
             }
         }
 
-        if (espadacdr < 5) {
+        if (espadacdr < 1) {
             Espadada();
         }
 
 
         if (Gdx.input.isKeyPressed(Input.Keys.C)) {
             Arcada();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.G)) {
+            currentFrame=0;
+            animAtual = 0;
         }
 
         if (estado == 1) {
@@ -166,10 +172,11 @@ public class Jogador extends Unidade {
 
     public void animar(Sprite[][][] array) {
         for (int i = 0; i < sprite[direcao][animAtual].length; i++) {
-            currentFrame += Gdx.graphics.getDeltaTime();
-            if ((int) currentFrame > array[direcao][animAtual].length - 1) {
-                currentFrame = 0;
+            currentFrame += bufalobill;
+            if ((int)currentFrame > array[direcao][animAtual].length - 1) {
                 animAtual = 0;
+                currentFrame = 0;
+
             }
         }
     }
