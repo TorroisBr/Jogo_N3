@@ -1,5 +1,6 @@
 package com.mygdx.game.mapa;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.tiro.Tiro;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 
 public class Mapa {
+    public Texture texturaLocal[];
     public Sprite spriteLocal[];
     public int posicaoSprite[][];
     public Rectangle colisoes[];
@@ -24,5 +26,10 @@ public class Mapa {
 
 
     }
+
+    public void Criar(){
+        this.texturaLocal =texturaLocal;
+    }
+
 }
 
