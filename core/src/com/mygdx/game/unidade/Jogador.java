@@ -4,12 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-
+import com.mygdx.game.item.Espada;
 import static com.mygdx.game.CameraView.Desenhar;
-import static com.mygdx.game.CameraView.DesenharHitbox;
-import static com.mygdx.game.MyGdxGame2.batch;
-import static com.mygdx.game.MyGdxGame2.camera;
+import static com.mygdx.game.MyGdxGame2.*;
 
 public class Jogador extends Unidade {
     public Texture texture[][][];
@@ -23,8 +22,11 @@ public class Jogador extends Unidade {
     public int animAtual = 1;
     public int andar = 0;
     public int estado;
-    public float espadacdr = 10;
+    public float arcocdr = 10;
     public double bufalobill = 0.03;
+
+    //CRIANDO ESPADA
+    public  Espada espada = new Espada("FROSTMOURNE", 0, 0, 10, 10);
 
 
     //CONSTRUTOR
@@ -39,6 +41,27 @@ public class Jogador extends Unidade {
         this.estado = estado;
     }
 
+
+    public void AtualizarHitboxEspada(int x, int y, float larg, float alt, boolean ativo) {
+        //FRAME ATIVO DA ESPADA RECALCULA ONDE ESTA A HITBOX SE FOR FALSO CRIA UM RETANGULO VAZIO
+        if (!ativo) {
+            espada.hitbox.x = 0;
+            espada.hitbox.y = 0;
+            espada.hitbox.width = 0;
+            espada.hitbox.height = 0;
+        }
+
+        if (ativo) {
+            espada.hitbox.x = jogador.hitboxDano.x + x;
+            espada.hitbox.y = jogador.hitboxDano.y + y;
+            espada.hitbox.width = jogador.hitboxDano.getWidth() + larg;
+            espada.hitbox.height = jogador.hitboxDano.getHeight() + alt;
+
+
+        }
+
+    }
+
     //RECEBE DANO
     public void tomarDano(int dano) {
         if (vida <= 0)
@@ -48,7 +71,10 @@ public class Jogador extends Unidade {
     }
 
     public void cdr() {
-        espadacdr += bufalobill;
+        //COLLDOWNS ARCO E ESPADA
+        espada.cdr += bufalobill;
+        arcocdr += bufalobill;
+
     }
 
 
@@ -60,31 +86,34 @@ public class Jogador extends Unidade {
 
     //input movimento
     public void input() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.V)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.V) && espada.cdr > 1) {
             currentFrame = 0;
-            if (espadacdr > 1) {
-                espadacdr = 0;
+            if (espada.cdr > 1) {
+                espada.cdr = 0;
             }
         }
 
-        if (espadacdr < 1) {
+        if (Gdx.input.isKeyPressed(Input.Keys.C) && arcocdr > 1) {
+            currentFrame = 0;
+            if (arcocdr > 1) {
+                arcocdr = 0;
+
+            }
+        }
+
+        //EXECUTA A ANIMAÇÂO DO ARCO E DA ESPADA SE ESTIVER ENQUANTO O COLLDOWN VAI SOMANDO
+        if (arcocdr < 1) {
+            Arcada();
+        }
+
+        if (espada.cdr < 1) {
             Espadada();
         }
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.C)) {
-            Arcada();
 
-            animAtual = 2;
-            animar(sprite);
-
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.G)) {
-            currentFrame=0;
-            animAtual = 0;
-        }
-
-        if (estado == 1) {
+        //SO PODER ANDAR SE ESTIVER COM ANIM ATUAL DE IDLE OU SE MOVENDO
+        if (estado == 1 && animAtual == 0 || animAtual == 1) {
 
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 movX = -velo;
@@ -122,7 +151,7 @@ public class Jogador extends Unidade {
             //jogador não rodar animação sem apertar nenhum botão
             if (andar == 1) {
                 animAtual = 1;
-                animar (sprite);
+                animar(sprite);
                 andar = 0;
             }
 
@@ -157,7 +186,6 @@ public class Jogador extends Unidade {
             movY = 0;
         }
 
-        System.out.println(sprite[0][0].length);
 
     }
 
@@ -178,7 +206,7 @@ public class Jogador extends Unidade {
     public void animar(Sprite[][][] array) {
         for (int i = 0; i < sprite[direcao][animAtual].length; i++) {
             currentFrame += bufalobill;
-            if ((int)currentFrame > array[direcao][animAtual].length - 1) {
+            if ((int) currentFrame > array[direcao][animAtual].length - 1) {
                 animAtual = 0;
                 currentFrame = 0;
 
@@ -187,18 +215,41 @@ public class Jogador extends Unidade {
     }
 
     public void Draw() {
-        System.out.println(Gdx.graphics.getDeltaTime());
-
         Desenhar(x + (int) hitboxDano.getWidth() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getWidth() / 2, y + (int) hitboxDano.getHeight() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getHeight() / 2, sprite[direcao][animAtual][(int) currentFrame], batch, camera);
     }
+
     public void Espadada() {
         animAtual = 2;
         animar(sprite);
+
+        //UNICO VALOR DA ANIMAÇÂO ONDE HAVERA COLISÂO
+        if (currentFrame > 3.49 && currentFrame < 3.60) {
+
+            switch (direcao) {
+                //DEPENDENDO DA DIREÇÂO ELE PASSA VARIAVES PRA SER SOMADA E ALTERAR A HITBOX DA ESPADA
+                case 0:
+                    AtualizarHitboxEspada(-10, 10, +20, -140, true);
+                    break;
+                case 1:
+                    AtualizarHitboxEspada(-50, 0, 0, -10, true);
+                    break;
+                case 2:
+                    AtualizarHitboxEspada(-10, 140, +20, -140, true);
+                    break;
+                case 3:
+                    AtualizarHitboxEspada(+50, 0, 0, -10, true);
+                    break;
+            }
+            //QUANDO NÂO ESTIVER NO FRAME EXPECIFICO HITBOX DA ESPADA È 0
+        } else if (currentFrame > 4 || currentFrame < 3) {
+            AtualizarHitboxEspada(0, 0, 0, 0, false);
+        }
     }
 
     public void Arcada() {
         animAtual = 3;
         animar(sprite);
+
     }
 
 
@@ -471,7 +522,7 @@ public class Jogador extends Unidade {
 
     }
 
-    public void carregarDano(){
+    public void carregarDano() {
         //DANO BAIXO
         texture[0][4][0] = new Texture("player/severinoFDa01.png");
         sprite[0][4][0] = new Sprite(texture[0][4][0]);
@@ -494,7 +545,7 @@ public class Jogador extends Unidade {
         sprite[3][4][0] = new Sprite(texture[3][4][0]);
     }
 
-    public void carregarMorte(){
+    public void carregarMorte() {
 
         //MORTE BAIXO
         texture[0][5][0] = new Texture("player/severinoFMo01.png");

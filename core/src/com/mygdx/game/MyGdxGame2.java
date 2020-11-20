@@ -8,21 +8,27 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.player.*;
 import com.mygdx.game.unidade.Jogador;
 import com.mygdx.game.unidade.Player;
+import com.mygdx.game.unidade.inimigo.Inimigo;
 import com.mygdx.game.unidade.inimigo.Slime;
+import com.mygdx.game.unidade.Jogador.*;
 
+import java.util.Iterator;
 
 import static com.mygdx.game.CameraView.*;
 
 public class MyGdxGame2 extends Game {
     Rectangle rec1, rec2, rec3;
     Rectangle rec[];
-    public static Jogador jogador = new Jogador(500, 500, 0, 56, 126,56, 39, 1);
+    public static Array<Inimigo> inimigoarray;
+    public static Jogador jogador = new Jogador(500, 500, 0, 56, 126, 56, 39, 1);
     public Slime slime = new Slime(600, 600, 3, 56, 122, 56, 39);
+    public Slime slime2 = new Slime(0, 0, 3, 56, 122, 56, 39);
 
 
     public static int telaLarg = 1280, telaAlt = 720;
@@ -44,12 +50,6 @@ public class MyGdxGame2 extends Game {
     public void create() {
 
         //INICIANDO OS MAPAS
-        Q1.Criar();
-        Q2.Criar();
-        Q3.Criar();
-        Q4.Criar();
-        jogador.iniciar();
-        slime.iniciar();
 
 
         //BATCH OBJETO QUE DESENHA precisa de um tipo Sprite
@@ -63,6 +63,11 @@ public class MyGdxGame2 extends Game {
         rec[1] = rec2;
         rec[2] = rec3;
 
+        inimigoarray = new Array<Inimigo>();
+        inimigoarray.add(slime);
+        inimigoarray.add(slime2);
+
+
         //CRIACAO DE CAMERA
         camera = new OrthographicCamera();
         viewport = new FitViewport(telaLarg, telaAlt, camera);
@@ -71,6 +76,15 @@ public class MyGdxGame2 extends Game {
         camera.position.x = jogador.x + jogador.hitboxDano.getHeight() / 2.0F;
         camera.position.y = jogador.y + jogador.hitboxDano.getWidth() / 2.0F;
         camera.update();
+
+        Q1.Criar();
+        Q2.Criar();
+        Q3.Criar();
+        Q4.Criar();
+        jogador.iniciar();
+        for (Inimigo inimigo : inimigoarray) {
+            inimigo.iniciar();
+        }
 
     }
 
@@ -91,8 +105,23 @@ public class MyGdxGame2 extends Game {
         jogador.cdr();
         //METODO DE MOVIMENTO
         jogador.Movimento(rec);
-        //slime.Andar();
-        slime.Atacar();
+
+        //VERIFICA QUAL O TIPO DE INIMIGO E O MOVIMENTA
+        for (Inimigo inimigo : inimigoarray) {
+            if (inimigo instanceof Slime) {
+                inimigo.Andar();
+                inimigo.Atacar();
+            }
+        }
+        //FOR QUE REMOVE O INIMIGO DO ARRAY SE ELE ESTIVER MORTO
+        for (Iterator<Inimigo> iter = inimigoarray.iterator(); iter.hasNext(); ) {
+            Inimigo enemy = iter.next();
+            if (enemy.morto)
+                iter.remove();
+        }
+
+
+
         //slime.ColisaoPlayer();
         //ACOMPANHA A CAMERA
         renderer.setProjectionMatrix(camera.combined);
@@ -112,27 +141,25 @@ public class MyGdxGame2 extends Game {
 
         //desenha o jogador passando o batch
         batch.begin();
-        slime.Draw();
-        jogador.Draw();
+        //DESENHA OS INIMIGOS DO ARRAY
+        for (Inimigo inimigo : inimigoarray) {
+            if (inimigo instanceof Slime)
+                inimigo.Draw();
+        }
 
+        jogador.Draw();
         batch.end();
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         for (Rectangle retangulo : rec) {
 //            renderer.rect(retangulo.x, retangulo.y, retangulo.width, retangulo.height);
         }
-
+//        renderer.rect(jogador.espada.hitbox.x,jogador.espada.hitbox.y,jogador.espada.hitbox.getWidth(),jogador.espada.hitbox.getHeight());
 //        renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
 //        renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
         renderer.end();
 
         //Compara o tempo e
 
-
-//        flecha.criar();
-//        if (Gdx.input.isKeyPressed(Input.Keys.S)){
-//        batch.begin();
-//        flecha.Desenhar(batch, jogador.x, jogador.y);
-//        batch.end();}
 
     }
 
