@@ -13,12 +13,11 @@ import static com.mygdx.game.MyGdxGame2.*;
 public class Slime extends Inimigo {
     Texture texture[][][];
     public Sprite sprite[][][];
-    public float currentFrame = 0;
-    public int animAtual = 1;
     public int dano;
     public int andar = 0;
-    public int movX, movY;
     public double bufalobill = 0.03;
+    public int repulsao = 30;
+    public float tempo = 0;
 
 
     public Slime(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt) {
@@ -26,25 +25,47 @@ public class Slime extends Inimigo {
         this.y = y;
         this.direcao = direcao;
         this.vida = 30;
-        this.velo = 3;
+        this.velo = 2;
         this.estado = 0;
         this.hitboxDano = new Rectangle(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
         this.hitboxMapa = new Rectangle(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
         this.dano = 5;
-        this.morto = false;
+        this.estado = 0;
+        this.visivel = true;
     }
 
     public void morrer() {
-        if (vida <= 0) {
+        if (estado == -1) {
             direcao = 0;
             animAtual = 4;
-            animar(sprite);
+            animar(true, 0.12F);
         }
     }
 
 
     public void ColisaoPlayer() {
+        if (hitboxDano.overlaps(jogador.hitboxDano)) {
+            tempo += Gdx.graphics.getDeltaTime();
+            if (tempo * 100 < 2) {
+                jogador.tomarDano(dano);
+//                switch (jogador.direcao) {
+//                    case 0:
+//                        jogador.y += repulsao;
+//                        break;
+//                    case 1:
+//                        jogador.x += repulsao;
+//                        break;
+//                    case 2:
+//                        jogador.y -= repulsao;
+//                        break;
+//                    case 3:
+//                        jogador.x -= repulsao;
+//                        break;
+//            }
+            }
 
+        } else if (tempo * 100 > 5)
+            tempo = 0;
     }
 
 
@@ -52,25 +73,40 @@ public class Slime extends Inimigo {
         Desenhar(x + (int) hitboxDano.getWidth() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getWidth() / 2, y + (int) hitboxDano.getHeight() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getHeight() / 2, sprite[direcao][animAtual][(int) currentFrame], batch, camera);
     }
 
-    public void animar(Sprite[][][] array) {
-        for (int i = 0; i < sprite[direcao][animAtual].length; i++) {
-            currentFrame += bufalobill;
+    public void morrendo() {
 
-            if ((int) currentFrame > array[direcao][4].length-1  && animAtual == 4) {
-                direcao=0;
-                morto = true;
+        if (currentFrame < sprite[0][5].length - 1)
+            animar(false, 0.12F);
+        else {
+            if (currentFrame == sprite[0][5].length - 1) {
+                tempo = 0;
             }
+            if (tempo < 2) {
+                tempo += Gdx.graphics.getDeltaTime();
+                if ((int) (tempo * 100) % 2 == 0) {
 
-            if ((int) currentFrame > array[direcao][animAtual].length - 1) {
-                if(animAtual!=4)
+                    if (visivel)
+                        visivel = false;
+                    else
+                        visivel = true;
+
+                }
+            } else
+                estado = -2;
+        }
+    }
+
+    public void animar(boolean loop, float velocidadeAnim) {
+        currentFrame += velocidadeAnim;
+        if ((int) currentFrame > sprite[direcao][animAtual].length - 1) {
+            if (loop) {
                 currentFrame = 0;
-                //animAtual = 1;
-
-            }
-
+            } else
+                currentFrame = sprite[direcao][animAtual].length - 1;
         }
 
     }
+
 
     //Atualiza a hitbox do inimigo
     public void AtualizaRetangulos() {
@@ -80,25 +116,11 @@ public class Slime extends Inimigo {
 
 
     //Moviemnta o slime baseado no movX ou movY
-    public void Move() {
-        if (movX > 0) {
-            x += movX;
-        } else if (movX < 0) {
-            x += movX;
-        }
 
-        if (movY < 0) {
-            y += movY;
-        } else if (movY > 0) {
-            y += movY;
-        }
-
-        movX = 0;
-        movY = 0;
-    }
 
     //Seguir o jogador
     public void Seguir() {
+
         if (vida > 0) {
 
 //MOVIMENTO Y
@@ -135,29 +157,87 @@ public class Slime extends Inimigo {
                     direcao = 1;
             }
             ColisaoPlayer();
-            animar(sprite);
+            animar(true, 0.15F);
         }
     }
 
     @Override
     public void Atacar() {
 
-//        if(jogador.hitboxDano.overlaps(hitboxDano)){
-//            jogador.tomarDano(dano);
-//
-//        }
+        if (currentFrame < 3) {
+            animar(false, 0.12F);
+        } else if (tempo < 2) {
+            tempo += Gdx.graphics.getDeltaTime();
 
+            switch (direcao) {
+                case 0:
+                    movY = -(int) ((float) 20 * Gdx.graphics.getDeltaTime());
+                    break;
+                case 1:
+                    movX = -(int) ((float) 20 * Gdx.graphics.getDeltaTime());
+                    break;
+                case 2:
+                    movY = +(int) ((float) 20 * Gdx.graphics.getDeltaTime());
+                    break;
+                case 3:
+                    movX = (int) ((float) 20 * Gdx.graphics.getDeltaTime());
+                    break;
+            }
+            Move();
+
+        } else if ((int) currentFrame < sprite[direcao][animAtual].length - 1) {
+            animar(false, 0.12F);
+        }
+        else {
+            currentFrame=0;
+            estado = 0;
+            animAtual=1;
+        }
+    }
+
+
+    public void ConferirAtaque() {
+        double JX = jogador.x + jogador.hitboxMapa.getWidth() / 2;
+        double JY = jogador.y + jogador.hitboxMapa.getHeight() / 2;
+        double JR = (jogador.hitboxMapa.getHeight() >= jogador.hitboxMapa.getWidth()) ? jogador.hitboxMapa.getHeight() / 2 : jogador.hitboxMapa.getWidth() / 2;
+        double X = x + hitboxMapa.getWidth() / 2;
+        double Y = y + hitboxMapa.getHeight() / 2;
+        double R = (hitboxMapa.getHeight() >= hitboxMapa.getWidth()) ? hitboxMapa.getHeight() / 2 : hitboxMapa.getWidth() / 2;
+        double distanciaX = X - JX;
+        double distanciaY = Y - JY;
+
+
+        if (Math.sqrt(((distanciaX * distanciaX) + (distanciaY * distanciaY))) < (R + JR + 60.0F)) {
+            estado = 1;
+            currentFrame = 0;
+            animAtual = 2;
+            tempo = 0;
+            if (y > jogador.y + 2) {
+                direcao = 2;
+            } else if (y < jogador.y - 2) {
+
+                direcao = 0;
+            } else if (x > jogador.x + 2) {
+                direcao = 1;
+
+            } else {
+                direcao = 3;
+
+            }
+        }
     }
 
 
     @Override
     public void Andar() {
-        tomarDano();
-        if (vida > 0) {
-            Seguir();
-            Move();
-        }
         AtualizaRetangulos();
+        DanoEspada();
+        Seguir();
+        Move();
+
+        ConferirAtaque();
+
+
     }
 
     @Override
@@ -166,64 +246,78 @@ public class Slime extends Inimigo {
         //INICIALIZANDO OS ARRAYS ONDE SERÂO GUARDADOS OS SPRITES DOS PERSONAGENS
 
         texture = new Texture[4][][];
-        texture[0] = new Texture[5][];
-        texture[1] = new Texture[5][];
-        texture[2] = new Texture[5][];
-        texture[3] = new Texture[5][];
+        texture[0] = new Texture[6][];
+        texture[1] = new Texture[6][];
+        texture[2] = new Texture[6][];
+        texture[3] = new Texture[6][];
 
         texture[0][0] = new Texture[1];
         texture[0][1] = new Texture[6];
         texture[0][2] = new Texture[4];
         texture[0][3] = new Texture[1];
         texture[0][4] = new Texture[4];
+        texture[0][5] = new Texture[4];
 
         texture[1][0] = new Texture[1];
         texture[1][1] = new Texture[6];
         texture[1][2] = new Texture[4];
         texture[1][3] = new Texture[1];
         texture[1][4] = new Texture[4];
+        texture[1][5] = new Texture[4];
+
 
         texture[2][0] = new Texture[1];
         texture[2][1] = new Texture[6];
         texture[2][2] = new Texture[4];
         texture[2][3] = new Texture[1];
         texture[2][4] = new Texture[4];
+        texture[2][5] = new Texture[4];
+
 
         texture[3][0] = new Texture[1];
         texture[3][1] = new Texture[6];
         texture[3][2] = new Texture[4];
         texture[3][3] = new Texture[1];
         texture[3][4] = new Texture[4];
+        texture[3][5] = new Texture[4];
+
 
         sprite = new Sprite[4][][];
-        sprite[0] = new Sprite[5][];
-        sprite[1] = new Sprite[5][];
-        sprite[2] = new Sprite[5][];
-        sprite[3] = new Sprite[5][];
+        sprite[0] = new Sprite[6][];
+        sprite[1] = new Sprite[6][];
+        sprite[2] = new Sprite[6][];
+        sprite[3] = new Sprite[6][];
 
         sprite[0][0] = new Sprite[1];
         sprite[0][1] = new Sprite[6];
-        sprite[0][2] = new Sprite[6];
+        sprite[0][2] = new Sprite[5];
         sprite[0][3] = new Sprite[1];
         sprite[0][4] = new Sprite[4];
+        sprite[0][5] = new Sprite[4];
+
 
         sprite[1][0] = new Sprite[1];
         sprite[1][1] = new Sprite[6];
-        sprite[1][2] = new Sprite[6];
+        sprite[1][2] = new Sprite[5];
         sprite[1][3] = new Sprite[1];
         sprite[1][4] = new Sprite[4];
+        sprite[1][5] = new Sprite[4];
+
 
         sprite[2][0] = new Sprite[1];
         sprite[2][1] = new Sprite[6];
-        sprite[2][2] = new Sprite[6];
+        sprite[2][2] = new Sprite[5];
         sprite[2][3] = new Sprite[1];
         sprite[2][4] = new Sprite[4];
+        sprite[2][5] = new Sprite[4];
+
 
         sprite[3][0] = new Sprite[1];
         sprite[3][1] = new Sprite[6];
-        sprite[3][2] = new Sprite[6];
+        sprite[3][2] = new Sprite[5];
         sprite[3][3] = new Sprite[1];
         sprite[3][4] = new Sprite[4];
+        sprite[3][5] = new Sprite[4];
 
 
         //CARREGANDO AS IMAGENS
@@ -341,9 +435,8 @@ public class Slime extends Inimigo {
         sprite[0][2][0] = new Sprite(texture[0][2][0]);
         sprite[0][2][1] = new Sprite(texture[0][2][1]);
         sprite[0][2][2] = new Sprite(texture[0][2][2]);
-        sprite[0][2][3] = new Sprite(texture[0][2][0]);
-        sprite[0][2][4] = new Sprite(texture[0][2][1]);
-        sprite[0][2][5] = new Sprite(texture[0][2][2]);
+        sprite[0][2][3] = new Sprite(texture[0][2][1]);
+        sprite[0][2][4] = new Sprite(texture[0][2][0]);
 
 
         //ATACAR ESPADA ESQUERDA
@@ -355,9 +448,8 @@ public class Slime extends Inimigo {
         sprite[1][2][0] = new Sprite(texture[1][2][0]);
         sprite[1][2][1] = new Sprite(texture[1][2][1]);
         sprite[1][2][2] = new Sprite(texture[1][2][2]);
-        sprite[1][2][3] = new Sprite(texture[1][2][0]);
-        sprite[1][2][4] = new Sprite(texture[1][2][1]);
-        sprite[1][2][5] = new Sprite(texture[1][2][2]);
+        sprite[1][2][3] = new Sprite(texture[1][2][1]);
+        sprite[1][2][4] = new Sprite(texture[1][2][0]);
 
 
         sprite[1][2][0].flip(true, false);
@@ -365,7 +457,6 @@ public class Slime extends Inimigo {
         sprite[1][2][2].flip(true, false);
         sprite[1][2][3].flip(true, false);
         sprite[1][2][4].flip(true, false);
-        sprite[1][2][5].flip(true, false);
 
 
         //ATACAR ESPADA CIMA
@@ -378,9 +469,8 @@ public class Slime extends Inimigo {
         sprite[2][2][0] = new Sprite(texture[2][2][0]);
         sprite[2][2][1] = new Sprite(texture[2][2][1]);
         sprite[2][2][2] = new Sprite(texture[2][2][2]);
-        sprite[2][2][3] = new Sprite(texture[2][2][0]);
-        sprite[2][2][4] = new Sprite(texture[2][2][1]);
-        sprite[2][2][5] = new Sprite(texture[2][2][2]);
+        sprite[2][2][3] = new Sprite(texture[2][2][1]);
+        sprite[2][2][4] = new Sprite(texture[2][2][0]);
 
         //ATACAR ESPADA DIREITA
         texture[3][2][0] = new Texture("inimigo/Slime/GosmaLAt01.png");
@@ -391,15 +481,14 @@ public class Slime extends Inimigo {
         sprite[3][2][0] = new Sprite(texture[3][2][0]);
         sprite[3][2][1] = new Sprite(texture[3][2][1]);
         sprite[3][2][2] = new Sprite(texture[3][2][2]);
-        sprite[3][2][3] = new Sprite(texture[3][2][0]);
-        sprite[3][2][4] = new Sprite(texture[3][2][1]);
-        sprite[3][2][5] = new Sprite(texture[3][2][2]);
+        sprite[3][2][3] = new Sprite(texture[3][2][1]);
+        sprite[3][2][4] = new Sprite(texture[3][2][0]);
 
     }
 
     public void carregarDano() {
         //DANO BAIXO
-        texture[0][4][0] = new Texture("inimigo/Slime/GosmaCDa01.png");
+        texture[0][4][0] = new Texture("inimigo/Slime/GosmaFDa01.png");
         sprite[0][4][0] = new Sprite(texture[0][4][0]);
 
         //DANO ESQUERDO
@@ -410,7 +499,7 @@ public class Slime extends Inimigo {
 
         //DANO COSTAS
 
-        texture[2][4][0] = new Texture("inimigo/Slime/GosmaFDa01.png");
+        texture[2][4][0] = new Texture("inimigo/Slime/GosmaCDa01.png");
         sprite[2][4][0] = new Sprite(texture[2][4][0]);
 
         //DANO DIREITA
@@ -422,15 +511,15 @@ public class Slime extends Inimigo {
     public void carregarMorte() {
 
         //MORTE BAIXO
-        texture[0][4][0] = new Texture("inimigo/Slime/GosmaMo01.png");
-        texture[0][4][1] = new Texture("inimigo/Slime/GosmaMo02.png");
-        texture[0][4][2] = new Texture("inimigo/Slime/GosmaMo03.png");
-        texture[0][4][3] = new Texture("inimigo/Slime/GosmaMo04.png");
+        texture[0][5][0] = new Texture("inimigo/Slime/GosmaMo01.png");
+        texture[0][5][1] = new Texture("inimigo/Slime/GosmaMo02.png");
+        texture[0][5][2] = new Texture("inimigo/Slime/GosmaMo03.png");
+        texture[0][5][3] = new Texture("inimigo/Slime/GosmaMo04.png");
 
-        sprite[0][4][0] = new Sprite(texture[0][4][0]);
-        sprite[0][4][1] = new Sprite(texture[0][4][1]);
-        sprite[0][4][2] = new Sprite(texture[0][4][2]);
-        sprite[0][4][3] = new Sprite(texture[0][4][3]);
+        sprite[0][5][0] = new Sprite(texture[0][5][0]);
+        sprite[0][5][1] = new Sprite(texture[0][5][1]);
+        sprite[0][5][2] = new Sprite(texture[0][5][2]);
+        sprite[0][5][3] = new Sprite(texture[0][5][3]);
 
     }
 }

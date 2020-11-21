@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.item.Arco;
 import com.mygdx.game.item.Espada;
 import static com.mygdx.game.CameraView.Desenhar;
 import static com.mygdx.game.MyGdxGame2.*;
@@ -26,7 +27,8 @@ public class Jogador extends Unidade {
     public double bufalobill = 0.03;
 
     //CRIANDO ESPADA
-    public  Espada espada = new Espada("FROSTMOURNE", 0, 0, 10, 10);
+    public  Espada espada = new Espada("FROSTMOURNE", 0, 0, 10, 10,320);
+    public Arco arco=new Arco("Ak-47",0,0,0);
 
 
     //CONSTRUTOR
@@ -80,7 +82,7 @@ public class Jogador extends Unidade {
 
     //MORRER
     public void morrer() {
-        estado = 0;
+//        estado = 0;
     }
 
 

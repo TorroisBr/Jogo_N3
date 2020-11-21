@@ -2,11 +2,13 @@ package com.mygdx.game.tiro;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.unidade.Unidade.*;
+import com.mygdx.game.unidade.inimigo.Inimigo.*;
 
 public class Flecha extends Tiro {
     public int estado;
     public int direcao;
-    public int dano;
+
 
 
     public Texture texture[];
@@ -36,8 +38,7 @@ public class Flecha extends Tiro {
 
     @Override
     public void conferindoInteracao(){
-        //causarDano();
-        //serPego();
+        //DanoFlecha(flecha.dano);
     }
 
     @Override

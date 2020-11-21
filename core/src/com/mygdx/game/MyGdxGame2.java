@@ -109,17 +109,29 @@ public class MyGdxGame2 extends Game {
         //VERIFICA QUAL O TIPO DE INIMIGO E O MOVIMENTA
         for (Inimigo inimigo : inimigoarray) {
             if (inimigo instanceof Slime) {
-                inimigo.Andar();
-                inimigo.Atacar();
+                switch (inimigo.estado) {
+                    case -1:
+                        inimigo.morrendo();
+                        break;
+                    case 0:
+                        inimigo.Andar();
+                        break;
+                    case 1:
+                        inimigo.Atacar();
+                        break;
+                    case 2:
+                        inimigo.LevandoDano();
+                        break;
+                }
+
             }
         }
         //FOR QUE REMOVE O INIMIGO DO ARRAY SE ELE ESTIVER MORTO
         for (Iterator<Inimigo> iter = inimigoarray.iterator(); iter.hasNext(); ) {
             Inimigo enemy = iter.next();
-            if (enemy.morto)
+            if (enemy.estado == -2)
                 iter.remove();
         }
-
 
 
         //slime.ColisaoPlayer();
@@ -144,7 +156,8 @@ public class MyGdxGame2 extends Game {
         //DESENHA OS INIMIGOS DO ARRAY
         for (Inimigo inimigo : inimigoarray) {
             if (inimigo instanceof Slime)
-                inimigo.Draw();
+                if (inimigo.visivel)
+                    inimigo.Draw();
         }
 
         jogador.Draw();

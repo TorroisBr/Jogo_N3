@@ -10,6 +10,9 @@ public abstract class Unidade {
     public int y;
     public Rectangle hitboxDano;
     public int HitBoxDanoLarg, HitBoxDanoAlt;
+    public boolean visivel;
+    public int estado;
+
 
 
 
