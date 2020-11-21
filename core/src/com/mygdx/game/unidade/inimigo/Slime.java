@@ -18,6 +18,7 @@ public class Slime extends Inimigo {
     public double bufalobill = 0.03;
     public int repulsao = 30;
     public float tempo = 0;
+    public float tempoAtaque = 0;
 
 
     public Slime(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt) {
@@ -164,35 +165,36 @@ public class Slime extends Inimigo {
     @Override
     public void Atacar() {
 
-        if (currentFrame < 3) {
+        if (currentFrame < 2) {
             animar(false, 0.12F);
-        } else if (tempo < 2) {
+        } else if (tempo < 1.5) {
             tempo += Gdx.graphics.getDeltaTime();
 
             switch (direcao) {
                 case 0:
-                    movY = -(int) ((float) 20 * Gdx.graphics.getDeltaTime());
+                    movY = -(int) ((float) 120 * Gdx.graphics.getDeltaTime());
                     break;
                 case 1:
-                    movX = -(int) ((float) 20 * Gdx.graphics.getDeltaTime());
+                    movX = -(int) ((float) 120 * Gdx.graphics.getDeltaTime());
                     break;
                 case 2:
-                    movY = +(int) ((float) 20 * Gdx.graphics.getDeltaTime());
+                    movY = +(int) ((float) 120 * Gdx.graphics.getDeltaTime());
                     break;
                 case 3:
-                    movX = (int) ((float) 20 * Gdx.graphics.getDeltaTime());
+                    movX = (int) ((float) 120 * Gdx.graphics.getDeltaTime());
                     break;
             }
             Move();
 
         } else if ((int) currentFrame < sprite[direcao][animAtual].length - 1) {
             animar(false, 0.12F);
-        }
-        else {
-            currentFrame=0;
+        } else {
+            tempoAtaque=0;
+            currentFrame = 0;
             estado = 0;
-            animAtual=1;
+            animAtual = 1;
         }
+//        DanoEspada();
     }
 
 
@@ -213,10 +215,10 @@ public class Slime extends Inimigo {
             animAtual = 2;
             tempo = 0;
             if (y > jogador.y + 2) {
-                direcao = 2;
+                direcao = 0;
             } else if (y < jogador.y - 2) {
 
-                direcao = 0;
+                direcao = 2;
             } else if (x > jogador.x + 2) {
                 direcao = 1;
 
@@ -235,7 +237,10 @@ public class Slime extends Inimigo {
         Seguir();
         Move();
 
-        ConferirAtaque();
+        if (tempoAtaque < 2)
+            tempoAtaque += Gdx.graphics.getDeltaTime();
+        else
+            ConferirAtaque();
 
 
     }
