@@ -2,7 +2,8 @@ package com.mygdx.game.mapa;
 import static com.mygdx.game.MyGdxGame2.fundoatual;
 import com.badlogic.gdx.math.Rectangle;
 import    com.mygdx.game.unidade.Jogador;
-import static com.mygdx.game.CameraView.escolherDefinirLimites;
+import static com.mygdx.game.CameraView.DefinirLimites;
+import static com.mygdx.game.MyGdxGame2.mapas;
 
 //OBJETO DE PORTA PARA TROCAR O MAPA
 
@@ -18,8 +19,8 @@ public class Portas {
     }
     //CONFERE COLISÂO PLAYER COM A PORTA
 
-    public void conferindoInteracao(Rectangle rectangle,Jogador jogador){
-        if(colisao.overlaps(rectangle)){
+    public void conferindoInteracao(Jogador jogador){
+        if(colisao.overlaps(jogador.hitboxMapa)){
             trocarMapa(jogador);
         }
     }
@@ -31,7 +32,9 @@ public class Portas {
         jogador.y=novoX;
         jogador.y=novoY;
         jogador.AtualizaRetangulos();
-        escolherDefinirLimites(novoMapaAtual);
+//        escolherDefinirLimites(novoMapaAtual);
+        DefinirLimites(mapas[fundoatual].spriteLocal, mapas[fundoatual].posicaoSprite);
+
 
     }
 

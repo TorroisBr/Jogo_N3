@@ -99,7 +99,7 @@ public class Jogador extends Unidade {
                     movX = -(int) ((float) 340 * Gdx.graphics.getDeltaTime());
                     break;
             }
-            Movimento(rec);
+            Movimento(mapas[fundoatual].colisoes);
         }
         //SE O TEMPO FOR SUPERIOR A 3 FRAMES RESETA ELE
         else {

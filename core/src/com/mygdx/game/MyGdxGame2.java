@@ -11,6 +11,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.mapa.IniciarMapa;
+import com.mygdx.game.mapa.Mapa;
+import com.mygdx.game.mapa.Portas;
 import com.mygdx.game.player.*;
 import com.mygdx.game.unidade.Jogador;
 import com.mygdx.game.unidade.Player;
@@ -23,14 +26,18 @@ import java.util.Iterator;
 import static com.mygdx.game.CameraView.*;
 
 public class MyGdxGame2 extends Game {
+    public static Mapa mapas[];
     Rectangle rec1, rec2, rec3;
     public static Rectangle rec[];
-    public static Array<Inimigo> inimigoarray;
-    public static Jogador jogador = new Jogador(500, 500, 0, 56, 126, 56, 39, 1);
-    public Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
-    public Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25);
+    public Array<Inimigo> inimigoarray;
+    public static Jogador jogador;
+    //    public Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
+//    public Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25);
+    public Mapa mapaB01;
+    public Mapa mapaB02;
 
 
+    public static IniciarMapa iniciarMapa;
     public static int telaLarg = 1280, telaAlt = 720;
     private float timeSeconds = 0f;
     private float period = 1f;
@@ -40,7 +47,7 @@ public class MyGdxGame2 extends Game {
     public static SpriteBatch batch;
     public static ShapeRenderer renderer;
 
-    public static int fundoatual = 1;
+    public static int fundoatual = 0;
     public static OrthographicCamera camera;
     public Viewport viewport;
     int VRX = 0;
@@ -48,8 +55,18 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void create() {
+        iniciarMapa = new IniciarMapa();
+        jogador = new Jogador(500, 500, 0, 56, 126, 56, 39, 1);
 
-        //INICIANDO OS MAPAS
+        mapaB01 = new Mapa();
+        mapaB02 = new Mapa();
+
+        mapas = new Mapa[2];
+        mapas[0] = mapaB01;
+        mapas[1] = mapaB02;
+
+        iniciarMapa.Cidade01(mapas[0]);
+        iniciarMapa.Cidade02(mapas[1]);
 
 
         //BATCH OBJETO QUE DESENHA precisa de um tipo Sprite
@@ -63,10 +80,6 @@ public class MyGdxGame2 extends Game {
         rec[1] = rec2;
         rec[2] = rec3;
 
-        inimigoarray = new Array<Inimigo>();
-        inimigoarray.add(slime);
-        inimigoarray.add(slime2);
-
 
         //CRIACAO DE CAMERA
         camera = new OrthographicCamera();
@@ -77,14 +90,10 @@ public class MyGdxGame2 extends Game {
         camera.position.y = jogador.y + jogador.hitboxDano.getWidth() / 2.0F;
         camera.update();
 
-        Q1.Criar();
-        Q2.Criar();
-        Q3.Criar();
-        Q4.Criar();
+
         jogador.iniciar();
-        for (Inimigo inimigo : inimigoarray) {
-            inimigo.iniciar();
-        }
+
+        DefinirLimites(mapas[fundoatual].spriteLocal, mapas[fundoatual].posicaoSprite);
 
     }
 
@@ -103,10 +112,10 @@ public class MyGdxGame2 extends Game {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Mover();
         //METODO DE MOVIMENTO
-        jogador.Movimento(rec);
+        jogador.Movimento(mapas[fundoatual].colisoes);
 
         //VERIFICA QUAL O TIPO DE INIMIGO E O MOVIMENTA
-        for (Inimigo inimigo : inimigoarray) {
+        for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
             if (inimigo instanceof Slime) {
                 switch (inimigo.estado) {
                     case -1:
@@ -126,10 +135,13 @@ public class MyGdxGame2 extends Game {
             }
         }
         //FOR QUE REMOVE O INIMIGO DO ARRAY SE ELE ESTIVER MORTO
-        for (Iterator<Inimigo> iter = inimigoarray.iterator(); iter.hasNext(); ) {
+        for (Iterator<Inimigo> iter = mapas[fundoatual].inimigoarray.iterator(); iter.hasNext(); ) {
             Inimigo enemy = iter.next();
             if (enemy.estado == -2)
                 iter.remove();
+        }
+        for (Portas porta : mapas[fundoatual].portaLocal) {
+            porta.conferindoInteracao(jogador);
         }
 
 
@@ -138,22 +150,13 @@ public class MyGdxGame2 extends Game {
         renderer.setProjectionMatrix(camera.combined);
         batch.setProjectionMatrix(camera.combined);
 
-        batch.begin();
-        MapaCidadeDesenhar();
-        batch.end();
-
-
-        //CONFERINDO HITBOX DE TROCA DE MAPA PASSANDO O RETANGULO DO PLAYER
-//        Q4.porta1.conferindoInteracao(jogador.hitboxMapa, jogador);
-
-//        renderer.end();
-//        renderer.begin(ShapeRenderer.ShapeType.Filled);
-
 
         //desenha o jogador passando o batch
         batch.begin();
+        MapaDesenhar(mapas[fundoatual]);
+
         //DESENHA OS INIMIGOS DO ARRAY
-        for (Inimigo inimigo : inimigoarray) {
+        for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
             if (inimigo instanceof Slime)
                 if (inimigo.visivel)
                     inimigo.Draw();
@@ -163,18 +166,21 @@ public class MyGdxGame2 extends Game {
             jogador.Draw();
         batch.end();
         renderer.begin(ShapeRenderer.ShapeType.Filled);
-        for (Rectangle retangulo : rec) {
+        for (Rectangle retangulo : mapas[fundoatual].colisoes) {
 //            renderer.rect(retangulo.x, retangulo.y, retangulo.width, retangulo.height);
         }
-        renderer.rect(jogador.espada.hitbox.x, jogador.espada.hitbox.y, jogador.espada.hitbox.getWidth(), jogador.espada.hitbox.getHeight());
-        renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
-        renderer.rect(slime.hitboxMapa.x, slime.hitboxMapa.y, slime.hitboxMapa.getWidth(), slime.hitboxMapa.getHeight());
-        renderer.rect(slime2.hitboxMapa.x, slime2.hitboxMapa.y, slime2.hitboxMapa.getWidth(), slime2.hitboxMapa.getHeight());
+        for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
+            renderer.rect(inimigo.hitboxMapa.x, inimigo.hitboxMapa.y, inimigo.hitboxMapa.getWidth(), inimigo.hitboxMapa.getHeight());
 
+        }
+        for (Portas portas : mapas[fundoatual].portaLocal) {
+            renderer.rect(portas.colisao.x, portas.colisao.y, portas.colisao.getWidth(), portas.colisao.getHeight());
+
+        }
+//        renderer.rect(jogador.espada.hitbox.x, jogador.espada.hitbox.y, jogador.espada.hitbox.getWidth(), jogador.espada.hitbox.getHeight());
+        renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
 //        renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
         renderer.end();
-
-        //Compara o tempo e
 
 
     }
@@ -187,17 +193,19 @@ public class MyGdxGame2 extends Game {
     }
 
     //METODO DE DESNHAR O MAPA (ELE ESTA DESATUALIZADO)
-    public void MapaCidadeDesenhar() {
-        Mapa(VRX, VRY, camera, batch, fundoatual);
+    public void MapaDesenhar(Mapa mapa) {
+        for (int i = 0; i < mapa.spriteLocal.length; i++) {
+            Desenhar(mapa.posicaoSprite[i][0], mapa.posicaoSprite[i][1], mapa.spriteLocal[i], batch, camera);
+
+        }
+//        Mapa(VRX, VRY, camera, batch, fundoatual);
         //DESENHA O MACA PASSANDO O FUNDOATUAL
     }
 
     private void Mover() {
 
         //ATUALIZA OS LIMITES DA CAMERA
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            DefinirLimites(Q1.sprite, Q1.xy);
-        }
+
 
         //Movimento Player-----------------------------------
         switch (jogador.estado) {

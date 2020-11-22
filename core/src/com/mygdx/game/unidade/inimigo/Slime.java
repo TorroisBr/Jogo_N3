@@ -184,7 +184,7 @@ public class Slime extends Inimigo {
                     movX = (int) ((float) 120 * Gdx.graphics.getDeltaTime());
                     break;
             }
-            Move();
+            Move(mapas[fundoatual].colisoes);
 
         } else if ((int) currentFrame < sprite[direcao][animAtual].length - 1) {
             animar(false, 0.12F);
@@ -234,7 +234,7 @@ public class Slime extends Inimigo {
         AtualizaRetangulos();
         DanoEspada();
         Seguir();
-        Move();
+        Move(mapas[fundoatual].colisoes);
 
         if (tempoAtaque < 2)
             tempoAtaque += Gdx.graphics.getDeltaTime();

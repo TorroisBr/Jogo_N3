@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.tiro.Tiro;
 import com.mygdx.game.unidade.Unidade;
 
-import static com.mygdx.game.MyGdxGame2.jogador;
+import static com.mygdx.game.MyGdxGame2.*;
 
 public abstract class Inimigo extends Unidade {
 
@@ -33,23 +33,39 @@ public abstract class Inimigo extends Unidade {
 
     }
 
-    public void Move() {
-        if (movX > 0) {
+    public void Move(Rectangle retangulo[]) {
+        if (movX != 0) {
             x += movX;
-        } else if (movX < 0) {
-            x += movX;
+            AtualizaRetangulos();
+            while (ColisaoComCenario(retangulo)) {
+                if (movX > 0)
+                    x--;
+                else
+                    x++;
+                AtualizaRetangulos();
+            }
+            movX = 0;
+        }
+        if (movY != 0) {
+            y += movY;
+            AtualizaRetangulos();
+            while (ColisaoComCenario(retangulo)) {
+                if (movY > 0)
+                    y--;
+                else
+                    y++;
+                AtualizaRetangulos();
+            }
+            movY = 0;
         }
 
-        if (movY < 0) {
-            y += movY;
-        } else if (movY > 0) {
-            y += movY;
+    }
+    public boolean ColisaoComCenario(Rectangle rectangles[]) {
+        for (Rectangle retangulo : rectangles) {
+            if (hitboxMapa.overlaps(retangulo))
+                return true;
         }
-
-        movX = 0;
-        movY = 0;
-
-        AtualizaRetangulos();
+        return false;
     }
 
 
@@ -73,7 +89,7 @@ public abstract class Inimigo extends Unidade {
                     movX = -(int) ((float) jogador.espada.repulsao * Gdx.graphics.getDeltaTime());
                     break;
             }
-            Move();
+            Move(mapas[fundoatual].colisoes);
         }
         //SE O TEMPO FOR SUPERIOR A 3 FRAMES RESETA ELE
         else {

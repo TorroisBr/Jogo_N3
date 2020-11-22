@@ -1,22 +1,15 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.mygdx.game.quadrante.CIDADE;
-import com.mygdx.game.quadrante.JoringArmas;
-import com.mygdx.game.quadrante.Mapa1;
-import com.mygdx.game.quadrante.Mapa2;
+
 
 import static com.mygdx.game.MyGdxGame2.*;
 
 public class CameraView {
-    public static Mapa1 Q1 = new Mapa1();
-    public static Mapa2 Q2 = new Mapa2();
-    public static JoringArmas Q3 = new JoringArmas();
-    public static CIDADE Q4 = new CIDADE();
+
 
 
     //FUNÇÂO QUE VERIFICA SE O SPRITE ESTA NA AREA DA CAMERA
@@ -37,10 +30,7 @@ public class CameraView {
     }
 
     //CHAMA O MAPANUM
-    public static void Mapa(int x, int y, OrthographicCamera camera, SpriteBatch batch, int fundoatual) {
-        MapaNum(fundoatual);
 
-    }
 
 
     //EXECUTA FUNÇÂO NA AREA DA CEMARA E CONFORME RESPOSTA DESENHA O MAPA
@@ -49,27 +39,6 @@ public class CameraView {
             batch.draw(sprite, x, y);
 
         }
-    }
-    public static void DesenharHitbox(int x,int y,Sprite sprite,int larg,int alt){
-        if (naAreaDaCamera(x, y, camera, batch, sprite)) {
-            renderer.begin(ShapeRenderer.ShapeType.Line);
-            renderer.rect(x,y,larg,alt);
-            renderer.end();
-        }
-    }
-
-
-//CHAMA PERCORRER ARRAY COM O FUNDO ATUAL
-    public static void MapaNum(int fundoatual) {
-        switch (fundoatual) {
-            case 1:
-                percorrerArrayMapa(Q1.sprite, Q1.xy);
-                break;
-            case 4:
-                percorrerArrayMapa(Q4.sprite, Q4.xy);
-
-        }
-
     }
 
 
@@ -102,25 +71,7 @@ public class CameraView {
 
     }
 
-    //CHAMA O METODO DEFINIR LIMETES COM O MAPA CORRETO
-    public static void escolherDefinirLimites(int mapa) {
-        switch (mapa) {
-            case 1:
-                DefinirLimites(Q1.sprite, Q1.xy);
-                break;
-            case 2:
-//                DefinirLimites(Q2.sprite, Q2.xy)
-                break;
-            case 3:
-//                DefinirLimites(Q3.sprite, Q3.xy);
-                break;
-            case 4:
-                DefinirLimites(Q4.sprite, Q4.xy);
-                break;
 
-        }
-
-    }
 
 }
 
