@@ -31,7 +31,6 @@ public class Slime extends Inimigo {
         this.hitboxDano = new Rectangle(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
         this.hitboxMapa = new Rectangle(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
         this.dano = 5;
-        this.estado = 0;
         this.visivel = true;
     }
 
@@ -45,28 +44,28 @@ public class Slime extends Inimigo {
 
 
     public void ColisaoPlayer() {
-        if (hitboxDano.overlaps(jogador.hitboxDano)) {
-            tempo += Gdx.graphics.getDeltaTime();
-            if (tempo * 100 < 2) {
-                jogador.tomarDano(dano);
-//                switch (jogador.direcao) {
-//                    case 0:
-//                        jogador.y += repulsao;
-//                        break;
-//                    case 1:
-//                        jogador.x += repulsao;
-//                        break;
-//                    case 2:
-//                        jogador.y -= repulsao;
-//                        break;
-//                    case 3:
-//                        jogador.x -= repulsao;
-//                        break;
-//            }
+        if (hitboxMapa.overlaps(jogador.hitboxMapa) && jogador.estado != 3 && jogador.estado != -1 && jogador.invencibilidade<=0) {
+            jogador.tempo = 0;
+            //SO PERMITE QUE ACERTE O JOGADOR EM UM FRAME
+            jogador.estado = 3;
+            jogador.tomarDano(dano);
+            switch (direcao) {
+                case 0:
+                    jogador.direcao = 2;
+                    break;
+                case 1:
+                    jogador.direcao = 3;
+                    break;
+                case 2:
+                    jogador.direcao = 0;
+                    break;
+                case 3:
+                    jogador.direcao = 1;
+                    break;
             }
-
-        } else if (tempo * 100 > 5)
-            tempo = 0;
+            jogador.currentFrame = 0;
+            jogador.animAtual = 4;
+        }
     }
 
 
@@ -164,9 +163,10 @@ public class Slime extends Inimigo {
 
     @Override
     public void Atacar() {
-
+        ColisaoPlayer();
         if (currentFrame < 2) {
             animar(false, 0.12F);
+
         } else if (tempo < 1.5) {
             tempo += Gdx.graphics.getDeltaTime();
 
@@ -189,12 +189,11 @@ public class Slime extends Inimigo {
         } else if ((int) currentFrame < sprite[direcao][animAtual].length - 1) {
             animar(false, 0.12F);
         } else {
-            tempoAtaque=0;
+            tempoAtaque = 0;
             currentFrame = 0;
             estado = 0;
             animAtual = 1;
         }
-//        DanoEspada();
     }
 
 

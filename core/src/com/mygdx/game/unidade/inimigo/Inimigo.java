@@ -49,6 +49,7 @@ public abstract class Inimigo extends Unidade {
         movX = 0;
         movY = 0;
 
+        AtualizaRetangulos();
     }
 
 

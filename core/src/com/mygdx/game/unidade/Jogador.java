@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.item.Arco;
 import com.mygdx.game.item.Espada;
+import com.mygdx.game.MyGdxGame2.*;
+
 import static com.mygdx.game.CameraView.Desenhar;
 import static com.mygdx.game.MyGdxGame2.*;
 
@@ -25,10 +27,14 @@ public class Jogador extends Unidade {
     public int estado;
     public float arcocdr = 10;
     public double bufalobill = 0.03;
+    public float tempo = 0;
+    public boolean teclaEspadaApertada = false;
+    public float invencibilidade = 0;
+
 
     //CRIANDO ESPADA
-    public  Espada espada = new Espada("FROSTMOURNE", 0, 0, 10, 10,320);
-    public Arco arco=new Arco("Ak-47",0,0,0);
+    public Espada espada = new Espada("FROSTMOURNE", 0, 0, 10, 10, 320);
+    public Arco arco = new Arco("Ak-47", 0, 0, 0);
 
 
     //CONSTRUTOR
@@ -40,7 +46,7 @@ public class Jogador extends Unidade {
         this.direcao = direcao;
         this.vida = 3;
         this.velo = 5;
-        this.estado = estado;
+        this.estado = 0;
     }
 
 
@@ -64,77 +70,136 @@ public class Jogador extends Unidade {
 
     }
 
+
     //RECEBE DANO
     public void tomarDano(int dano) {
-        if (vida <= 0)
-            morrer();
+        if (vida <= 0) {
+            animAtual = 4;
+        }
 
-        vida -= dano;
     }
 
-    public void cdr() {
-        //COLLDOWNS ARCO E ESPADA
-        espada.cdr += bufalobill;
-        arcocdr += bufalobill;
+    public void levandoDano() {
+        tempo += Gdx.graphics.getDeltaTime();
+        if (tempo <= 0.5) {
+            System.out.println(animAtual);
+            switch (direcao) {
+                //VERIFICA A DIRECAO DO INIMIGO E CAUSA UMA REPULSAO
 
+                case 0:
+                    movY = (int) ((float) 340 * Gdx.graphics.getDeltaTime());
+                    break;
+                case 1:
+                    movX = (int) ((float) 340 * Gdx.graphics.getDeltaTime());
+                    break;
+                case 2:
+                    movY = -(int) ((float) 340 * Gdx.graphics.getDeltaTime());
+                    break;
+                case 3:
+                    movX = -(int) ((float) 340 * Gdx.graphics.getDeltaTime());
+                    break;
+            }
+            Movimento(rec);
+        }
+        //SE O TEMPO FOR SUPERIOR A 3 FRAMES RESETA ELE
+        else {
+            if (vida > 0) {
+                invencibilidade = 1.5F;
+                currentFrame = 0;
+                estado = 0;
+                animAtual = 0;
+            } else {
+                currentFrame = 0;
+                estado = -1;
+                animAtual = 5;
+            }
+
+        }
     }
 
 
     //MORRER
     public void morrer() {
-//        estado = 0;
+        if (estado == -1) {
+            direcao = 0;
+            animAtual = 5;
+            animar(true, 0.12F);
+        }
+    }
+
+    public void morrendo() {
+        if (currentFrame < sprite[0][5].length - 1)
+            animar(false, 0.12F);
+        else {
+            if (currentFrame == sprite[0][5].length - 1) {
+                tempo = 0;
+            }
+            if (tempo < 2) {
+                tempo += Gdx.graphics.getDeltaTime();
+                if ((int) (tempo * 100) % 2 == 0) {
+
+                    if (visivel)
+                        visivel = false;
+                    else
+                        visivel = true;
+
+                }
+            } else
+                estado = -2;
+        }
     }
 
 
     //input movimento
     public void input() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.V) && espada.cdr > 1) {
-            currentFrame = 0;
-            if (espada.cdr > 1) {
-                espada.cdr = 0;
+        if (invencibilidade > 0) {
+            invencibilidade -= Gdx.graphics.getDeltaTime();
+            if ((int) (invencibilidade * 100) % 2 == 0) {
+
+                if (visivel)
+                    visivel = false;
+                else
+                    visivel = true;
+
+            }
+        } else if (!visivel)
+            visivel = true;
+
+
+        if (estado != 1 && estado != 2 && estado != 1 && estado != 3) {
+            //ATAQUE
+            if (Gdx.input.isKeyPressed(Input.Keys.V) && !teclaEspadaApertada) {
+                teclaEspadaApertada = true;
+                Espadada();
             }
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.C) && arcocdr > 1) {
-            currentFrame = 0;
-            if (arcocdr > 1) {
-                arcocdr = 0;
 
+        if (estado != 1 && estado != 2 && estado != 1 && estado != 3) {
+            //ATAQUE
+            if (Gdx.input.isKeyPressed(Input.Keys.C) && !teclaEspadaApertada) {
+                teclaEspadaApertada = true;
+                Arcada();
             }
         }
 
-        //EXECUTA A ANIMAÇÂO DO ARCO E DA ESPADA SE ESTIVER ENQUANTO O COLLDOWN VAI SOMANDO
-        if (arcocdr < 1) {
-            Arcada();
-        }
 
-        if (espada.cdr < 1) {
-            Espadada();
-        }
-
-
-
-        //SO PODER ANDAR SE ESTIVER COM ANIM ATUAL DE IDLE OU SE MOVENDO
-        if (estado == 1 && animAtual == 0 || animAtual == 1) {
-
+        if (estado != 1 && estado != 2 && estado != 1 && estado != 3) {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 movX = -velo;
-                andar = 1;
 
 
             } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
                 movX = velo;
-                andar = 1;
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
                 movY = velo;
-                andar = 1;
 
             } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                 movY = -velo;
-                andar = 1;
             }
+
 
             //DIRECAO
             if (movY != 0) {
@@ -148,18 +213,32 @@ public class Jogador extends Unidade {
                     direcao = 3;
                 else
                     direcao = 1;
-            }
 
-            //jogador não rodar animação sem apertar nenhum botão
-            if (andar == 1) {
-                animAtual = 1;
-                animar(sprite);
-                andar = 0;
             }
-
         }
 
+        if (estado != 1 && estado != 2 && estado != 1 && estado != 3) {
+            if (!Gdx.input.isKeyPressed(Input.Keys.DOWN) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.UP)) {
+                if (animAtual != 0) {
+                    animAtual = 0;
+                    currentFrame = 0;
+                }
+            }
+        }
+        if (estado != 1 && estado != 2 && estado != 1 && estado != 3) {
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
+                if (animAtual != 1) {
+                    animAtual = 1;
+                    currentFrame = 1;
+                }
+
+            }
+        }
+        if (!Gdx.input.isKeyPressed(Input.Keys.V)) {
+            teclaEspadaApertada = false;
+        }
     }
+
 
     //MOVIMENTA O JOGADOR
     public void Movimento(Rectangle retangulo[]) {
@@ -205,52 +284,58 @@ public class Jogador extends Unidade {
     }
 
 
-    public void animar(Sprite[][][] array) {
-        for (int i = 0; i < sprite[direcao][animAtual].length; i++) {
-            currentFrame += bufalobill;
-            if ((int) currentFrame > array[direcao][animAtual].length - 1) {
-                animAtual = 0;
+    public void animar(boolean loop, float velocidadeAnim) {
+        currentFrame += velocidadeAnim;
+        if ((int) currentFrame > sprite[direcao][animAtual].length - 1) {
+            if (loop) {
                 currentFrame = 0;
-
-            }
+            } else
+                currentFrame = sprite[direcao][animAtual].length - 1;
         }
+
     }
 
     public void Draw() {
         Desenhar(x + (int) hitboxDano.getWidth() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getWidth() / 2, y + (int) hitboxDano.getHeight() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getHeight() / 2, sprite[direcao][animAtual][(int) currentFrame], batch, camera);
     }
 
-    public void Espadada() {
-        animAtual = 2;
-        animar(sprite);
-
-        //UNICO VALOR DA ANIMAÇÂO ONDE HAVERA COLISÂO
-        if (currentFrame > 3.49 && currentFrame < 3.60) {
-
+    public void Atacando() {
+        if (currentFrame < sprite[direcao][animAtual].length - 1) {
+            animar(false, 0.25F);
             switch (direcao) {
                 //DEPENDENDO DA DIREÇÂO ELE PASSA VARIAVES PRA SER SOMADA E ALTERAR A HITBOX DA ESPADA
                 case 0:
-                    AtualizarHitboxEspada(-10, 10, +20, -140, true);
+                    AtualizarHitboxEspada(-15, 0, +50, -65, true);
                     break;
                 case 1:
                     AtualizarHitboxEspada(-50, 0, 0, -10, true);
                     break;
                 case 2:
-                    AtualizarHitboxEspada(-10, 140, +20, -140, true);
+                    AtualizarHitboxEspada(-30, 80, +50, -65, true);
                     break;
                 case 3:
                     AtualizarHitboxEspada(+50, 0, 0, -10, true);
                     break;
             }
-            //QUANDO NÂO ESTIVER NO FRAME EXPECIFICO HITBOX DA ESPADA È 0
-        } else if (currentFrame > 4 || currentFrame < 3) {
-            AtualizarHitboxEspada(0, 0, 0, 0, false);
+            if ((int) currentFrame != 1 && (int) currentFrame != 2)
+                AtualizarHitboxEspada(0, 0, 0, 0, false);
+        } else {
+            estado = 0;
+            currentFrame = 0;
+            animAtual = 0;
         }
+
+    }
+
+    public void Espadada() {
+        estado = 1;
+        currentFrame = 0;
+        animAtual = 2;
+
     }
 
     public void Arcada() {
-        animAtual = 3;
-        animar(sprite);
+
 
     }
 

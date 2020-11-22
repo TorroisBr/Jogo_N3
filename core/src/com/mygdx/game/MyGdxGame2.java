@@ -24,11 +24,11 @@ import static com.mygdx.game.CameraView.*;
 
 public class MyGdxGame2 extends Game {
     Rectangle rec1, rec2, rec3;
-    Rectangle rec[];
+    public static Rectangle rec[];
     public static Array<Inimigo> inimigoarray;
     public static Jogador jogador = new Jogador(500, 500, 0, 56, 126, 56, 39, 1);
-    public Slime slime = new Slime(600, 600, 3, 56, 122, 56, 39);
-    public Slime slime2 = new Slime(0, 0, 3, 56, 122, 56, 39);
+    public Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
+    public Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25);
 
 
     public static int telaLarg = 1280, telaAlt = 720;
@@ -102,7 +102,6 @@ public class MyGdxGame2 extends Game {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Mover();
-        jogador.cdr();
         //METODO DE MOVIMENTO
         jogador.Movimento(rec);
 
@@ -160,14 +159,18 @@ public class MyGdxGame2 extends Game {
                     inimigo.Draw();
         }
 
-        jogador.Draw();
+        if (jogador.visivel)
+            jogador.Draw();
         batch.end();
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         for (Rectangle retangulo : rec) {
 //            renderer.rect(retangulo.x, retangulo.y, retangulo.width, retangulo.height);
         }
-//        renderer.rect(jogador.espada.hitbox.x,jogador.espada.hitbox.y,jogador.espada.hitbox.getWidth(),jogador.espada.hitbox.getHeight());
-//        renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
+        renderer.rect(jogador.espada.hitbox.x, jogador.espada.hitbox.y, jogador.espada.hitbox.getWidth(), jogador.espada.hitbox.getHeight());
+        renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
+        renderer.rect(slime.hitboxMapa.x, slime.hitboxMapa.y, slime.hitboxMapa.getWidth(), slime.hitboxMapa.getHeight());
+        renderer.rect(slime2.hitboxMapa.x, slime2.hitboxMapa.y, slime2.hitboxMapa.getWidth(), slime2.hitboxMapa.getHeight());
+
 //        renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
         renderer.end();
 
@@ -197,6 +200,19 @@ public class MyGdxGame2 extends Game {
         }
 
         //Movimento Player-----------------------------------
+        switch (jogador.estado) {
+            case 0:
+                jogador.animar(true, 0.09F);
+                break;
+            case 1:
+                jogador.Atacando();
+                break;
+            case 2:
+                jogador.Arcada();
+                break;
+            case 3:
+                jogador.levandoDano();
+        }
         jogador.input();
 
 
