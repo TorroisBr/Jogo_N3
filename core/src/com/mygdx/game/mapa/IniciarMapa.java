@@ -22,11 +22,12 @@ public class IniciarMapa {
         mapa.inimigoarray.add(slime2);
         mapa.portaLocal = new Portas[1];
 
+        //FOR QUE INICIA OS inimigos
         for (Inimigo inimigo : mapa.inimigoarray) {
             inimigo.iniciar();
         }
 
-        //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM)
+        //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
         mapa.texturaLocal[0] = new Texture("cidade/B1_03.png");
         mapa.texturaLocal[1] = new Texture("cidade/B1_04.png");
         mapa.texturaLocal[2] = new Texture("cidade/B1_01.png");
@@ -89,6 +90,7 @@ public class IniciarMapa {
             inimigo.iniciar();
         }
 
+        //EXEMPLO COM 9 IMAGENS
         //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM)
         mapa.texturaLocal[0] = new Texture("cidade/B2_07.png");
         mapa.texturaLocal[1] = new Texture("cidade/B2_08.png");
@@ -140,7 +142,7 @@ public class IniciarMapa {
         mapa.posicaoSprite[8][0] = mapa.posicaoSprite[7][0] + mapa.texturaLocal[7].getWidth();
         mapa.posicaoSprite[8][1] = mapa.posicaoSprite[5][1] + mapa.texturaLocal[5].getHeight();
 
-
+        //HITBOX
         mapa.colisoes[0] = new Rectangle(77, 1408 - 63, 97, 63);
         mapa.colisoes[1] = new Rectangle(198, 1289 - 63, 97, 63);
         mapa.colisoes[2] = new Rectangle(318, 1411 - 63, 97, 63);

@@ -27,22 +27,13 @@ import static com.mygdx.game.CameraView.*;
 
 public class MyGdxGame2 extends Game {
     public static Mapa mapas[];
-    Rectangle rec1, rec2, rec3;
-    public static Rectangle rec[];
-    public Array<Inimigo> inimigoarray;
     public static Jogador jogador;
-    //    public Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
-//    public Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25);
     public Mapa mapaB01;
     public Mapa mapaB02;
 
-
     public static IniciarMapa iniciarMapa;
     public static int telaLarg = 1280, telaAlt = 720;
-    private float timeSeconds = 0f;
-    private float period = 1f;
 
-    Arco flecha = new Arco();
     public static int esquerdo = 0, direito = 0, cima = 0, baixo = 0;
     public static SpriteBatch batch;
     public static ShapeRenderer renderer;
@@ -55,13 +46,17 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void create() {
+        //LISTA COM OS MAPAS
         iniciarMapa = new IniciarMapa();
         jogador = new Jogador(500, 500, 0, 56, 126, 56, 39, 1);
 
+        //INICIANDO CADA MAPA
         mapaB01 = new Mapa();
         mapaB02 = new Mapa();
 
+        //ALOCANDO ARRAY
         mapas = new Mapa[2];
+        //QUAL MAPA REPRESENTA CADA NO ARRAY
         mapas[0] = mapaB01;
         mapas[1] = mapaB02;
 
@@ -72,13 +67,6 @@ public class MyGdxGame2 extends Game {
         //BATCH OBJETO QUE DESENHA precisa de um tipo Sprite
         batch = new SpriteBatch();
         renderer = new ShapeRenderer();
-        rec1 = new Rectangle(900, 900, 30, 30);
-        rec2 = new Rectangle(200, 200, 500, 80);
-        rec3 = new Rectangle(700, 700, 300, 300);
-        rec = new Rectangle[3];
-        rec[0] = rec1;
-        rec[1] = rec2;
-        rec[2] = rec3;
 
 
         //CRIACAO DE CAMERA
@@ -145,13 +133,12 @@ public class MyGdxGame2 extends Game {
         }
 
 
-        //slime.ColisaoPlayer();
         //ACOMPANHA A CAMERA
         renderer.setProjectionMatrix(camera.combined);
         batch.setProjectionMatrix(camera.combined);
 
 
-        //desenha o jogador passando o batch
+        //Desenha
         batch.begin();
         MapaDesenhar(mapas[fundoatual]);
 
@@ -165,6 +152,10 @@ public class MyGdxGame2 extends Game {
         if (jogador.visivel)
             jogador.Draw();
         batch.end();
+        //FINAL DO DESENHO
+
+        //RENDER HITBOX BEGIN
+
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         for (Rectangle retangulo : mapas[fundoatual].colisoes) {
 //            renderer.rect(retangulo.x, retangulo.y, retangulo.width, retangulo.height);
@@ -182,6 +173,7 @@ public class MyGdxGame2 extends Game {
 //        renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
         renderer.end();
 
+        //RENDER HITBOX END
 
     }
 
@@ -189,23 +181,17 @@ public class MyGdxGame2 extends Game {
     public void dispose() {
         renderer.dispose();
         batch.dispose();
-        flecha.Deletar();
     }
 
-    //METODO DE DESNHAR O MAPA (ELE ESTA DESATUALIZADO)
+    //METODO DE DESNHAR O MAPA (passa o proprio mapa)
     public void MapaDesenhar(Mapa mapa) {
         for (int i = 0; i < mapa.spriteLocal.length; i++) {
             Desenhar(mapa.posicaoSprite[i][0], mapa.posicaoSprite[i][1], mapa.spriteLocal[i], batch, camera);
 
         }
-//        Mapa(VRX, VRY, camera, batch, fundoatual);
-        //DESENHA O MACA PASSANDO O FUNDOATUAL
     }
 
     private void Mover() {
-
-        //ATUALIZA OS LIMITES DA CAMERA
-
 
         //Movimento Player-----------------------------------
         switch (jogador.estado) {
@@ -242,8 +228,7 @@ public class MyGdxGame2 extends Game {
 
         if (camera.position.y < baixo + telaAlt / 2)
             camera.position.y = baixo + telaAlt / 2;
-
-
+        
         camera.update();
     }
 
