@@ -13,11 +13,15 @@ import com.mygdx.game.unidade.inimigo.Inimigo;
 public class Mapa {
     public Texture texturaLocal[];
     public Sprite spriteLocal[];
+    public Sprite objetosLocal[];
     public int posicaoSprite[][];
     public Rectangle colisoes[];
     public Array<Inimigo> inimigoarray;
     //    public Npc npcLocal[];
     public Array<Tiro> tiroarray;
+    public Rectangle todosRetangulos[][];
+    public Array<Unidade> tudoArray;
+
 
     public Portas portaLocal[];
 
@@ -25,9 +29,9 @@ public class Mapa {
     // public Unidade propsLocal[];
 
 
-    public Mapa(){
+    public Mapa() {
         this.inimigoarray = new Array<Inimigo>();
-        this.tiroarray=new Array<Tiro>();
+        this.tiroarray = new Array<Tiro>();
 
     }
 

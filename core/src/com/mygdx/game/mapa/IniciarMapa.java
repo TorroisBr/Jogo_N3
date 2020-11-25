@@ -3,9 +3,10 @@ package com.mygdx.game.mapa;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.unidade.inimigo.Inimigo;
 import com.mygdx.game.unidade.inimigo.Slime;
+
+import static com.mygdx.game.MyGdxGame2.jogador;
 
 public class IniciarMapa {
     public void Cidade01(Mapa mapa) {
@@ -21,6 +22,7 @@ public class IniciarMapa {
         mapa.inimigoarray.add(slime);
         mapa.inimigoarray.add(slime2);
         mapa.portaLocal = new Portas[1];
+        mapa.todosRetangulos=new Rectangle[3][/*mapa.spriteLocal.length+*/mapa.inimigoarray.size+mapa.colisoes.length+1];
 
         //FOR QUE INICIA OS inimigos
         for (Inimigo inimigo : mapa.inimigoarray) {
@@ -33,11 +35,14 @@ public class IniciarMapa {
         mapa.texturaLocal[2] = new Texture("cidade/B1_01.png");
         mapa.texturaLocal[3] = new Texture("cidade/B1_02.png");
 
+
         //CARREGANDO SPRITES
         mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
         mapa.spriteLocal[1] = new Sprite(mapa.texturaLocal[1]);
         mapa.spriteLocal[2] = new Sprite(mapa.texturaLocal[2]);
         mapa.spriteLocal[3] = new Sprite(mapa.texturaLocal[3]);
+
+
 
         //POSICOES DO SPRITE
         mapa.posicaoSprite[0][0] = 0;
@@ -68,8 +73,37 @@ public class IniciarMapa {
         mapa.colisoes[10] = new Rectangle(1290, 1245 - 59, 96, 59);
         mapa.colisoes[11] = new Rectangle(1451, 1305 - 59, 96, 59);
 
+//        mapa.colisoes[12] = new Rectangle(-19, 1668 - 1668, 19, 1668);
+//        mapa.colisoes[13] = new Rectangle(0, 1667 - 19, 1664, 19);
+//        mapa.colisoes[14] = new Rectangle(1664, 1668 - 1671, 21, 1671);
+//        mapa.colisoes[15] = new Rectangle(0, 0, 1664, 17);
+
+        mapa.todosRetangulos[0][0]=mapa.colisoes[0];
+        mapa.todosRetangulos[0][1]=mapa.colisoes[1];
+        mapa.todosRetangulos[0][2]=mapa.colisoes[2];
+        mapa.todosRetangulos[0][3]=mapa.colisoes[3];
+        mapa.todosRetangulos[0][4]=mapa.colisoes[4];
+        mapa.todosRetangulos[0][5]=mapa.colisoes[5];
+        mapa.todosRetangulos[0][6]=mapa.colisoes[6];
+        mapa.todosRetangulos[0][7]=mapa.colisoes[7];
+        mapa.todosRetangulos[0][8]=mapa.colisoes[8];
+        mapa.todosRetangulos[0][9]=mapa.colisoes[9];
+        mapa.todosRetangulos[0][10]=mapa.colisoes[10];
+        mapa.todosRetangulos[0][11]=mapa.colisoes[11];
+
+        mapa.todosRetangulos[1][12]=slime.hitboxDano;
+        mapa.todosRetangulos[1][13]=slime2.hitboxDano;
+
+
+        mapa.todosRetangulos[2][15]=jogador.hitboxDano;
+
+
+
+
+
+
         //PORTAS
-        mapa.portaLocal[0] = new Portas(600, 600, 50, 50, 1, 35, 909 - 87);
+        mapa.portaLocal[0] = new Portas(1548, 890-76, 50, 50, 1, 100, 909 - 87);
 
 
     }
@@ -152,7 +186,7 @@ public class IniciarMapa {
         mapa.colisoes[6] = new Rectangle(352, 142 - 63, 97, 63);
         mapa.colisoes[7] = new Rectangle(753, 947 - 144, 162, 144);
 
-        mapa.portaLocal[0] = new Portas(600, 600, 50, 50, 0, 10, 10);
+        mapa.portaLocal[0] = new Portas(35, 909-87, 50, 50, 0, 100, 890-76);
 
 
     }

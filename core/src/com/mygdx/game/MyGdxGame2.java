@@ -2,24 +2,18 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.mapa.IniciarMapa;
 import com.mygdx.game.mapa.Mapa;
 import com.mygdx.game.mapa.Portas;
-import com.mygdx.game.player.*;
 import com.mygdx.game.unidade.Jogador;
-import com.mygdx.game.unidade.Player;
 import com.mygdx.game.unidade.inimigo.Inimigo;
 import com.mygdx.game.unidade.inimigo.Slime;
-import com.mygdx.game.unidade.Jogador.*;
 
 import java.util.Iterator;
 
@@ -121,8 +115,10 @@ public class MyGdxGame2 extends Game {
                 }
 
             }
+
         }
         //FOR QUE REMOVE O INIMIGO DO ARRAY SE ELE ESTIVER MORTO
+
         for (Iterator<Inimigo> iter = mapas[fundoatual].inimigoarray.iterator(); iter.hasNext(); ) {
             Inimigo enemy = iter.next();
             if (enemy.estado == -2)
@@ -140,40 +136,59 @@ public class MyGdxGame2 extends Game {
 
         //Desenha
         batch.begin();
-        MapaDesenhar(mapas[fundoatual]);
+
 
         //DESENHA OS INIMIGOS DO ARRAY
-        for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
-            if (inimigo instanceof Slime)
-                if (inimigo.visivel)
-                    inimigo.Draw();
-        }
 
-        if (jogador.visivel)
-            jogador.Draw();
+
         batch.end();
         //FINAL DO DESENHO
 
         //RENDER HITBOX BEGIN
-
         renderer.begin(ShapeRenderer.ShapeType.Filled);
-        for (Rectangle retangulo : mapas[fundoatual].colisoes) {
-//            renderer.rect(retangulo.x, retangulo.y, retangulo.width, retangulo.height);
-        }
-        for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
-            renderer.rect(inimigo.hitboxMapa.x, inimigo.hitboxMapa.y, inimigo.hitboxMapa.getWidth(), inimigo.hitboxMapa.getHeight());
 
-        }
-        for (Portas portas : mapas[fundoatual].portaLocal) {
-            renderer.rect(portas.colisao.x, portas.colisao.y, portas.colisao.getWidth(), portas.colisao.getHeight());
+        for (int i = 0; i < mapas[fundoatual].todosRetangulos[0].length; i++) {
+            batch.begin();
 
+            if (i < mapas[fundoatual].todosRetangulos[0].length-mapas[fundoatual].inimigoarray.size-1) {
+                //renderer.rect(mapas[fundoatual].todosRetangulos[0][i].x, mapas[fundoatual].todosRetangulos[0][i].y, mapas[fundoatual].todosRetangulos[0][i].getWidth(), mapas[fundoatual].todosRetangulos[0][i].getHeight());
+                MapaDesenhar(mapas[fundoatual]);
+
+            } else if (i < mapas[fundoatual].todosRetangulos[0].length-1) {
+                DesenharInimigos();
+
+            } else {
+                if (jogador.visivel)
+                    jogador.Draw();
+            }
+            batch.end();
         }
+
+//        for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
+//            renderer.rect(inimigo.hitboxMapa.x, inimigo.hitboxMapa.y, inimigo.hitboxMapa.getWidth(), inimigo.hitboxMapa.getHeight());
+//
+//        }
+//
+//        for (Portas portas : mapas[fundoatual].portaLocal) {
+//            renderer.rect(portas.colisao.x, portas.colisao.y, portas.colisao.getWidth(), portas.colisao.getHeight());
+//
+//        }
 //        renderer.rect(jogador.espada.hitbox.x, jogador.espada.hitbox.y, jogador.espada.hitbox.getWidth(), jogador.espada.hitbox.getHeight());
-        renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
+//        renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
 //        renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
         renderer.end();
 
         //RENDER HITBOX END
+
+    }
+
+    public void DesenharInimigos() {
+        for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
+            if (inimigo instanceof Slime)
+                if (inimigo.visivel)
+                    inimigo.Draw();
+
+        }
 
     }
 
@@ -190,6 +205,7 @@ public class MyGdxGame2 extends Game {
 
         }
     }
+
 
     private void Mover() {
 
@@ -228,7 +244,7 @@ public class MyGdxGame2 extends Game {
 
         if (camera.position.y < baixo + telaAlt / 2)
             camera.position.y = baixo + telaAlt / 2;
-        
+
         camera.update();
     }
 

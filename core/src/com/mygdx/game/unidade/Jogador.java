@@ -44,7 +44,7 @@ public class Jogador extends Unidade {
         this.x = x;
         this.y = y;
         this.direcao = direcao;
-        this.vida = 3;
+        this.vida = 30;
         this.velo = 5;
         this.estado = 0;
     }
@@ -82,7 +82,6 @@ public class Jogador extends Unidade {
     public void levandoDano() {
         tempo += Gdx.graphics.getDeltaTime();
         if (tempo <= 0.5) {
-            System.out.println(animAtual);
             switch (direcao) {
                 //VERIFICA A DIRECAO DO INIMIGO E CAUSA UMA REPULSAO
 
