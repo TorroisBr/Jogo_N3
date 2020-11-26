@@ -13,6 +13,7 @@ import com.mygdx.game.mapa.Mapa;
 import com.mygdx.game.mapa.Portas;
 import com.mygdx.game.unidade.Jogador;
 import com.mygdx.game.unidade.inimigo.Inimigo;
+import com.mygdx.game.unidade.inimigo.Ladrao;
 import com.mygdx.game.unidade.inimigo.Slime;
 
 import java.util.Iterator;
@@ -37,6 +38,7 @@ public class MyGdxGame2 extends Game {
     public Viewport viewport;
     int VRX = 0;
     int VRY = 0;
+
 
     @Override
     public void create() {
@@ -90,6 +92,7 @@ public class MyGdxGame2 extends Game {
     public void render() {
 
 
+
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Mover();
@@ -100,6 +103,24 @@ public class MyGdxGame2 extends Game {
         for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
             if (inimigo instanceof Slime) {
                 switch (inimigo.estado) {
+                    case -1:
+                        inimigo.morrendo();
+                        break;
+                    case 0:
+                        inimigo.Andar();
+                        break;
+                    case 1:
+                        inimigo.Atacar();
+                        break;
+                    case 2:
+                        inimigo.LevandoDano();
+                        break;
+                }
+
+            }
+            if (inimigo instanceof Ladrao) {
+                switch (inimigo.estado) {
+
                     case -1:
                         inimigo.morrendo();
                         break;
@@ -147,9 +168,10 @@ public class MyGdxGame2 extends Game {
         //RENDER HITBOX BEGIN
         renderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        for (int i = 0; i < mapas[fundoatual].todosRetangulos[0].length; i++) {
-            batch.begin();
+        batch.begin();
 
+
+        for (int i = 0; i < mapas[fundoatual].todosRetangulos[0].length; i++) {
             if (i < mapas[fundoatual].todosRetangulos[0].length-mapas[fundoatual].inimigoarray.size-1) {
                 //renderer.rect(mapas[fundoatual].todosRetangulos[0][i].x, mapas[fundoatual].todosRetangulos[0][i].y, mapas[fundoatual].todosRetangulos[0][i].getWidth(), mapas[fundoatual].todosRetangulos[0][i].getHeight());
                 MapaDesenhar(mapas[fundoatual]);
@@ -161,8 +183,9 @@ public class MyGdxGame2 extends Game {
                 if (jogador.visivel)
                     jogador.Draw();
             }
-            batch.end();
+
         }
+        batch.end();
 
 //        for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
 //            renderer.rect(inimigo.hitboxMapa.x, inimigo.hitboxMapa.y, inimigo.hitboxMapa.getWidth(), inimigo.hitboxMapa.getHeight());
@@ -173,6 +196,7 @@ public class MyGdxGame2 extends Game {
 //            renderer.rect(portas.colisao.x, portas.colisao.y, portas.colisao.getWidth(), portas.colisao.getHeight());
 //
 //        }
+//        renderer.rect(ladrao.espada.hitbox.x, ladrao.espada.hitbox.y, ladrao.espada.hitbox.getWidth(), ladrao.espada.hitbox.getHeight());
 //        renderer.rect(jogador.espada.hitbox.x, jogador.espada.hitbox.y, jogador.espada.hitbox.getWidth(), jogador.espada.hitbox.getHeight());
 //        renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
 //        renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
@@ -188,6 +212,9 @@ public class MyGdxGame2 extends Game {
                 if (inimigo.visivel)
                     inimigo.Draw();
 
+            if (inimigo instanceof Ladrao)
+                if (inimigo.visivel)
+                    inimigo.Draw();
         }
 
     }

@@ -15,9 +15,6 @@ public class Slime extends Inimigo {
     public Sprite sprite[][][];
     public int dano;
     public int andar = 0;
-    public double bufalobill = 0.03;
-    public int repulsao = 30;
-    public float tempo = 0;
     public float tempoAtaque = 0;
 
 

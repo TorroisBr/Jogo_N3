@@ -32,6 +32,7 @@ public class Mapa {
     public Mapa() {
         this.inimigoarray = new Array<Inimigo>();
         this.tiroarray = new Array<Tiro>();
+        this.tudoArray=new Array<Unidade>();
 
     }
 

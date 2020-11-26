@@ -18,14 +18,16 @@ public abstract class Inimigo extends Unidade {
     public boolean morto;
     public float tempo = 0;
     public int movX, movY;
-    public int animAtual=1;
-    public float currentFrame = 0;;
+    public int animAtual = 1;
+    public float currentFrame = 0;
+
 
     public abstract void Andar();
 
     public abstract void Atacar();
 
     public abstract void Draw();
+
     public abstract void morrendo();
 
     public void tomarDano(int dano) {
@@ -60,6 +62,7 @@ public abstract class Inimigo extends Unidade {
         }
 
     }
+
     public boolean ColisaoComCenario(Rectangle rectangles[]) {
         for (Rectangle retangulo : rectangles) {
             if (hitboxMapa.overlaps(retangulo))
@@ -71,7 +74,7 @@ public abstract class Inimigo extends Unidade {
 
     public void LevandoDano() {
         tempo += Gdx.graphics.getDeltaTime();
-        if (tempo  <= 0.5) {
+        if (tempo <= 0.5) {
 
             switch (direcao) {
                 //VERIFICA A DIRECAO DO INIMIGO E CAUSA UMA REPULSAO
@@ -94,61 +97,68 @@ public abstract class Inimigo extends Unidade {
         //SE O TEMPO FOR SUPERIOR A 3 FRAMES RESETA ELE
         else {
             if (vida > 0) {
-                currentFrame=0;
+                currentFrame = 0;
                 estado = 0;
-                animAtual=1;
+                animAtual = 1;
             } else {
-                direcao=0;
-                currentFrame=0;
+                currentFrame = 0;
                 estado = -1;
-                animAtual=5;
+
+                if (this instanceof Ladrao)
+                    animAtual = 4;
+                if (this instanceof Slime) {
+                    direcao = 0;
+                    animAtual = 5;
+                }
             }
 
         }
     }
 
 
-        public void DanoEspada () {
-            if (jogador.espada.hitbox.overlaps(hitboxDano)) {
-                tempo = 0;
-                //SO PERMITE QUE ACERTE O JOGADOR EM UM FRAME
-                estado = 2;
-                tomarDano(jogador.espada.dano);
-                switch (jogador.direcao) {
-                    case 0:
-                        this.direcao = 2;
-                        break;
-                    case 1:
-                        this.direcao = 3;
-                        break;
-                    case 2:
-                        this.direcao = 0;
-                        break;
-                    case 3:
-                        this.direcao = 1;
-                        break;
-                }
-                currentFrame=0;
-                animAtual=4;
+    public void DanoEspada() {
+        if (jogador.espada.hitbox.overlaps(hitboxDano)) {
+            tempo = 0;
+            //SO PERMITE QUE ACERTE O JOGADOR EM UM FRAME
+            estado = 2;
+            tomarDano(jogador.espada.dano);
+            switch (jogador.direcao) {
+                case 0:
+                    this.direcao = 2;
+                    break;
+                case 1:
+                    this.direcao = 3;
+                    break;
+                case 2:
+                    this.direcao = 0;
+                    break;
+                case 3:
+                    this.direcao = 1;
+                    break;
             }
-        }
+            currentFrame = 0;
+            if (this instanceof Slime)
+                animAtual = 4;
+            if (this instanceof Ladrao)
+                animAtual = 3;
 
-        public void DanoFlecha () {
+        }
+    }
+
+    public void DanoFlecha() {
 //        if(hitboxDano.overlaps(tiro.hitbox)){
 //            tomarDano(tiro.dano);
 
-        }
+    }
 //    }
 
 
-
-
-        public void Drop () {
-            //Pegar itens da lista de itens do GameController
-        }
-
-        public void AtualizaRetangulos () {
-            hitboxDano.set(x, y, hitboxDano.width, hitboxDano.height);
-            hitboxMapa.set(x, y, hitboxMapa.width, hitboxMapa.height);
-        }
+    public void Drop() {
+        //Pegar itens da lista de itens do GameController
     }
+
+    public void AtualizaRetangulos() {
+        hitboxDano.set(x, y, hitboxDano.width, hitboxDano.height);
+        hitboxMapa.set(x, y, hitboxMapa.width, hitboxMapa.height);
+    }
+}
