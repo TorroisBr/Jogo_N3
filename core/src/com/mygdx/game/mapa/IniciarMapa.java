@@ -33,11 +33,10 @@ public class IniciarMapa {
         mapa.inimigoarray.add(ladrao);
         mapa.portaLocal = new Portas[1];
 
-//        mapa.tudoArray.containsAll(mapa.inimigoarray,true);
         mapa.tudoArray.add(casa1);
-//        mapa.tudoArray.add(slime);
-//        mapa.tudoArray.add(slime2);
-//        mapa.tudoArray.add(ladrao);
+        mapa.tudoArray.add(slime);
+        mapa.tudoArray.add(slime2);
+        mapa.tudoArray.add(ladrao);
         mapa.tudoArray.add(jogador);
 
         mapa.todosRetangulos = new Rectangle[3][/*mapa.spriteLocal.length+*/mapa.inimigoarray.size + mapa.colisoes.length + 1];

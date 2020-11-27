@@ -12,6 +12,7 @@ import com.mygdx.game.mapa.IniciarMapa;
 import com.mygdx.game.mapa.Mapa;
 import com.mygdx.game.mapa.Portas;
 import com.mygdx.game.unidade.Jogador;
+import com.mygdx.game.unidade.Unidade;
 import com.mygdx.game.unidade.inimigo.Inimigo;
 import com.mygdx.game.unidade.inimigo.Ladrao;
 import com.mygdx.game.unidade.inimigo.Slime;
@@ -90,7 +91,6 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void render() {
-
 
 
         Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -172,11 +172,11 @@ public class MyGdxGame2 extends Game {
 
 
         for (int i = 0; i < mapas[fundoatual].todosRetangulos[0].length; i++) {
-            if (i < mapas[fundoatual].todosRetangulos[0].length-mapas[fundoatual].inimigoarray.size-1) {
+            if (i < mapas[fundoatual].todosRetangulos[0].length - mapas[fundoatual].inimigoarray.size - 1) {
                 //renderer.rect(mapas[fundoatual].todosRetangulos[0][i].x, mapas[fundoatual].todosRetangulos[0][i].y, mapas[fundoatual].todosRetangulos[0][i].getWidth(), mapas[fundoatual].todosRetangulos[0][i].getHeight());
                 MapaDesenhar(mapas[fundoatual]);
 
-            } else if (i < mapas[fundoatual].todosRetangulos[0].length-1) {
+            } else if (i < mapas[fundoatual].todosRetangulos[0].length - 1) {
                 DesenharInimigos();
 
             } else {
@@ -207,14 +207,18 @@ public class MyGdxGame2 extends Game {
     }
 
     public void DesenharInimigos() {
-        for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
-            if (inimigo instanceof Slime)
+        for (Unidade unidade : mapas[fundoatual].inimigoarray) {
+            if (unidade instanceof Slime) {
+                Slime inimigo = (Slime) unidade;
                 if (inimigo.visivel)
                     inimigo.Draw();
+            }
 
-            if (inimigo instanceof Ladrao)
+            if (unidade instanceof Ladrao) {
+                Ladrao inimigo = (Ladrao) unidade;
                 if (inimigo.visivel)
                     inimigo.Draw();
+            }
         }
 
     }

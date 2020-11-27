@@ -201,14 +201,14 @@ public class Ladrao extends Inimigo {
 
         ColisaoPlayer();
         if (currentFrame < 2) {
-            animar(false, 0.12F);
+            animar(false, 0.20F);
 
         } else if (tempo < 0) {
             tempo += Gdx.graphics.getDeltaTime();
 
 
         } else if ((int) currentFrame < sprite[direcao][animAtual].length - 1) {
-            animar(false, 0.12F);
+            animar(false, 0.20F);
 
         } else {
             tempoAtaque = 0;
@@ -229,7 +229,7 @@ public class Ladrao extends Inimigo {
     public void morrendo() {
 
         if (currentFrame < sprite[0][4].length - 1)
-            animar(false, 0.12F);
+            animar(false, 0.20F);
         else {
             if (currentFrame == sprite[0][4].length - 1) {
                 tempo = 0;
