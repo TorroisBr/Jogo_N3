@@ -15,6 +15,64 @@ import static com.mygdx.game.MyGdxGame2.jogador;
 public class IniciarMapa {
 
 
+    public void Esgoto01(Mapa mapa){
+
+        Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
+        Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25);
+        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39, 1);
+        ObjetoCenario casa1 = new ObjetoCenario(510, 333 - 113, 161, 113, "hitbox");
+
+
+        //INSTANCIANDO VETORES
+        mapa.texturaLocal = new Texture[1];
+        mapa.spriteLocal = new Sprite[1];
+        mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
+        mapa.colisoes = new Rectangle[5];
+//        mapa.inimigoarray.add(slime);
+//        mapa.inimigoarray.add(slime2);
+//        mapa.inimigoarray.add(ladrao);
+        mapa.portaLocal = new Portas[1];
+
+        //mapa.desenhoArray.add(casa1);
+
+        mapa.desenhoArray.add(jogador);
+
+        //Inicia os inimigos e os coloca no array de desenhos
+        for (Inimigo inimigo : mapa.inimigoarray) {
+            inimigo.iniciar();
+            mapa.desenhoArray.add(inimigo);
+        }
+
+        //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
+        mapa.texturaLocal[0] = new Texture("cidade/esgoto01.png");
+
+
+
+        //CARREGANDO SPRITES
+        mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+
+
+
+        //POSICOES DO SPRITE
+        mapa.posicaoSprite[0][0] = 0;
+        mapa.posicaoSprite[0][1] = 0;
+
+
+        //COLOCANDO COLISOES
+        mapa.colisoes[0] = new Rectangle(-325, 358 - 358, 325, 358);
+        mapa.colisoes[1] = new Rectangle(-1, 786 - 432, 325, 432);
+        mapa.colisoes[2] = new Rectangle(324, 789 - 311, 229, 311);
+        mapa.colisoes[3] = new Rectangle(554, 787 - 368, 1026, 368);
+        mapa.colisoes[4] = new Rectangle(0, 58 - 196, 1581, 196);
+
+
+
+
+        //  pota certa pra aqui      mapa.portaLocal[0] = new Portas(1548, 890 - 76, 50, 50, 2, 100, 909 - 87);
+        //PORTAS
+        mapa.portaLocal[0] = new Portas(1548, 890 - 76, 50, 50, 2, 100, 909 - 87);
+    }
+
     public void Cidade01(Mapa mapa) {
         //CRIANDO INIMIGOS
         Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
@@ -86,13 +144,9 @@ public class IniciarMapa {
         mapa.colisoes[10] = new Rectangle(1290, 1245 - 59, 96, 59);
         mapa.colisoes[11] = new Rectangle(1451, 1305 - 59, 96, 59);
 
-//        mapa.colisoes[12] = new Rectangle(-19, 1668 - 1668, 19, 1668);
-//        mapa.colisoes[13] = new Rectangle(0, 1667 - 19, 1664, 19);
-//        mapa.colisoes[14] = new Rectangle(1664, 1668 - 1671, 21, 1671);
-//        mapa.colisoes[15] = new Rectangle(0, 0, 1664, 17);
 
         //PORTAS
-        mapa.portaLocal[0] = new Portas(1548, 890 - 76, 50, 50, 1, 100, 909 - 87);
+        mapa.portaLocal[0] = new Portas(1500, 890 - 76, 50, 50, 2, 387, 487 - 93);
 
 
     }

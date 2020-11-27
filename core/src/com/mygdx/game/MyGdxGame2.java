@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.mapa.IniciarMapa;
@@ -18,6 +19,7 @@ import com.mygdx.game.unidade.inimigo.Inimigo;
 import com.mygdx.game.unidade.inimigo.Ladrao;
 import com.mygdx.game.unidade.inimigo.Slime;
 
+import java.awt.*;
 import java.util.Iterator;
 
 import static com.mygdx.game.CameraView.*;
@@ -27,6 +29,7 @@ public class MyGdxGame2 extends Game {
     public static Jogador jogador;
     public Mapa mapaB01;
     public Mapa mapaB02;
+    public Mapa mapaEsg01;
 
     public static IniciarMapa iniciarMapa;
     public static int telaLarg = 1280, telaAlt = 720;
@@ -49,16 +52,20 @@ public class MyGdxGame2 extends Game {
         //INICIANDO CADA MAPA
         mapaB01 = new Mapa();
         mapaB02 = new Mapa();
+        mapaEsg01 = new Mapa();
 
         //ALOCANDO ARRAY
-        mapas = new Mapa[2];
+        mapas = new Mapa[3];
 
         //QUAL MAPA REPRESENTA CADA NO ARRAY
         mapas[0] = mapaB01;
         mapas[1] = mapaB02;
+        mapas[2] = mapaEsg01;
+
 
         iniciarMapa.Cidade01(mapas[0]);
         iniciarMapa.Cidade02(mapas[1]);
+        iniciarMapa.Esgoto01(mapas[2]);
 
 
         //BATCH OBJETO QUE DESENHA precisa de um tipo Sprite
@@ -92,14 +99,12 @@ public class MyGdxGame2 extends Game {
     public void render() {
 
         //Menu inicial
-        if(tela ==0)
-        {
+        if (tela == 0) {
             tela = 3;
         }
 
         //Tela principal do jogo
-        if(tela == 3)
-        {
+        if (tela == 3) {
             Gdx.gl.glClearColor(1, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             Mover();
@@ -174,8 +179,7 @@ public class MyGdxGame2 extends Game {
 
             MapaDesenhar(mapas[fundoatual]);
 
-            for(Unidade unidade: mapas[fundoatual].desenhoArray)
-            {
+            for (Unidade unidade : mapas[fundoatual].desenhoArray) {
                 if (unidade instanceof Slime) {
                     Slime inimigo = (Slime) unidade;
                     if (inimigo.visivel)
@@ -203,9 +207,14 @@ public class MyGdxGame2 extends Game {
             batch.end();
 
             //RENDER HITBOX BEGIN
-        /*
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
 
+
+            renderer.begin(ShapeRenderer.ShapeType.Filled);
+
+            for (Rectangle retangulo : mapas[fundoatual].colisoes)
+               // renderer.rect(retangulo.x, retangulo.y, retangulo.getWidth(), retangulo.getHeight());
+            renderer.end();
+/*
         for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
             renderer.rect(inimigo.hitboxMapa.x, inimigo.hitboxMapa.y, inimigo.hitboxMapa.getWidth(), inimigo.hitboxMapa.getHeight());
 
