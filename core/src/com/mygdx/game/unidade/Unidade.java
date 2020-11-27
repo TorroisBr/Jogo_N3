@@ -19,79 +19,20 @@ public abstract class Unidade implements Comparable{
     @Override
     public int compareTo(Object o) {
 
-        if(o instanceof Slime)
+        Unidade objeto = (Unidade) o;
+
+        if(hitboxDano.y < objeto.hitboxDano.y)
         {
-            Slime objeto = (Slime) o;
-
-            if(hitboxDano.y < objeto.hitboxDano.y)
-            {
-                return 1;
-            }
-            else if(hitboxDano.y > objeto.hitboxDano.y)
-            {
-                return -1;
-            }
-            else
-            {
-                return 0;
-            }
+            return 1;
         }
-
-        if(o instanceof Ladrao)
+        else if(hitboxDano.y > objeto.hitboxDano.y)
         {
-            Ladrao objeto = (Ladrao) o;
-
-            if(hitboxDano.y < objeto.hitboxDano.y)
-            {
-                return 1;
-            }
-            else if(hitboxDano.y > objeto.hitboxDano.y)
-            {
-                return -1;
-            }
-            else
-            {
-                return 0;
-            }
+            return -1;
         }
-
-        if(o instanceof Jogador)
+        else
         {
-            Jogador objeto = (Jogador) o;
-
-            if(hitboxDano.y < objeto.hitboxDano.y)
-            {
-                return 1;
-            }
-            else if(hitboxDano.y > objeto.hitboxDano.y)
-            {
-                return -1;
-            }
-            else
-            {
-                return 0;
-            }
+            return 0;
         }
-
-        if(o instanceof ObjetoCenario)
-        {
-            ObjetoCenario objeto = (ObjetoCenario) o;
-
-            if(hitboxDano.y < objeto.hitboxDano.y)
-            {
-                return 1;
-            }
-            else if(hitboxDano.y > objeto.hitboxDano.y)
-            {
-                return -1;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-        return 0;
     }
 
     public abstract void iniciar();

@@ -40,9 +40,6 @@ public class MyGdxGame2 extends Game {
     public static OrthographicCamera camera;
     public Viewport viewport;
 
-
-
-
     @Override
     public void create() {
         //LISTA COM OS MAPAS
@@ -55,6 +52,7 @@ public class MyGdxGame2 extends Game {
 
         //ALOCANDO ARRAY
         mapas = new Mapa[2];
+
         //QUAL MAPA REPRESENTA CADA NO ARRAY
         mapas[0] = mapaB01;
         mapas[1] = mapaB02;
@@ -77,7 +75,6 @@ public class MyGdxGame2 extends Game {
         camera.position.y = jogador.y + jogador.hitboxDano.getWidth() / 2.0F;
         camera.update();
 
-
         jogador.iniciar();
 
         DefinirLimites(mapas[fundoatual].spriteLocal, mapas[fundoatual].posicaoSprite);
@@ -86,7 +83,7 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void resize(int width, int height) {
-        //updated our game viewport
+        //Atualiza a janela do jogo
         viewport.update(width, height);
 
     }
@@ -156,7 +153,7 @@ public class MyGdxGame2 extends Game {
                     iter.remove();
             }
 
-            for (Iterator<Unidade> iter = mapas[fundoatual].tudoArray.iterator(); iter.hasNext(); ) {
+            for (Iterator<Unidade> iter = mapas[fundoatual].desenhoArray.iterator(); iter.hasNext(); ) {
                 Unidade enemy = iter.next();
                 if (enemy.estado == -2)
                     iter.remove();
@@ -171,30 +168,13 @@ public class MyGdxGame2 extends Game {
             renderer.setProjectionMatrix(camera.combined);
             batch.setProjectionMatrix(camera.combined);
 
-            mapas[fundoatual].tudoArray.sort();
+            mapas[fundoatual].desenhoArray.sort();
 
             batch.begin();
 
-        /*
-        for (int i = 0; i < mapas[fundoatual].todosRetangulos[0].length; i++) {
-            if (i < mapas[fundoatual].todosRetangulos[0].length - mapas[fundoatual].inimigoarray.size - 1) {
-                //renderer.rect(mapas[fundoatual].todosRetangulos[0][i].x, mapas[fundoatual].todosRetangulos[0][i].y, mapas[fundoatual].todosRetangulos[0][i].getWidth(), mapas[fundoatual].todosRetangulos[0][i].getHeight());
-                MapaDesenhar(mapas[fundoatual]);
-
-            } else if (i < mapas[fundoatual].todosRetangulos[0].length - 1) {
-                DesenharInimigos();
-
-            } else {
-                if (jogador.visivel)
-                    jogador.Draw();
-            }
-
-        }
-        */
-
             MapaDesenhar(mapas[fundoatual]);
 
-            for(Unidade unidade: mapas[fundoatual].tudoArray)
+            for(Unidade unidade: mapas[fundoatual].desenhoArray)
             {
                 if (unidade instanceof Slime) {
                     Slime inimigo = (Slime) unidade;
@@ -219,7 +199,6 @@ public class MyGdxGame2 extends Game {
                     Desenhar((int) objeto.hitboxDano.x, (int) objeto.hitboxDano.y, objeto.sprite, batch, camera);
                 }
             }
-
 
             batch.end();
 

@@ -12,11 +12,13 @@ public class ObjetoCenario extends Unidade {
     public ObjetoCenario(int x, int y, int lar, int alt,String caminho) {
         this.hitboxDano=new Rectangle(x, y, lar, alt);
         this.caminho=caminho+".png";
+
+        texture = new Texture(this.caminho);
+        sprite = new Sprite(texture);
     }
 
     @Override
     public void iniciar() {
-        texture = new Texture(caminho);
-        sprite = new Sprite(texture);
+        //Nada.
     }
 }

@@ -167,7 +167,7 @@ public class Jogador extends Unidade {
 
         if (estado != 1 && estado != 2 && estado != 1 && estado != 3) {
             //ATAQUE
-            if (Gdx.input.isKeyPressed(Input.Keys.V) && !teclaEspadaApertada) {
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && !teclaEspadaApertada) {
                 teclaEspadaApertada = true;
                 Espadada();
             }
@@ -233,7 +233,7 @@ public class Jogador extends Unidade {
 
             }
         }
-        if (!Gdx.input.isKeyPressed(Input.Keys.V)) {
+        if (!Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             teclaEspadaApertada = false;
         }
     }

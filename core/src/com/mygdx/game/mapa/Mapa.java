@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.tiro.Tiro;
-import com.mygdx.game.unidade.Npc;
 import com.mygdx.game.unidade.Unidade;
 import com.mygdx.game.unidade.inimigo.Inimigo;
 
@@ -13,14 +12,14 @@ import com.mygdx.game.unidade.inimigo.Inimigo;
 public class Mapa {
     public Texture texturaLocal[];
     public Sprite spriteLocal[];
-    public Sprite objetosLocal[];
+    //public Sprite objetosLocal[];
     public int posicaoSprite[][];
     public Rectangle colisoes[];
     public Array<Inimigo> inimigoarray;
-    //    public Npc npcLocal[];
+    //public Npc npcLocal[];
     public Array<Tiro> tiroarray;
     public Rectangle todosRetangulos[][];
-    public Array<Unidade> tudoArray;
+    public Array<Unidade> desenhoArray;
 
 
     public Portas portaLocal[];
@@ -32,7 +31,7 @@ public class Mapa {
     public Mapa() {
         this.inimigoarray = new Array<Inimigo>();
         this.tiroarray = new Array<Tiro>();
-        this.tudoArray=new Array<Unidade>();
+        this.desenhoArray =new Array<Unidade>();
 
     }
 

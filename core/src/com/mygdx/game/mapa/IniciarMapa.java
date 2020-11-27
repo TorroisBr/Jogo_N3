@@ -33,21 +33,15 @@ public class IniciarMapa {
         mapa.inimigoarray.add(ladrao);
         mapa.portaLocal = new Portas[1];
 
-        mapa.tudoArray.add(slime);
-        mapa.tudoArray.add(slime2);
-        mapa.tudoArray.add(ladrao);
-        mapa.tudoArray.add(jogador);
-        mapa.tudoArray.add(casa1);
+        mapa.desenhoArray.add(casa1);
 
-        mapa.todosRetangulos = new Rectangle[3][/*mapa.spriteLocal.length+*/mapa.inimigoarray.size + mapa.colisoes.length + 1];
+        mapa.desenhoArray.add(jogador);
 
-        //FOR QUE INICIA OS inimigos
+        //Inicia os inimigos e os coloca no array de desenhos
         for (Inimigo inimigo : mapa.inimigoarray) {
             inimigo.iniciar();
-
+            mapa.desenhoArray.add(inimigo);
         }
-        for(Unidade unidade: mapa.tudoArray)
-            unidade.iniciar();
 
         //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
         mapa.texturaLocal[0] = new Texture("cidade/B1_03.png");
@@ -97,27 +91,6 @@ public class IniciarMapa {
 //        mapa.colisoes[14] = new Rectangle(1664, 1668 - 1671, 21, 1671);
 //        mapa.colisoes[15] = new Rectangle(0, 0, 1664, 17);
 
-        mapa.todosRetangulos[0][0] = mapa.colisoes[0];
-        mapa.todosRetangulos[0][1] = mapa.colisoes[1];
-        mapa.todosRetangulos[0][2] = mapa.colisoes[2];
-        mapa.todosRetangulos[0][3] = mapa.colisoes[3];
-        mapa.todosRetangulos[0][4] = mapa.colisoes[4];
-        mapa.todosRetangulos[0][5] = mapa.colisoes[5];
-        mapa.todosRetangulos[0][6] = mapa.colisoes[6];
-        mapa.todosRetangulos[0][7] = mapa.colisoes[7];
-        mapa.todosRetangulos[0][8] = mapa.colisoes[8];
-        mapa.todosRetangulos[0][9] = mapa.colisoes[9];
-        mapa.todosRetangulos[0][10] = mapa.colisoes[10];
-        mapa.todosRetangulos[0][11] = mapa.colisoes[11];
-
-        mapa.todosRetangulos[1][12] = slime.hitboxDano;
-        mapa.todosRetangulos[1][13] = slime2.hitboxDano;
-        mapa.todosRetangulos[1][14] = ladrao.hitboxDano;
-
-
-        mapa.todosRetangulos[2][15] = jogador.hitboxDano;
-
-
         //PORTAS
         mapa.portaLocal[0] = new Portas(1548, 890 - 76, 50, 50, 1, 100, 909 - 87);
 
@@ -137,9 +110,12 @@ public class IniciarMapa {
         mapa.portaLocal = new Portas[1];
         mapa.todosRetangulos = new Rectangle[3][/*mapa.spriteLocal.length+*/mapa.inimigoarray.size + mapa.colisoes.length + 1];
 
+        mapa.desenhoArray.add(jogador);
 
+        //Inicia os inimigos e os coloca no array de desenhos
         for (Inimigo inimigo : mapa.inimigoarray) {
             inimigo.iniciar();
+            mapa.desenhoArray.add(inimigo);
         }
 
         //EXEMPLO COM 9 IMAGENS
