@@ -12,6 +12,7 @@ import com.mygdx.game.mapa.IniciarMapa;
 import com.mygdx.game.mapa.Mapa;
 import com.mygdx.game.mapa.Portas;
 import com.mygdx.game.unidade.Jogador;
+import com.mygdx.game.unidade.ObjetoCenario;
 import com.mygdx.game.unidade.Unidade;
 import com.mygdx.game.unidade.inimigo.Inimigo;
 import com.mygdx.game.unidade.inimigo.Ladrao;
@@ -22,7 +23,7 @@ import java.util.Iterator;
 import static com.mygdx.game.CameraView.*;
 
 public class MyGdxGame2 extends Game {
-    public static Mapa mapas[];
+    public static Mapa[] mapas;
     public static Jogador jogador;
     public Mapa mapaB01;
     public Mapa mapaB02;
@@ -34,11 +35,12 @@ public class MyGdxGame2 extends Game {
     public static SpriteBatch batch;
     public static ShapeRenderer renderer;
 
+    public static int tela = 0;
     public static int fundoatual = 0;
     public static OrthographicCamera camera;
     public Viewport viewport;
-    int VRX = 0;
-    int VRY = 0;
+
+
 
 
     @Override
@@ -92,85 +94,88 @@ public class MyGdxGame2 extends Game {
     @Override
     public void render() {
 
+        //Menu inicial
+        if(tela ==0)
+        {
+            tela = 3;
+        }
 
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Mover();
-        //METODO DE MOVIMENTO
-        jogador.Movimento(mapas[fundoatual].colisoes);
+        //Tela principal do jogo
+        if(tela == 3)
+        {
+            Gdx.gl.glClearColor(1, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            Mover();
+            //METODO DE MOVIMENTO
+            jogador.Movimento(mapas[fundoatual].colisoes);
 
-        //VERIFICA QUAL O TIPO DE INIMIGO E O MOVIMENTA
-        for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
-            if (inimigo instanceof Slime) {
-                switch (inimigo.estado) {
-                    case -1:
-                        inimigo.morrendo();
-                        break;
-                    case 0:
-                        inimigo.Andar();
-                        break;
-                    case 1:
-                        inimigo.Atacar();
-                        break;
-                    case 2:
-                        inimigo.LevandoDano();
-                        break;
+            //VERIFICA QUAL O TIPO DE INIMIGO E O MOVIMENTA
+            for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
+                if (inimigo instanceof Slime) {
+                    switch (inimigo.estado) {
+                        case -1:
+                            inimigo.morrendo();
+                            break;
+                        case 0:
+                            inimigo.Andar();
+                            break;
+                        case 1:
+                            inimigo.Atacar();
+                            break;
+                        case 2:
+                            inimigo.LevandoDano();
+                            break;
+                    }
+
+                }
+                if (inimigo instanceof Ladrao) {
+                    switch (inimigo.estado) {
+
+                        case -1:
+                            inimigo.morrendo();
+                            break;
+                        case 0:
+                            inimigo.Andar();
+                            break;
+                        case 1:
+                            inimigo.Atacar();
+                            break;
+                        case 2:
+                            inimigo.LevandoDano();
+                            break;
+                    }
+
                 }
 
             }
-            if (inimigo instanceof Ladrao) {
-                switch (inimigo.estado) {
 
-                    case -1:
-                        inimigo.morrendo();
-                        break;
-                    case 0:
-                        inimigo.Andar();
-                        break;
-                    case 1:
-                        inimigo.Atacar();
-                        break;
-                    case 2:
-                        inimigo.LevandoDano();
-                        break;
-                }
-
+            //FOR QUE REMOVE O INIMIGO DOS ARRAYS SE ELE ESTIVER MORTO
+            for (Iterator<Inimigo> iter = mapas[fundoatual].inimigoarray.iterator(); iter.hasNext(); ) {
+                Inimigo enemy = iter.next();
+                if (enemy.estado == -2)
+                    iter.remove();
             }
 
-        }
-        //FOR QUE REMOVE O INIMIGO DO ARRAY SE ELE ESTIVER MORTO
+            for (Iterator<Unidade> iter = mapas[fundoatual].tudoArray.iterator(); iter.hasNext(); ) {
+                Unidade enemy = iter.next();
+                if (enemy.estado == -2)
+                    iter.remove();
+            }
 
-        for (Iterator<Inimigo> iter = mapas[fundoatual].inimigoarray.iterator(); iter.hasNext(); ) {
-            Inimigo enemy = iter.next();
-            if (enemy.estado == -2)
-                iter.remove();
-        }
-        for (Portas porta : mapas[fundoatual].portaLocal) {
-            porta.conferindoInteracao(jogador);
-        }
+            //Faz as portas conferirem a colisao com o jogador
+            for (Portas porta : mapas[fundoatual].portaLocal) {
+                porta.conferindoInteracao(jogador);
+            }
 
+            //Faz com que o renderer e o batch acopanhem a camera
+            renderer.setProjectionMatrix(camera.combined);
+            batch.setProjectionMatrix(camera.combined);
 
-        //ACOMPANHA A CAMERA
-        renderer.setProjectionMatrix(camera.combined);
-        batch.setProjectionMatrix(camera.combined);
+            mapas[fundoatual].tudoArray.sort();
 
+            batch.begin();
 
-        //Desenha
-        batch.begin();
-
-
-        //DESENHA OS INIMIGOS DO ARRAY
-
-
-        batch.end();
-        //FINAL DO DESENHO
-
-        //RENDER HITBOX BEGIN
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        batch.begin();
-
-
+        /*
         for (int i = 0; i < mapas[fundoatual].todosRetangulos[0].length; i++) {
             if (i < mapas[fundoatual].todosRetangulos[0].length - mapas[fundoatual].inimigoarray.size - 1) {
                 //renderer.rect(mapas[fundoatual].todosRetangulos[0][i].x, mapas[fundoatual].todosRetangulos[0][i].y, mapas[fundoatual].todosRetangulos[0][i].getWidth(), mapas[fundoatual].todosRetangulos[0][i].getHeight());
@@ -185,42 +190,61 @@ public class MyGdxGame2 extends Game {
             }
 
         }
-        batch.end();
+        */
 
-//        for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
-//            renderer.rect(inimigo.hitboxMapa.x, inimigo.hitboxMapa.y, inimigo.hitboxMapa.getWidth(), inimigo.hitboxMapa.getHeight());
-//
-//        }
-//
-//        for (Portas portas : mapas[fundoatual].portaLocal) {
-//            renderer.rect(portas.colisao.x, portas.colisao.y, portas.colisao.getWidth(), portas.colisao.getHeight());
-//
-//        }
-//        renderer.rect(ladrao.espada.hitbox.x, ladrao.espada.hitbox.y, ladrao.espada.hitbox.getWidth(), ladrao.espada.hitbox.getHeight());
-//        renderer.rect(jogador.espada.hitbox.x, jogador.espada.hitbox.y, jogador.espada.hitbox.getWidth(), jogador.espada.hitbox.getHeight());
-//        renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
-//        renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
-        renderer.end();
+            MapaDesenhar(mapas[fundoatual]);
 
-        //RENDER HITBOX END
+            for(Unidade unidade: mapas[fundoatual].tudoArray)
+            {
+                if (unidade instanceof Slime) {
+                    Slime inimigo = (Slime) unidade;
+                    if (inimigo.visivel)
+                        inimigo.Draw();
+                }
 
-    }
+                if (unidade instanceof Ladrao) {
+                    Ladrao inimigo = (Ladrao) unidade;
+                    if (inimigo.visivel)
+                        inimigo.Draw();
+                }
 
-    public void DesenharInimigos() {
-        for (Unidade unidade : mapas[fundoatual].inimigoarray) {
-            if (unidade instanceof Slime) {
-                Slime inimigo = (Slime) unidade;
-                if (inimigo.visivel)
-                    inimigo.Draw();
+                if (unidade instanceof Jogador) {
+                    Jogador jogador = (Jogador) unidade;
+                    if (jogador.visivel)
+                        jogador.Draw();
+                }
+
+                if (unidade instanceof ObjetoCenario) {
+                    ObjetoCenario objeto = (ObjetoCenario) unidade;
+                    Desenhar((int) objeto.hitboxDano.x, (int) objeto.hitboxDano.y, objeto.sprite, batch, camera);
+                }
             }
 
-            if (unidade instanceof Ladrao) {
-                Ladrao inimigo = (Ladrao) unidade;
-                if (inimigo.visivel)
-                    inimigo.Draw();
-            }
+
+            batch.end();
+
+            //RENDER HITBOX BEGIN
+        /*
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+
+        for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
+            renderer.rect(inimigo.hitboxMapa.x, inimigo.hitboxMapa.y, inimigo.hitboxMapa.getWidth(), inimigo.hitboxMapa.getHeight());
+
         }
 
+        for (Portas portas : mapas[fundoatual].portaLocal) {
+            renderer.rect(portas.colisao.x, portas.colisao.y, portas.colisao.getWidth(), portas.colisao.getHeight());
+
+        }
+        renderer.rect(ladrao.espada.hitbox.x, ladrao.espada.hitbox.y, ladrao.espada.hitbox.getWidth(), ladrao.espada.hitbox.getHeight());
+        renderer.rect(jogador.espada.hitbox.x, jogador.espada.hitbox.y, jogador.espada.hitbox.getWidth(), jogador.espada.hitbox.getHeight());
+        renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
+        renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
+
+        renderer.end();
+        */
+            //RENDER HITBOX END
+        }
     }
 
     @Override   //metodo dispose deleta as texturas e exclui os objetos

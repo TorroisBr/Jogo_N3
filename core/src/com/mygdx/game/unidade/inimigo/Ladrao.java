@@ -227,26 +227,21 @@ public class Ladrao extends Inimigo {
 
     @Override
     public void morrendo() {
-
-        if (currentFrame < sprite[0][4].length - 1)
-            animar(false, 0.20F);
-        else {
-            if (currentFrame == sprite[0][4].length - 1) {
-                tempo = 0;
-            }
-            if (tempo < 2 && visivel) {
-                tempo += Gdx.graphics.getDeltaTime();
-                if ((int) (tempo * 100) % 2 == 0) {
-
-                    if (visivel)
-                        visivel = false;
-                    else
-                        visivel = true;
-
-                }
-            } else
-                estado = -2;
+        if (tempo < 2) {
+            tempo += Gdx.graphics.getDeltaTime();
         }
+        else if (tempo < 4)
+        {
+            tempo += Gdx.graphics.getDeltaTime();
+            if ((int) (tempo * 100) % 2 == 0) {
+                if (visivel)
+                    visivel = false;
+                else
+                    visivel = true;
+
+            }
+        } else
+            estado = -2;
     }
 
     @Override

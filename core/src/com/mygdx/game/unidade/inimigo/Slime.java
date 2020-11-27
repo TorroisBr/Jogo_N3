@@ -428,7 +428,7 @@ public class Slime extends Inimigo {
     public void carregarAtaque() {
         //ATACAR ESPADA BAIXO
 
-        texture[0][2][0] = new Texture("inimigo/Slime/GosmaCAt01.png");
+        texture[0][2][0] = new Texture("inimigo/Slime/GosmaFAt01.png");
         texture[0][2][1] = new Texture("inimigo/Slime/GosmaF_e_CAt02.png");
         texture[0][2][2] = new Texture("inimigo/Slime/GosmaF_e_CAt03.png");
 
@@ -462,7 +462,7 @@ public class Slime extends Inimigo {
 
         //ATACAR ESPADA CIMA
 
-        texture[2][2][0] = new Texture("inimigo/Slime/GosmaFAt01.png");
+        texture[2][2][0] = new Texture("inimigo/Slime/GosmaCAt01.png");
         texture[2][2][1] = new Texture("inimigo/Slime/GosmaF_e_CAt02.png");
         texture[2][2][2] = new Texture("inimigo/Slime/GosmaF_e_CAt03.png");
 

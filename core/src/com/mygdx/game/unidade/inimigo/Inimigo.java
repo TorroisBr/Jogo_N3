@@ -102,6 +102,7 @@ public abstract class Inimigo extends Unidade {
                 animAtual = 1;
             } else {
                 currentFrame = 0;
+                tempo = 0;
                 estado = -1;
 
                 if (this instanceof Ladrao)

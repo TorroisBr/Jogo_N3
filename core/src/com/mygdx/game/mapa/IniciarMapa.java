@@ -20,7 +20,7 @@ public class IniciarMapa {
         Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
         Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25);
         Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39, 1);
-        ObjetoCenario casa1 = new ObjetoCenario(310, 233 - 113, 161, 113, "hitbox");
+        ObjetoCenario casa1 = new ObjetoCenario(510, 333 - 113, 161, 113, "hitbox");
 
 
         //INSTANCIANDO VETORES
@@ -33,11 +33,11 @@ public class IniciarMapa {
         mapa.inimigoarray.add(ladrao);
         mapa.portaLocal = new Portas[1];
 
-        mapa.tudoArray.add(casa1);
         mapa.tudoArray.add(slime);
         mapa.tudoArray.add(slime2);
         mapa.tudoArray.add(ladrao);
         mapa.tudoArray.add(jogador);
+        mapa.tudoArray.add(casa1);
 
         mapa.todosRetangulos = new Rectangle[3][/*mapa.spriteLocal.length+*/mapa.inimigoarray.size + mapa.colisoes.length + 1];
 
