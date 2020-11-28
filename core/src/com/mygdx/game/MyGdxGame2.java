@@ -30,6 +30,9 @@ public class MyGdxGame2 extends Game {
     public Mapa mapaB01;
     public Mapa mapaB02;
     public Mapa mapaEsg01;
+    public Mapa mapaEsg02;
+    public Mapa mapaEsg03;
+
 
     public static IniciarMapa iniciarMapa;
     public static int telaLarg = 1280, telaAlt = 720;
@@ -53,19 +56,29 @@ public class MyGdxGame2 extends Game {
         mapaB01 = new Mapa();
         mapaB02 = new Mapa();
         mapaEsg01 = new Mapa();
+        mapaEsg02 = new Mapa();
+        mapaEsg03 = new Mapa();
+
 
         //ALOCANDO ARRAY
-        mapas = new Mapa[3];
+        mapas = new Mapa[5];
 
         //QUAL MAPA REPRESENTA CADA NO ARRAY
         mapas[0] = mapaB01;
         mapas[1] = mapaB02;
         mapas[2] = mapaEsg01;
+        mapas[3] = mapaEsg02;
+        mapas[4] = mapaEsg03;
+
+
 
 
         iniciarMapa.Cidade01(mapas[0]);
         iniciarMapa.Cidade02(mapas[1]);
         iniciarMapa.Esgoto01(mapas[2]);
+        iniciarMapa.Esgoto02(mapas[3]);
+        iniciarMapa.Esgoto03(mapas[4]);
+
 
 
         //BATCH OBJETO QUE DESENHA precisa de um tipo Sprite
@@ -105,7 +118,7 @@ public class MyGdxGame2 extends Game {
 
         //Tela principal do jogo
         if (tela == 3) {
-            Gdx.gl.glClearColor(1, 0, 0, 1);
+            Gdx.gl.glClearColor(0, 0, 0, 0);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             Mover();
             //METODO DE MOVIMENTO

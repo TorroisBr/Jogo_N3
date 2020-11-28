@@ -10,12 +10,13 @@ import com.mygdx.game.unidade.inimigo.Ladrao;
 import com.mygdx.game.unidade.inimigo.Slime;
 
 import static com.mygdx.game.MyGdxGame2.jogador;
+import static com.mygdx.game.MyGdxGame2.telaLarg;
 
 
 public class IniciarMapa {
 
 
-    public void Esgoto01(Mapa mapa){
+    public void Esgoto01(Mapa mapa) {
 
         Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
         Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25);
@@ -47,10 +48,8 @@ public class IniciarMapa {
         mapa.texturaLocal[0] = new Texture("cidade/esgoto01.png");
 
 
-
         //CARREGANDO SPRITES
         mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
-
 
 
         //POSICOES DO SPRITE
@@ -66,12 +65,119 @@ public class IniciarMapa {
         mapa.colisoes[4] = new Rectangle(0, 58 - 196, 1581, 196);
 
 
+        //PORTAS
+        mapa.portaLocal[0] = new Portas(1549, 418 - 362, 68, 362, 3, 100, 300 - 87);
+    }
+
+    public void Esgoto02(Mapa mapa) {
+
+        Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
+        Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25);
+        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39, 1);
+        ObjetoCenario casa1 = new ObjetoCenario(510, 333 - 113, 161, 113, "hitbox");
+
+
+        //INSTANCIANDO VETORES
+        mapa.texturaLocal = new Texture[1];
+        mapa.spriteLocal = new Sprite[1];
+        mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
+        mapa.colisoes = new Rectangle[3];
+//        mapa.inimigoarray.add(slime);
+//        mapa.inimigoarray.add(slime2);
+//        mapa.inimigoarray.add(ladrao);
+        mapa.portaLocal = new Portas[2];
+
+        //mapa.desenhoArray.add(casa1);
+
+        mapa.desenhoArray.add(jogador);
+
+        //Inicia os inimigos e os coloca no array de desenhos
+        for (Inimigo inimigo : mapa.inimigoarray) {
+            inimigo.iniciar();
+            mapa.desenhoArray.add(inimigo);
+        }
+
+        //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
+        mapa.texturaLocal[0] = new Texture("cidade/esgoto02.png");
+
+
+        //CARREGANDO SPRITES
+        mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+
+
+        //POSICOES DO SPRITE
+        mapa.posicaoSprite[0][0] = 0;
+        mapa.posicaoSprite[0][1] = 0;
+
+
+        //COLOCANDO COLISOES
+        mapa.colisoes[0] = new Rectangle(1, 695 - 321, 1276, 321);
+        mapa.colisoes[1] = new Rectangle(1276, 696 - 454, 114, 696);
+        mapa.colisoes[2] = new Rectangle(0, 36 - 93, 1392, 93);
 
 
         //  pota certa pra aqui      mapa.portaLocal[0] = new Portas(1548, 890 - 76, 50, 50, 2, 100, 909 - 87);
         //PORTAS
-        mapa.portaLocal[0] = new Portas(1548, 890 - 76, 50, 50, 2, 100, 909 - 87);
+        mapa.portaLocal[0] = new Portas(-34, 380 - 344, 81, 344, 2, 1358, 302 - 71);
+        mapa.portaLocal[1] = new Portas(1344, 239 - 206, 81, 206, 4, 100, 302 - 71);
     }
+
+    public void Esgoto03(Mapa mapa) {
+
+        Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
+        Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25);
+        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39, 1);
+        ObjetoCenario casa1 = new ObjetoCenario(510, 333 - 113, 161, 113, "hitbox");
+
+
+        //INSTANCIANDO VETORES
+        mapa.texturaLocal = new Texture[1];
+        mapa.spriteLocal = new Sprite[1];
+        mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
+        mapa.colisoes = new Rectangle[6];
+//        mapa.inimigoarray.add(slime);
+//        mapa.inimigoarray.add(slime2);
+//        mapa.inimigoarray.add(ladrao);
+        mapa.portaLocal = new Portas[2];
+
+        //mapa.desenhoArray.add(casa1);
+
+        mapa.desenhoArray.add(jogador);
+
+        //Inicia os inimigos e os coloca no array de desenhos
+        for (Inimigo inimigo : mapa.inimigoarray) {
+            inimigo.iniciar();
+            mapa.desenhoArray.add(inimigo);
+        }
+
+        //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
+        mapa.texturaLocal[0] = new Texture("cidade/esgoto03.png");
+
+
+        //CARREGANDO SPRITES
+        mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+
+
+        //POSICOES DO SPRITE
+        mapa.posicaoSprite[0][0] = 0;
+        mapa.posicaoSprite[0][1] = 0;
+
+
+        //COLOCANDO COLISOES
+        mapa.colisoes[0] = new Rectangle(0, 569 - 322, 79, 322);
+        mapa.colisoes[1] = new Rectangle(79, 723 - 323, 324, 323);
+        mapa.colisoes[2] = new Rectangle(404, 400 - 392, 58, 392);
+        mapa.colisoes[3] = new Rectangle(-2, 202 - 125, 81, 125);
+        mapa.colisoes[4] = new Rectangle(-2, 77 - 79, 176, 79);
+        mapa.colisoes[5] = new Rectangle(308, 79 - 88, 154, 88);
+
+
+        //  pota certa pra aqui      mapa.portaLocal[0] = new Portas(1548, 890 - 76, 50, 50, 2, 100, 909 - 87);
+        //PORTAS
+        mapa.portaLocal[0] = new Portas(-53, 294 - 110, 66, 110, 3, 1200, 250);
+        mapa.portaLocal[1] = new Portas(172, 19 - 45, 137, 45, 1, 100, 302 - 71);
+    }
+
 
     public void Cidade01(Mapa mapa) {
         //CRIANDO INIMIGOS
