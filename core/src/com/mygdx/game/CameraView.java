@@ -3,7 +3,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 
 import static com.mygdx.game.MyGdxGame2.*;
@@ -17,7 +16,7 @@ public class CameraView {
     private static boolean naAreaDaCamera(int x, int y, OrthographicCamera camera, SpriteBatch batch, Sprite sprite) {
         float larg = sprite.getWidth();
         float alt = sprite.getHeight();
-        boolean resposta = false;
+        boolean resposta;
 
         if ((x < camera.position.x + telaLarg / 2 && x + larg > camera.position.x - telaLarg / 2) && (y < camera.position.y + telaAlt / 2 && y + alt > camera.position.y - telaAlt / 2)) {
             resposta = true;

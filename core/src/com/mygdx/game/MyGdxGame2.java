@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -37,9 +38,19 @@ public class MyGdxGame2 extends Game {
 
     public static int tela = 0;
     public static int fundoatual = 0;
-    public static OrthographicCamera camera;
-    public Viewport viewport;
+    public static int selecao = 0;
+    public static OrthographicCamera camera,
+                                     cameraHUD;
+    public Viewport viewport,
+                    viewportHUD;
 
+    public static HUD hud;
+    public static MenuPrincipal menuPrincipal;
+
+    public static boolean downPress = false,
+                          upPress = false,
+                          spacePress = false,
+                          backspacePress = false;
     @Override
     public void create() {
         //LISTA COM OS MAPAS
@@ -75,6 +86,15 @@ public class MyGdxGame2 extends Game {
         camera.position.y = jogador.y + jogador.hitboxDano.getWidth() / 2.0F;
         camera.update();
 
+        cameraHUD = new OrthographicCamera();
+        viewportHUD = new FitViewport(telaLarg, telaAlt, cameraHUD);
+        cameraHUD.setToOrtho(false, 1280.0F, 4720.0F);
+        cameraHUD.position.set(1280.0F, 720.0F, 0.0F);
+        cameraHUD.update();
+
+        hud = new HUD();
+        menuPrincipal = new MenuPrincipal();
+
         jogador.iniciar();
 
         DefinirLimites(mapas[fundoatual].spriteLocal, mapas[fundoatual].posicaoSprite);
@@ -85,6 +105,7 @@ public class MyGdxGame2 extends Game {
     public void resize(int width, int height) {
         //Atualiza a janela do jogo
         viewport.update(width, height);
+        viewportHUD.update(width, height);
 
     }
 
@@ -92,17 +113,107 @@ public class MyGdxGame2 extends Game {
     public void render() {
 
         //Menu inicial
-        if(tela ==0)
+        if(tela ==0 || tela == 1 || tela == 2)
         {
-            tela = 3;
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+            cameraHUD.position.x = telaLarg / 2;
+            cameraHUD.position.y = telaAlt / 2;
+            cameraHUD.update();
+            batch.setProjectionMatrix(cameraHUD.combined);
+
+            batch.begin();
+
+            menuPrincipal.Draw(tela, selecao);
+
+            batch.end();
+
+            if(tela == 0)
+            {
+                if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && selecao < 3 && !downPress)
+                {
+                    selecao ++;
+                    downPress = true;
+                }
+                if(Gdx.input.isKeyPressed(Input.Keys.UP) && selecao > 0 && !upPress)
+                {
+                    selecao --;
+                    upPress = true;
+                }
+
+                if(!Gdx.input.isKeyPressed(Input.Keys.DOWN))
+                {
+                    downPress = false;
+                }
+                if(!Gdx.input.isKeyPressed(Input.Keys.UP))
+                {
+                    upPress = false;
+                }
+                if(!Gdx.input.isKeyPressed(Input.Keys.SPACE))
+                {
+                    spacePress = false;
+                }
+                if(!Gdx.input.isKeyPressed(Input.Keys.BACKSPACE))
+                {
+                    backspacePress = false;
+                }
+
+                if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && !spacePress)
+                {
+                    switch (selecao)
+                    {
+                        case 0:
+                            tela = 3;
+                            jogador.teclaEspadaApertada = true;
+                            break;
+                        case 1:
+                            tela = 1;
+                            break;
+                        case 2:
+                            tela = 2;
+                            break;
+                        case 3:
+                            System.exit(0);
+                            break;
+                    }
+                }
+            }
+
+            if(tela == 1)
+            {
+                if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && !backspacePress)
+                {
+                    tela = 0;
+                    backspacePress = true;
+                }
+                if (!Gdx.input.isKeyPressed(Input.Keys.BACKSPACE))
+                {
+                    backspacePress = false;
+                }
+            }
+
+            if(tela == 2)
+            {
+                if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && !backspacePress)
+                {
+                    tela = 0;
+                    backspacePress = true;
+                }
+                if (!Gdx.input.isKeyPressed(Input.Keys.BACKSPACE))
+                {
+                    backspacePress = false;
+                }
+            }
         }
 
         //Tela principal do jogo
         if(tela == 3)
         {
-            Gdx.gl.glClearColor(1, 0, 0, 1);
+            Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             Mover();
+
             //METODO DE MOVIMENTO
             jogador.Movimento(mapas[fundoatual].colisoes);
 
@@ -203,26 +314,39 @@ public class MyGdxGame2 extends Game {
             batch.end();
 
             //RENDER HITBOX BEGIN
-        /*
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
+            /*
+            renderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
-            renderer.rect(inimigo.hitboxMapa.x, inimigo.hitboxMapa.y, inimigo.hitboxMapa.getWidth(), inimigo.hitboxMapa.getHeight());
+            for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
+                renderer.rect(inimigo.hitboxMapa.x, inimigo.hitboxMapa.y, inimigo.hitboxMapa.getWidth(), inimigo.hitboxMapa.getHeight());
 
-        }
+            }
 
-        for (Portas portas : mapas[fundoatual].portaLocal) {
-            renderer.rect(portas.colisao.x, portas.colisao.y, portas.colisao.getWidth(), portas.colisao.getHeight());
+            for (Portas portas : mapas[fundoatual].portaLocal) {
+                renderer.rect(portas.colisao.x, portas.colisao.y, portas.colisao.getWidth(), portas.colisao.getHeight());
 
-        }
-        renderer.rect(ladrao.espada.hitbox.x, ladrao.espada.hitbox.y, ladrao.espada.hitbox.getWidth(), ladrao.espada.hitbox.getHeight());
-        renderer.rect(jogador.espada.hitbox.x, jogador.espada.hitbox.y, jogador.espada.hitbox.getWidth(), jogador.espada.hitbox.getHeight());
-        renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
-        renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
+            }
+            renderer.rect(ladrao.espada.hitbox.x, ladrao.espada.hitbox.y, ladrao.espada.hitbox.getWidth(), ladrao.espada.hitbox.getHeight());
+            renderer.rect(jogador.espada.hitbox.x, jogador.espada.hitbox.y, jogador.espada.hitbox.getWidth(), jogador.espada.hitbox.getHeight());
+            renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
+            renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
 
-        renderer.end();
-        */
+            renderer.end();
+            */
             //RENDER HITBOX END
+
+            //HUD
+            cameraHUD.position.x = telaLarg / 2;
+            cameraHUD.position.y = telaAlt / 2;
+            cameraHUD.update();
+            batch.setProjectionMatrix(cameraHUD.combined);
+
+            batch.begin();
+
+            hud.Draw();
+
+            batch.end();
+
         }
     }
 
@@ -245,6 +369,9 @@ public class MyGdxGame2 extends Game {
 
         //Movimento Player-----------------------------------
         switch (jogador.estado) {
+            case -1:
+                jogador.morrendo();
+                break;
             case 0:
                 jogador.animar(true, 0.09F);
                 break;
