@@ -28,10 +28,10 @@ public class Portas {
     //INFORMA QUAL MAPA X,Y ATUALIZA HITBOX E CHAMA O METODO PARA TRAVAR A CAMERA COM O NOVO MAPA
     public void trocarMapa(Jogador jogador){
         fundoatual=novoMapaAtual;
-        jogador.AtualizaRetangulos();
-        jogador.x=novoX;
-        jogador.y=novoY;
 
+        jogador.y=novoX;
+        jogador.y=novoY;
+        jogador.AtualizaRetangulos();
 //        escolherDefinirLimites(novoMapaAtual);
         DefinirLimites(mapas[fundoatual].spriteLocal, mapas[fundoatual].posicaoSprite);
 

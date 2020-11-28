@@ -27,7 +27,7 @@ public class Slime extends Inimigo {
         this.estado = 0;
         this.hitboxDano = new Rectangle(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
         this.hitboxMapa = new Rectangle(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
-        this.dano = 5;
+        this.dano = 2;
         this.visivel = true;
     }
 
