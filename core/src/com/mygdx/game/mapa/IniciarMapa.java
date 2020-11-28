@@ -18,10 +18,10 @@ public class IniciarMapa {
 
     public void Esgoto01(Mapa mapa) {
 
-        Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
-        Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25);
+        Slime slime = new Slime(1000, 700, 3, 39, 52, 39, 25);
+        Slime slime2 = new Slime(1025, 735, 3, 39, 52, 39, 25);
         Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39, 1);
-        ObjetoCenario casa1 = new ObjetoCenario(510, 333 - 113, 161, 113, "hitbox");
+        ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1581, 118, "cidade/esgoto_Parede_01");
 
 
         //INSTANCIANDO VETORES
@@ -29,12 +29,13 @@ public class IniciarMapa {
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[5];
-//        mapa.inimigoarray.add(slime);
-//        mapa.inimigoarray.add(slime2);
-//        mapa.inimigoarray.add(ladrao);
+
+        mapa.inimigoarray.add(slime);
+        mapa.inimigoarray.add(slime2);
+
         mapa.portaLocal = new Portas[1];
 
-        //mapa.desenhoArray.add(casa1);
+        mapa.desenhoArray.add(casa1);
 
         mapa.desenhoArray.add(jogador);
 
@@ -71,10 +72,11 @@ public class IniciarMapa {
 
     public void Esgoto02(Mapa mapa) {
 
-        Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
-        Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25);
-        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39, 1);
-        ObjetoCenario casa1 = new ObjetoCenario(510, 333 - 113, 161, 113, "hitbox");
+        Slime slime = new Slime(500, 300, 3, 39, 52, 39, 25);
+        Slime slime2 = new Slime(100, 400, 3, 39, 52, 39, 25);
+        Slime slime3 = new Slime(1500, 500, 3, 39, 52, 39, 25);
+
+        ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1449, 113, "cidade/esgoto_Parede_02");
 
 
         //INSTANCIANDO VETORES
@@ -82,12 +84,14 @@ public class IniciarMapa {
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[3];
-//        mapa.inimigoarray.add(slime);
-//        mapa.inimigoarray.add(slime2);
-//        mapa.inimigoarray.add(ladrao);
+
+        mapa.inimigoarray.add(slime);
+        mapa.inimigoarray.add(slime2);
+        mapa.inimigoarray.add(slime3);
+
         mapa.portaLocal = new Portas[2];
 
-        //mapa.desenhoArray.add(casa1);
+        mapa.desenhoArray.add(casa1);
 
         mapa.desenhoArray.add(jogador);
 
@@ -124,10 +128,8 @@ public class IniciarMapa {
 
     public void Esgoto03(Mapa mapa) {
 
-        Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
-        Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25);
-        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39, 1);
-        ObjetoCenario casa1 = new ObjetoCenario(510, 333 - 113, 161, 113, "hitbox");
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        ObjetoCenario casa1 = new ObjetoCenario(0, 0, 482, 0, "cidade/esgoto_Parede_03");
 
 
         //INSTANCIANDO VETORES
@@ -137,10 +139,10 @@ public class IniciarMapa {
         mapa.colisoes = new Rectangle[6];
 //        mapa.inimigoarray.add(slime);
 //        mapa.inimigoarray.add(slime2);
-//        mapa.inimigoarray.add(ladrao);
+        mapa.inimigoarray.add(ladrao);
         mapa.portaLocal = new Portas[2];
 
-        //mapa.desenhoArray.add(casa1);
+        mapa.desenhoArray.add(casa1);
 
         mapa.desenhoArray.add(jogador);
 
@@ -172,7 +174,6 @@ public class IniciarMapa {
         mapa.colisoes[5] = new Rectangle(308, 79 - 88, 154, 88);
 
 
-        //  pota certa pra aqui      mapa.portaLocal[0] = new Portas(1548, 890 - 76, 50, 50, 2, 100, 909 - 87);
         //PORTAS
         mapa.portaLocal[0] = new Portas(-53, 294 - 110, 66, 110, 3, 1200, 250);
         mapa.portaLocal[1] = new Portas(172, 19 - 45, 137, 45, 1, 100, 302 - 71);
