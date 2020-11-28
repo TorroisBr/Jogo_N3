@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.item.Arco;
 import com.mygdx.game.item.Espada;
@@ -15,16 +16,17 @@ import static com.mygdx.game.MyGdxGame2.*;
 public class Jogador extends Unidade {
     public Texture texture[][][];
     public Sprite sprite[][][];
-    public int vida,
-               vidaMax;
+    public int vida;
     public int direcao;
     public int velo;
     public float movX = 0, movY = 0;
     public Rectangle hitboxMapa;
     public float currentFrame = 0;
     public int animAtual = 1;
+    public int andar = 0;
     public int estado;
     public float arcocdr = 10;
+    public double bufalobill = 0.03;
     public float tempo = 0;
     public boolean teclaEspadaApertada = false;
     public float invencibilidade = 0;
@@ -42,8 +44,7 @@ public class Jogador extends Unidade {
         this.x = x;
         this.y = y;
         this.direcao = direcao;
-        this.vidaMax = 12;
-        this.vida = vidaMax;
+        this.vida = 30;
         this.velo = 5;
         this.estado = 0;
     }
@@ -72,7 +73,10 @@ public class Jogador extends Unidade {
 
     //RECEBE DANO
     public void tomarDano(int dano) {
-        vida -= dano;
+        if (vida <= 0) {
+            animAtual = 4;
+        }
+
     }
 
     public void levandoDano() {
@@ -105,7 +109,6 @@ public class Jogador extends Unidade {
                 animAtual = 0;
             } else {
                 currentFrame = 0;
-                tempo = 0;
                 estado = -1;
                 animAtual = 5;
             }
@@ -113,27 +116,36 @@ public class Jogador extends Unidade {
         }
     }
 
-    public void morrendo() {
-        if (tempo < 2) {
-            tempo += Gdx.graphics.getDeltaTime();
-        }
-        else if (tempo < 4)
-        {
-            tempo += Gdx.graphics.getDeltaTime();
-            if ((int) (tempo * 100) % 2 == 0) {
-                if (visivel)
-                    visivel = false;
-                else
-                    visivel = true;
-            }
-        } else if(tempo < 6)
-        {
-            tempo += Gdx.graphics.getDeltaTime();
-            visivel = false;
-        }
-        else
-            System.exit(0);
 
+    //MORRER
+    public void morrer() {
+        if (estado == -1) {
+            direcao = 0;
+            animAtual = 5;
+            animar(true, 0.12F);
+        }
+    }
+
+    public void morrendo() {
+        if (currentFrame < sprite[0][5].length - 1)
+            animar(false, 0.12F);
+        else {
+            if (currentFrame == sprite[0][5].length - 1) {
+                tempo = 0;
+            }
+            if (tempo < 2) {
+                tempo += Gdx.graphics.getDeltaTime();
+                if ((int) (tempo * 100) % 2 == 0) {
+
+                    if (visivel)
+                        visivel = false;
+                    else
+                        visivel = true;
+
+                }
+            } else
+                estado = -2;
+        }
     }
 
 
@@ -149,11 +161,11 @@ public class Jogador extends Unidade {
                     visivel = true;
 
             }
-        } else if (!visivel && estado != -1)
+        } else if (!visivel)
             visivel = true;
 
 
-        if (estado != 1 && estado != 2 && estado != 3 && estado != -1) {
+        if (estado != 1 && estado != 2 && estado != 1 && estado != 3) {
             //ATAQUE
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && !teclaEspadaApertada) {
                 teclaEspadaApertada = true;
@@ -162,7 +174,7 @@ public class Jogador extends Unidade {
         }
 
 
-        if (estado != 1 && estado != 2 && estado != 3 && estado != -1) {
+        if (estado != 1 && estado != 2 && estado != 1 && estado != 3) {
             //ATAQUE
             if (Gdx.input.isKeyPressed(Input.Keys.C) && !teclaEspadaApertada) {
                 teclaEspadaApertada = true;
@@ -171,7 +183,7 @@ public class Jogador extends Unidade {
         }
 
 
-        if (estado != 1 && estado != 2 && estado != 3 && estado != -1) {
+        if (estado != 1 && estado != 2 && estado != 1 && estado != 3) {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 movX = -velo;
 
@@ -204,7 +216,7 @@ public class Jogador extends Unidade {
             }
         }
 
-        if (estado != 1 && estado != 2 && estado != 3 && estado != -1) {
+        if (estado != 1 && estado != 2 && estado != 1 && estado != 3) {
             if (!Gdx.input.isKeyPressed(Input.Keys.DOWN) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.UP)) {
                 if (animAtual != 0) {
                     animAtual = 0;
@@ -212,7 +224,7 @@ public class Jogador extends Unidade {
                 }
             }
         }
-        if (estado != 1 && estado != 2 && estado != 3 && estado != -1) {
+        if (estado != 1 && estado != 2 && estado != 1 && estado != 3) {
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
                 if (animAtual != 1) {
                     animAtual = 1;
