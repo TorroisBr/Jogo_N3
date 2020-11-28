@@ -29,7 +29,7 @@ public class Portas {
     public void trocarMapa(Jogador jogador){
         fundoatual=novoMapaAtual;
 
-        jogador.y=novoX;
+        jogador.x=novoX;
         jogador.y=novoY;
         jogador.AtualizaRetangulos();
 //        escolherDefinirLimites(novoMapaAtual);

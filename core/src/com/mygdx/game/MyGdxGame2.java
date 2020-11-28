@@ -28,6 +28,9 @@ public class MyGdxGame2 extends Game {
     public static Jogador jogador;
     public Mapa mapaB01;
     public Mapa mapaB02;
+    public Mapa mapaEsg01;
+    public Mapa mapaEsg02;
+    public Mapa mapaEsg03;
 
     public static IniciarMapa iniciarMapa;
     public static int telaLarg = 1280, telaAlt = 720;
@@ -60,16 +63,25 @@ public class MyGdxGame2 extends Game {
         //INICIANDO CADA MAPA
         mapaB01 = new Mapa();
         mapaB02 = new Mapa();
+        mapaEsg01 = new Mapa();
+        mapaEsg02 = new Mapa();
+        mapaEsg03 = new Mapa();
 
         //ALOCANDO ARRAY
-        mapas = new Mapa[2];
+        mapas = new Mapa[5];
 
         //QUAL MAPA REPRESENTA CADA NO ARRAY
         mapas[0] = mapaB01;
         mapas[1] = mapaB02;
+        mapas[2] = this.mapaEsg01;
+        mapas[3] = this.mapaEsg02;
+        mapas[4] = this.mapaEsg03;
 
         iniciarMapa.Cidade01(mapas[0]);
         iniciarMapa.Cidade02(mapas[1]);
+        iniciarMapa.Esgoto01(mapas[2]);
+        iniciarMapa.Esgoto02(mapas[3]);
+        iniciarMapa.Esgoto03(mapas[4]);
 
 
         //BATCH OBJETO QUE DESENHA precisa de um tipo Sprite

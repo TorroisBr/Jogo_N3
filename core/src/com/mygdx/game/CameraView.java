@@ -43,6 +43,11 @@ public class CameraView {
 
     //PASSA PELAS IMAGENS E DEFINE OS LIMITES EXTERIORES DA CAMERA
     public static void DefinirLimites(Sprite sprite[], int XY[][]) {
+        cima = 0;
+        baixo = 0;
+        direito = 0;
+        esquerdo = 0;
+
         for (int i = 0; i < sprite.length; i++) {
             if (XY[i][0] < esquerdo) {
                 esquerdo = XY[i][0];
