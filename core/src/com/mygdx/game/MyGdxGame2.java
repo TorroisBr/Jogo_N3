@@ -38,7 +38,6 @@ public class MyGdxGame2 extends Game {
     public Mapa mapaBauEsquerdo;
     public Mapa mapaBauDireito;
     public Mapa mapaSaguao;
-    public Mapa mapaDragao;
 
 
     public static IniciarMapa iniciarMapa;
@@ -85,10 +84,9 @@ public class MyGdxGame2 extends Game {
         mapaBauEsquerdo = new Mapa();
         mapaBauDireito = new Mapa();
         mapaSaguao = new Mapa();
-        mapaDragao = new Mapa();
 
         //ALOCANDO ARRAY
-        mapas = new Mapa[12];
+        mapas = new Mapa[11];
 
         //QUAL MAPA REPRESENTA CADA NO ARRAY
         mapas[0] = mapaB01;
@@ -101,7 +99,6 @@ public class MyGdxGame2 extends Game {
         mapas[7] = mapaTresPortas;
         mapas[8] = mapaBauEsquerdo;
         mapas[9] = mapaSaguao;
-        mapas[10] = mapaDragao;
 
 
 
@@ -111,11 +108,10 @@ public class MyGdxGame2 extends Game {
         iniciarMapa.Esgoto02(mapas[3]);
         iniciarMapa.Esgoto03(mapas[4]);
         iniciarMapa.SalaJantar(mapas[5]);
-        iniciarMapa.SalaFosso(mapas[6]);
+        iniciarMapa.SalaFoço(mapas[6]);
         iniciarMapa.SalaTresPortas(mapas[7]);
         iniciarMapa.SalaBauEsquerdo(mapas[8]);
         iniciarMapa.SalaSaguao(mapas[9]);
-        iniciarMapa.SalaDragao(mapas[10]);
 
 
 
