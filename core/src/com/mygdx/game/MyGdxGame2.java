@@ -33,7 +33,10 @@ public class MyGdxGame2 extends Game {
     public Mapa mapaEsg03;
     public Mapa mapaJantar;
     public Mapa mapaFosso;
-
+    public Mapa mapaTresPortas;
+    public Mapa mapaBauEsquerdo;
+    public Mapa mapaBauDireito;
+    public Mapa mapaSaguao;
 
 
     public static IniciarMapa iniciarMapa;
@@ -47,17 +50,18 @@ public class MyGdxGame2 extends Game {
     public static int fundoatual = 0;
     public static int selecao = 0;
     public static OrthographicCamera camera,
-                                     cameraHUD;
+            cameraHUD;
     public Viewport viewport,
-                    viewportHUD;
+            viewportHUD;
 
     public static HUD hud;
     public static MenuPrincipal menuPrincipal;
 
     public static boolean downPress = false,
-                          upPress = false,
-                          spacePress = false,
-                          backspacePress = false;
+            upPress = false,
+            spacePress = false,
+            backspacePress = false;
+
     @Override
     public void create() {
         //LISTA COM OS MAPAS
@@ -72,10 +76,14 @@ public class MyGdxGame2 extends Game {
         mapaEsg03 = new Mapa();
         mapaJantar = new Mapa();
         mapaFosso = new Mapa();
+        mapaTresPortas = new Mapa();
+        mapaBauEsquerdo = new Mapa();
+        mapaBauDireito = new Mapa();
+        mapaSaguao = new Mapa();
 
 
         //ALOCANDO ARRAY
-        mapas = new Mapa[8];
+        mapas = new Mapa[11];
 
         //QUAL MAPA REPRESENTA CADA NO ARRAY
         mapas[0] = mapaB01;
@@ -85,6 +93,9 @@ public class MyGdxGame2 extends Game {
         mapas[4] = mapaEsg03;
         mapas[5] = mapaJantar;
         mapas[6] = mapaFosso;
+        mapas[7] = mapaTresPortas;
+        mapas[8] = mapaBauEsquerdo;
+        mapas[9] = mapaSaguao;
 
 
 
@@ -95,7 +106,9 @@ public class MyGdxGame2 extends Game {
         iniciarMapa.Esgoto03(mapas[4]);
         iniciarMapa.SalaJantar(mapas[5]);
         iniciarMapa.SalaFoço(mapas[6]);
-
+        iniciarMapa.SalaTresPortas(mapas[7]);
+        iniciarMapa.SalaBauEsquerdo(mapas[8]);
+        iniciarMapa.SalaSaguao(mapas[9]);
 
 
 
@@ -140,8 +153,7 @@ public class MyGdxGame2 extends Game {
     public void render() {
 
         //Menu inicial
-        if(tela ==0 || tela == 1 || tela == 2)
-        {
+        if (tela == 0 || tela == 1 || tela == 2) {
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -156,40 +168,31 @@ public class MyGdxGame2 extends Game {
 
             batch.end();
 
-            if(tela == 0)
-            {
-                if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && selecao < 3 && !downPress)
-                {
-                    selecao ++;
+            if (tela == 0) {
+                if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && selecao < 3 && !downPress) {
+                    selecao++;
                     downPress = true;
                 }
-                if(Gdx.input.isKeyPressed(Input.Keys.UP) && selecao > 0 && !upPress)
-                {
-                    selecao --;
+                if (Gdx.input.isKeyPressed(Input.Keys.UP) && selecao > 0 && !upPress) {
+                    selecao--;
                     upPress = true;
                 }
 
-                if(!Gdx.input.isKeyPressed(Input.Keys.DOWN))
-                {
+                if (!Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                     downPress = false;
                 }
-                if(!Gdx.input.isKeyPressed(Input.Keys.UP))
-                {
+                if (!Gdx.input.isKeyPressed(Input.Keys.UP)) {
                     upPress = false;
                 }
-                if(!Gdx.input.isKeyPressed(Input.Keys.SPACE))
-                {
+                if (!Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
                     spacePress = false;
                 }
-                if(!Gdx.input.isKeyPressed(Input.Keys.BACKSPACE))
-                {
+                if (!Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) {
                     backspacePress = false;
                 }
 
-                if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && !spacePress)
-                {
-                    switch (selecao)
-                    {
+                if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && !spacePress) {
+                    switch (selecao) {
                         case 0:
                             tela = 3;
                             jogador.teclaEspadaApertada = true;
@@ -207,36 +210,29 @@ public class MyGdxGame2 extends Game {
                 }
             }
 
-            if(tela == 1)
-            {
-                if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && !backspacePress)
-                {
+            if (tela == 1) {
+                if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && !backspacePress) {
                     tela = 0;
                     backspacePress = true;
                 }
-                if (!Gdx.input.isKeyPressed(Input.Keys.BACKSPACE))
-                {
+                if (!Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) {
                     backspacePress = false;
                 }
             }
 
-            if(tela == 2)
-            {
-                if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && !backspacePress)
-                {
+            if (tela == 2) {
+                if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && !backspacePress) {
                     tela = 0;
                     backspacePress = true;
                 }
-                if (!Gdx.input.isKeyPressed(Input.Keys.BACKSPACE))
-                {
+                if (!Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) {
                     backspacePress = false;
                 }
             }
         }
 
         //Tela principal do jogo
-        if(tela == 3)
-        {
+        if (tela == 3) {
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             Mover();
@@ -313,8 +309,7 @@ public class MyGdxGame2 extends Game {
 
             MapaDesenhar(mapas[fundoatual]);
 
-            for(Unidade unidade: mapas[fundoatual].desenhoArray)
-            {
+            for (Unidade unidade : mapas[fundoatual].desenhoArray) {
                 if (unidade instanceof Slime) {
                     Slime inimigo = (Slime) unidade;
                     if (inimigo.visivel)
