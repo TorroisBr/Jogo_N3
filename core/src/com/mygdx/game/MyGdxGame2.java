@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.controladores.SoundController;
 import com.mygdx.game.mapa.IniciarMapa;
 import com.mygdx.game.mapa.Mapa;
 import com.mygdx.game.mapa.Portas;
@@ -65,6 +66,9 @@ public class MyGdxGame2 extends Game {
             spacePress = false,
             backspacePress = false;
 
+    //Musicas e efeitos sonoros
+    public static SoundController soundController;
+
     @Override
     public void create() {
         //LISTA COM OS MAPAS
@@ -84,7 +88,6 @@ public class MyGdxGame2 extends Game {
         mapaBauDireito = new Mapa();
         mapaSaguao = new Mapa();
         mapaLabirinto = new Mapa();
-
 
         //ALOCANDO ARRAY
         mapas = new Mapa[11];
@@ -145,6 +148,11 @@ public class MyGdxGame2 extends Game {
 
         DefinirLimites(mapas[fundoatual].spriteLocal, mapas[fundoatual].posicaoSprite);
 
+        //Cria o objeto que controla as musicas e efeitos sonoros
+        soundController = new SoundController();
+
+        soundController.tocarMusica(0);
+
     }
 
     @Override
@@ -178,10 +186,12 @@ public class MyGdxGame2 extends Game {
                 if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && selecao < 3 && !downPress) {
                     selecao++;
                     downPress = true;
+                    soundController.tocarSom(0);
                 }
                 if (Gdx.input.isKeyPressed(Input.Keys.UP) && selecao > 0 && !upPress) {
                     selecao--;
                     upPress = true;
+                    soundController.tocarSom(1);
                 }
 
                 if (!Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
@@ -206,6 +216,7 @@ public class MyGdxGame2 extends Game {
                             break;
                         case 1:
                             tela = 1;
+                            soundController.tocarMusica(1);
                             break;
                         case 2:
                             tela = 2;
@@ -220,6 +231,7 @@ public class MyGdxGame2 extends Game {
             if (tela == 1) {
                 if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && !backspacePress) {
                     tela = 0;
+                    soundController.tocarMusica(0);
                     backspacePress = true;
                 }
                 if (!Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) {
