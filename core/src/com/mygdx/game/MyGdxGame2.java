@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.controladores.SoundController;
@@ -21,7 +20,6 @@ import com.mygdx.game.unidade.inimigo.Inimigo;
 import com.mygdx.game.unidade.inimigo.Ladrao;
 import com.mygdx.game.unidade.inimigo.Slime;
 
-import java.awt.*;
 import java.util.Iterator;
 
 import static com.mygdx.game.CameraView.*;
@@ -40,6 +38,7 @@ public class MyGdxGame2 extends Game {
     public Mapa mapaBauEsquerdo;
     public Mapa mapaBauDireito;
     public Mapa mapaSaguao;
+    public Mapa mapaDragao;
     public Mapa mapaLabirinto;
 
 
@@ -87,10 +86,11 @@ public class MyGdxGame2 extends Game {
         mapaBauEsquerdo = new Mapa();
         mapaBauDireito = new Mapa();
         mapaSaguao = new Mapa();
+        mapaDragao = new Mapa();
         mapaLabirinto = new Mapa();
 
         //ALOCANDO ARRAY
-        mapas = new Mapa[11];
+        mapas = new Mapa[12];
 
         //QUAL MAPA REPRESENTA CADA NO ARRAY
         mapas[0] = mapaB01;
@@ -103,7 +103,8 @@ public class MyGdxGame2 extends Game {
         mapas[7] = mapaTresPortas;
         mapas[8] = mapaBauEsquerdo;
         mapas[9] = mapaSaguao;
-        mapas[10] = mapaLabirinto;
+        mapas[10] = mapaDragao;
+        mapas[11] = mapaLabirinto;
 
 
 
@@ -113,11 +114,12 @@ public class MyGdxGame2 extends Game {
         iniciarMapa.Esgoto02(mapas[3]);
         iniciarMapa.Esgoto03(mapas[4]);
         iniciarMapa.SalaJantar(mapas[5]);
-        iniciarMapa.SalaFoço(mapas[6]);
+        iniciarMapa.SalaFosso(mapas[6]);
         iniciarMapa.SalaTresPortas(mapas[7]);
         iniciarMapa.SalaBauEsquerdo(mapas[8]);
         iniciarMapa.SalaSaguao(mapas[9]);
-        iniciarMapa.Labirinto(mapas[10]);
+        iniciarMapa.SalaDragao(mapas[10]);
+        iniciarMapa.Labirinto(mapas[11]);
 
 
 

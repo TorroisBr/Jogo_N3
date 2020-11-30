@@ -140,7 +140,7 @@ public class Jogador extends Unidade {
     //input movimento
     public void input() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.L))
-            fundoatual=10;
+            fundoatual=11;
         if (invencibilidade > 0) {
             invencibilidade -= Gdx.graphics.getDeltaTime();
             if ((int) (invencibilidade * 100) % 2 == 0) {
