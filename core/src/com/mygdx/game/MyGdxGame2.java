@@ -116,7 +116,7 @@ public class MyGdxGame2 extends Game {
         mapas[10] = mapaDragao;
         mapas[11] = mapaLabirinto;
         mapas[12] = mapaBiblioteca;
-        mapas[13] = mapaBiblioteca;
+        mapas[13] = mapaCalabousso;
         mapas[14] = mapaBauDireito;
 
 
