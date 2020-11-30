@@ -23,6 +23,11 @@ public class SoundController {
     {
         switch (som)
         {
+            case -1:
+                //Para a musica
+                musica.stop();
+                break;
+
             case 0:
                 //Para a musica caso esteja sendo tocada
                 if (musica.isPlaying())

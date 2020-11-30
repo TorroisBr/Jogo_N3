@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.controladores.SoundController;
@@ -20,6 +21,7 @@ import com.mygdx.game.unidade.inimigo.Inimigo;
 import com.mygdx.game.unidade.inimigo.Ladrao;
 import com.mygdx.game.unidade.inimigo.Slime;
 
+import java.awt.*;
 import java.util.Iterator;
 
 import static com.mygdx.game.CameraView.*;
@@ -38,6 +40,7 @@ public class MyGdxGame2 extends Game {
     public Mapa mapaBauEsquerdo;
     public Mapa mapaBauDireito;
     public Mapa mapaSaguao;
+    public Mapa mapaLabirinto;
 
 
     public static IniciarMapa iniciarMapa;
@@ -84,6 +87,7 @@ public class MyGdxGame2 extends Game {
         mapaBauEsquerdo = new Mapa();
         mapaBauDireito = new Mapa();
         mapaSaguao = new Mapa();
+        mapaLabirinto = new Mapa();
 
         //ALOCANDO ARRAY
         mapas = new Mapa[11];
@@ -99,6 +103,7 @@ public class MyGdxGame2 extends Game {
         mapas[7] = mapaTresPortas;
         mapas[8] = mapaBauEsquerdo;
         mapas[9] = mapaSaguao;
+        mapas[10] = mapaLabirinto;
 
 
 
@@ -112,6 +117,7 @@ public class MyGdxGame2 extends Game {
         iniciarMapa.SalaTresPortas(mapas[7]);
         iniciarMapa.SalaBauEsquerdo(mapas[8]);
         iniciarMapa.SalaSaguao(mapas[9]);
+        iniciarMapa.Labirinto(mapas[10]);
 
 
 
@@ -206,6 +212,7 @@ public class MyGdxGame2 extends Game {
                         case 0:
                             tela = 3;
                             jogador.teclaEspadaApertada = true;
+                            soundController.tocarMusica(-1);
                             break;
                         case 1:
                             tela = 1;
@@ -349,8 +356,14 @@ public class MyGdxGame2 extends Game {
             batch.end();
 
             //RENDER HITBOX BEGIN
-            /*
+
             renderer.begin(ShapeRenderer.ShapeType.Filled);
+
+            /*
+            for(Rectangle retangulo : mapas[fundoatual].colisoes)
+            {
+                renderer.rect(retangulo.x, retangulo.y, retangulo.getWidth(), retangulo.getHeight());
+            }
 
             for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
                 renderer.rect(inimigo.hitboxMapa.x, inimigo.hitboxMapa.y, inimigo.hitboxMapa.getWidth(), inimigo.hitboxMapa.getHeight());
@@ -365,9 +378,10 @@ public class MyGdxGame2 extends Game {
             renderer.rect(jogador.espada.hitbox.x, jogador.espada.hitbox.y, jogador.espada.hitbox.getWidth(), jogador.espada.hitbox.getHeight());
             renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
             renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
+            */
 
             renderer.end();
-            */
+
             //RENDER HITBOX END
 
             //HUD
