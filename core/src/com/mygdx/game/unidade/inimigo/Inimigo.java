@@ -113,11 +113,13 @@ public abstract class Inimigo extends Unidade {
                 if (this instanceof Ladrao) {
                     ladraoMortos++;
                     animAtual = 4;
+                    totalInimigosMortos++;
                 }
                 if (this instanceof Slime) {
                     direcao = 0;
                     animAtual = 5;
                     slimeMortos++;
+                    totalInimigosMortos++;
 
                 }
                 Drop();

@@ -19,6 +19,7 @@ import com.mygdx.game.unidade.Unidade;
 import com.mygdx.game.unidade.inimigo.Inimigo;
 import com.mygdx.game.unidade.inimigo.Ladrao;
 import com.mygdx.game.unidade.inimigo.Slime;
+import com.mygdx.game.unidade.ovoDragao;
 
 import java.util.Iterator;
 
@@ -185,7 +186,6 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void render() {
-System.out.println(pontoExtras);
 
         if (tela == 4) {
             Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -404,6 +404,11 @@ System.out.println(pontoExtras);
                     ObjetoCenario objeto = (ObjetoCenario) unidade;
                     Desenhar((int) objeto.hitboxDano.x, (int) objeto.hitboxDano.y, objeto.sprite, batch, camera);
                 }
+                if(unidade instanceof ovoDragao && totalInimigosMortos>=37){
+                    ovoDragao objeto = (ovoDragao) unidade;
+                    Desenhar((int) objeto.hitboxDano.x, (int) objeto.hitboxDano.y, objeto.sprite, batch, camera);
+                    objeto.colisao();
+                }
             }
 
             batch.end();
@@ -412,7 +417,7 @@ System.out.println(pontoExtras);
 
             renderer.begin(ShapeRenderer.ShapeType.Filled);
 
-
+//            renderer.rect(1013,1091-64,50,50);
             /*
             for(Rectangle retangulo : mapas[fundoatual].colisoes)
             {

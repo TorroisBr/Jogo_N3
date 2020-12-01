@@ -7,12 +7,13 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.tiro.Tiro;
 import com.mygdx.game.unidade.Unidade;
 import com.mygdx.game.unidade.inimigo.Inimigo;
+import com.mygdx.game.unidade.ovoDragao;
 
 
 public class Mapa {
     public Texture texturaLocal[];
     public Sprite spriteLocal[];
-    //public Sprite objetosLocal[];
+    public ovoDragao objetosLocal[];
     public int posicaoSprite[][];
     public Rectangle colisoes[];
     public Array<Inimigo> inimigoarray;

@@ -18,7 +18,7 @@ public class Ladrao extends Inimigo {
     public float tempoAtaque = 0;
 
 
-    public Espada espada = new Espada("FROSTMOURNE", 0, 0, 3, 10, 320);
+    public Espada espada = new Espada("FROSTMOURNE", 0, 0, 2, 10, 320);
 
     public Ladrao(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt, int velo) {
         this.hitboxDano = new Rectangle(x, y, HitBoxDanoLarg, HitBoxDanoAlt);

@@ -6,6 +6,7 @@ import static com.mygdx.game.MyGdxGame2.*;
 
 
 public class PontosController {
+    public static int totalInimigosMortos;
     public static int ladraoMortos;
     public static int slimeMortos;
     public static int inimigosMortos;
@@ -22,21 +23,20 @@ public class PontosController {
     public static BitmapFont font;
 
     public static void exibir() {
-        jogador.vida=12;
         inimigosMortos = slimeMortos + ladraoMortos;
         pontosVida = jogador.vida * 10;
 
-        font.draw(batch, " Slimes derrotados: " + slimeMortos * 10, 10, 700);
-        font.draw(batch, " Ladrao derrotados: " + ladraoMortos * 15, 10, 675);
+        font.draw(batch, " Pontos Slimes derrotados: " + slimeMortos * 10, 10, 700);
+        font.draw(batch, " Pontos Ladrao derrotados: " + ladraoMortos * 15, 10, 675);
         font.draw(batch, " Total inimigo  derrotado: " + inimigosMortos, 10, 650);
         font.draw(batch, " Vezes que atacou: " + quantidadeHits, 10, 625);
         font.draw(batch, " Acerto no inimigo: " + hitsAcertado, 10, 600);
-        font.draw(batch, " Viagens entre salas: " + trocasSalas * -2, 10, 575);
+        font.draw(batch, " Pontos Viagens entre salas: " + trocasSalas * -2, 10, 575);
         font.draw(batch, " Pontos extras: " + pontoExtras, 10, 550);
         font.draw(batch, " Pontos de vida: " + pontosVida, 10, 525);
         if (jogador.vida == 12) {
             pontoVidaExtra = 100;
-            font.draw(batch, " Bonus por vida maxima: " + pontoVidaExtra, 10, 500);
+            font.draw(batch, "  Pontos Bonus por vida maxima: " + pontoVidaExtra, 10, 500);
         }
         font.draw(batch, " Tempo: " + (int) tempoJogando + "s", 10, 475);
 
