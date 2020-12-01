@@ -2,7 +2,6 @@ package com.mygdx.game.unidade.inimigo;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.tiro.Tiro;
 import com.mygdx.game.unidade.Unidade;
 
 import static com.mygdx.game.MyGdxGame2.*;
@@ -15,7 +14,6 @@ public abstract class Inimigo extends Unidade {
     public int direcao;
     public int velo;
     public Rectangle hitboxMapa;
-    public boolean morto;
     public float tempo = 0;
     public int movX, movY;
     public int animAtual = 1;
@@ -35,7 +33,7 @@ public abstract class Inimigo extends Unidade {
 
     }
 
-    public void Move(Rectangle retangulo[]) {
+    public void Move(Rectangle[] retangulo) {
         if (movX != 0) {
             x += movX;
             AtualizaRetangulos();
@@ -63,7 +61,7 @@ public abstract class Inimigo extends Unidade {
 
     }
 
-    public boolean ColisaoComCenario(Rectangle rectangles[]) {
+    public boolean ColisaoComCenario(Rectangle[] rectangles) {
         for (Rectangle retangulo : rectangles) {
             if (hitboxMapa.overlaps(retangulo))
                 return true;
@@ -147,14 +145,6 @@ public abstract class Inimigo extends Unidade {
             soundController.tocarSom(15);
         }
     }
-
-    public void DanoFlecha() {
-//        if(hitboxDano.overlaps(tiro.hitbox)){
-//            tomarDano(tiro.dano);
-
-    }
-//    }
-
 
     public void Drop() {
         //Pegar itens da lista de itens do GameController

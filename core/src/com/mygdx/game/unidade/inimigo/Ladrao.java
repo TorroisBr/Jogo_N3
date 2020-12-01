@@ -11,14 +11,14 @@ import static com.mygdx.game.MyGdxGame2.*;
 import static com.mygdx.game.MyGdxGame2.fundoatual;
 
 public class Ladrao extends Inimigo {
-    public Texture texture[][][];
-    public Sprite sprite[][][];
+    public Texture[][][] texture;
+    public Sprite[][][] sprite;
     public float tempoAtaque = 0;
 
 
     public Espada espada = new Espada("FROSTMOURNE", 0, 0, 4, 10, 320);
 
-    public Ladrao(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt, int estado) {
+    public Ladrao(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt) {
         this.hitboxDano = new Rectangle(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
         this.hitboxMapa = new Rectangle(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
         this.x = x;
@@ -59,11 +59,6 @@ public class Ladrao extends Inimigo {
                 currentFrame = sprite[direcao][animAtual].length - 1;
         }
 
-    }
-
-    public void AtualizaRetangulos() {
-        hitboxDano.set(x, y, hitboxDano.width, hitboxDano.height);
-        hitboxMapa.set(x, y, hitboxMapa.width, hitboxMapa.height);
     }
 
     public void Seguir() {
@@ -131,7 +126,7 @@ public class Ladrao extends Inimigo {
                     break;
 
                 case 1:
-                    soundController.tocarSom(17);
+                    soundController.tocarSom(5);
                     break;
             }
 
@@ -248,11 +243,7 @@ public class Ladrao extends Inimigo {
         {
             tempo += Gdx.graphics.getDeltaTime();
             if ((int) (tempo * 100) % 2 == 0) {
-                if (visivel)
-                    visivel = false;
-                else
-                    visivel = true;
-
+                visivel = !visivel;
             }
         } else
             estado = -2;

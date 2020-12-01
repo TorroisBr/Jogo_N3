@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.controladores.SoundController;
@@ -77,7 +76,7 @@ public class MyGdxGame2 extends Game {
     public void create() {
         //LISTA COM OS MAPAS
         iniciarMapa = new IniciarMapa();
-        jogador = new Jogador(636, 176-90, 0, 56, 126, 56, 39, 1);
+        jogador = new Jogador(636, 176-90, 0, 56, 126, 56, 39);
 
         //INICIANDO CADA MAPA
         mapaB01 = new Mapa();
