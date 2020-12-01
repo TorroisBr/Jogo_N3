@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.controladores.SoundController;
@@ -40,6 +41,10 @@ public class MyGdxGame2 extends Game {
     public Mapa mapaSaguao;
     public Mapa mapaDragao;
     public Mapa mapaLabirinto;
+    public Mapa mapaBiblioteca;
+    public Mapa mapaCalabousso;
+    public Mapa mapaJardim;
+
 
 
     public static IniciarMapa iniciarMapa;
@@ -50,7 +55,7 @@ public class MyGdxGame2 extends Game {
     public static ShapeRenderer renderer;
 
     public static int tela = 0;
-    public static int fundoatual = 0;
+    public static int fundoatual = 9;
     public static int selecao = 0;
     public static OrthographicCamera camera,
             cameraHUD;
@@ -72,7 +77,7 @@ public class MyGdxGame2 extends Game {
     public void create() {
         //LISTA COM OS MAPAS
         iniciarMapa = new IniciarMapa();
-        jogador = new Jogador(500, 500, 0, 56, 126, 56, 39, 1);
+        jogador = new Jogador(636, 176-90, 0, 56, 126, 56, 39, 1);
 
         //INICIANDO CADA MAPA
         mapaB01 = new Mapa();
@@ -88,9 +93,14 @@ public class MyGdxGame2 extends Game {
         mapaSaguao = new Mapa();
         mapaDragao = new Mapa();
         mapaLabirinto = new Mapa();
+        mapaBiblioteca = new Mapa();
+        mapaCalabousso=new Mapa();
+        mapaBauDireito=new Mapa();
+        mapaJardim=new Mapa();
+
 
         //ALOCANDO ARRAY
-        mapas = new Mapa[12];
+        mapas = new Mapa[16];
 
         //QUAL MAPA REPRESENTA CADA NO ARRAY
         mapas[0] = mapaB01;
@@ -105,6 +115,14 @@ public class MyGdxGame2 extends Game {
         mapas[9] = mapaSaguao;
         mapas[10] = mapaDragao;
         mapas[11] = mapaLabirinto;
+        mapas[12] = mapaBiblioteca;
+        mapas[13] = mapaCalabousso;
+        mapas[14] = mapaBauDireito;
+        mapas[15] = mapaJardim;
+
+
+
+
 
 
 
@@ -120,6 +138,14 @@ public class MyGdxGame2 extends Game {
         iniciarMapa.SalaSaguao(mapas[9]);
         iniciarMapa.SalaDragao(mapas[10]);
         iniciarMapa.Labirinto(mapas[11]);
+        iniciarMapa.SalaBiblioteca(mapas[12]);
+        iniciarMapa.Calabousso(mapas[13]);
+        iniciarMapa.SalaBauDireito(mapas[14]);
+        iniciarMapa.Jardim(mapas[15]);
+
+
+
+
 
 
 
@@ -167,7 +193,9 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void render() {
-
+        for (Portas porta : mapas[fundoatual].portaLocal) {
+            porta.conferindoInteracao(jogador);
+        }
         //Menu inicial
         if (tela == 0 || tela == 1 || tela == 2) {
             Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -320,9 +348,7 @@ public class MyGdxGame2 extends Game {
             }
 
             //Faz as portas conferirem a colisao com o jogador
-            for (Portas porta : mapas[fundoatual].portaLocal) {
-                porta.conferindoInteracao(jogador);
-            }
+
 
             //Faz com que o renderer e o batch acopanhem a camera
             renderer.setProjectionMatrix(camera.combined);
@@ -365,26 +391,26 @@ public class MyGdxGame2 extends Game {
 
             renderer.begin(ShapeRenderer.ShapeType.Filled);
 
-            /*
-            for(Rectangle retangulo : mapas[fundoatual].colisoes)
-            {
-                renderer.rect(retangulo.x, retangulo.y, retangulo.getWidth(), retangulo.getHeight());
-            }
+//
+//            for(Rectangle retangulo : mapas[fundoatual].colisoes)
+//            {
+//                renderer.rect(retangulo.x, retangulo.y, retangulo.getWidth(), retangulo.getHeight());
+//            }
+//
+//            for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
+//                renderer.rect(inimigo.hitboxMapa.x, inimigo.hitboxMapa.y, inimigo.hitboxMapa.getWidth(), inimigo.hitboxMapa.getHeight());
+//
+//            }
+//
+//            for (Portas portas : mapas[fundoatual].portaLocal) {
+//                renderer.rect(portas.colisao.x, portas.colisao.y, portas.colisao.getWidth(), portas.colisao.getHeight());
+//
+//            }
+//            renderer.rect(ladrao.espada.hitbox.x, ladrao.espada.hitbox.y, ladrao.espada.hitbox.getWidth(), ladrao.espada.hitbox.getHeight());
+//            renderer.rect(jogador.espada.hitbox.x, jogador.espada.hitbox.y, jogador.espada.hitbox.getWidth(), jogador.espada.hitbox.getHeight());
+//            renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
+//            renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
 
-            for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
-                renderer.rect(inimigo.hitboxMapa.x, inimigo.hitboxMapa.y, inimigo.hitboxMapa.getWidth(), inimigo.hitboxMapa.getHeight());
-
-            }
-
-            for (Portas portas : mapas[fundoatual].portaLocal) {
-                renderer.rect(portas.colisao.x, portas.colisao.y, portas.colisao.getWidth(), portas.colisao.getHeight());
-
-            }
-            renderer.rect(ladrao.espada.hitbox.x, ladrao.espada.hitbox.y, ladrao.espada.hitbox.getWidth(), ladrao.espada.hitbox.getHeight());
-            renderer.rect(jogador.espada.hitbox.x, jogador.espada.hitbox.y, jogador.espada.hitbox.getWidth(), jogador.espada.hitbox.getHeight());
-            renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
-            renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
-            */
 
             renderer.end();
 

@@ -121,7 +121,7 @@ public class IniciarMapa {
 
         //  pota certa pra aqui      mapa.portaLocal[0] = new Portas(1548, 890 - 76, 50, 50, 2, 100, 909 - 87);
         //PORTAS
-        mapa.portaLocal[0] = new Portas(-34, 380 - 344, 81, 344, 2, 1358, 302 - 71);
+        mapa.portaLocal[0] = new Portas(-34, 380 - 344, 81, 344, 2, 800, 302 - 71);
         mapa.portaLocal[1] = new Portas(1344, 239 - 206, 81, 206, 4, 100, 302 - 71);
     }
 
@@ -233,9 +233,9 @@ public class IniciarMapa {
 
 
         //PORTAS
-        mapa.portaLocal[0] = new Portas(1146, 531 - 78, 89, 78, 10, 79, 1039-205);
+        mapa.portaLocal[0] = new Portas(1146, 531 - 78, 89, 78, 10, 79, 1100-205);
         mapa.portaLocal[1] = new Portas(398, 1 - 78, 334, 78, 6, 557, 1009 - 102);
-        mapa.portaLocal[2] = new Portas(225, 1268 - 89, 132, 89, 4, 174, 152 - 75);
+        mapa.portaLocal[2] = new Portas(225, 1268 - 89, 132, 89, 4, 200, 152 - 75);
 
     }
 
@@ -353,7 +353,7 @@ public class IniciarMapa {
 
 
         //PORTAS
-        mapa.portaLocal[0] = new Portas(314, 1001 - 72, 340, 72, 6, 450, 70);
+        mapa.portaLocal[0] = new Portas(314, 1001 - 72, 340, 72, 6, 600, 70);
         mapa.portaLocal[1] = new Portas(-103, 220 - 218, 103, 218, 8, 737, 208 - 87);
         mapa.portaLocal[2] = new Portas(1548, 218 - 218, 103, 218, 9, 100, 302 - 71);
 
@@ -419,64 +419,6 @@ public class IniciarMapa {
 
     }
 
-    public void SalaBauDireito(Mapa mapa) {
-
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
-        ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1198, 1198, "cidade/SalaBauEsquerdo_Parede");
-
-
-        //INSTANCIANDO VETORES
-        mapa.texturaLocal = new Texture[1];
-        mapa.spriteLocal = new Sprite[1];
-        mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
-        mapa.colisoes = new Rectangle[7];
-//        mapa.inimigoarray.add(slime);
-//        mapa.inimigoarray.add(slime2);
-//        mapa.inimigoarray.add(ladrao);
-        mapa.portaLocal = new Portas[1];
-
-        mapa.desenhoArray.add(casa1);
-
-        mapa.desenhoArray.add(jogador);
-
-        //Inicia os inimigos e os coloca no array de desenhos
-        for (Inimigo inimigo : mapa.inimigoarray) {
-            inimigo.iniciar();
-            mapa.desenhoArray.add(inimigo);
-        }
-
-        //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
-        mapa.texturaLocal[0] = new Texture("cidade/SalaBauEsquerdo.png");
-
-
-        //CARREGANDO SPRITES
-        mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
-
-
-        //POSICOES DO SPRITE
-        mapa.posicaoSprite[0][0] = 0;
-        mapa.posicaoSprite[0][1] = 0;
-
-
-        //COLOCANDO COLISOES
-        mapa.colisoes[0] = new Rectangle(394, 581-358, 438, 358);
-        mapa.colisoes[1] = new Rectangle(92, 581-278, 306, 278);
-        mapa.colisoes[2] = new Rectangle(28, 581-372, 67, 372);
-
-        mapa.colisoes[3] = new Rectangle(-10, 121 - 159, 67, 159);
-        mapa.colisoes[4] = new Rectangle(872, 581 - 583, 67, 583);
-        mapa.colisoes[5] = new Rectangle(56, 28 - 30, 816, 30);
-
-        mapa.colisoes[6] = new Rectangle(394, 140 -75, 438, 75);
-
-
-
-        //PORTAS NOVO X 96 NOVO Y 208-87
-        mapa.portaLocal[0] = new Portas(-39, 208 - 87, 67, 87, 7, 117, 217-55);
-
-
-    }
-
     public void SalaSaguao(Mapa mapa) {
 
         Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
@@ -524,7 +466,7 @@ public class IniciarMapa {
         mapa.colisoes[4] = new Rectangle(144, 972-376, 8, 376);
         mapa.colisoes[5] = new Rectangle(0, 892-605, 74, 905);
         mapa.colisoes[6] = new Rectangle(0, 162-162, 36, 162);
-        mapa.colisoes[7] = new Rectangle(36, 34-34, 503, 34);
+        mapa.colisoes[7] = new Rectangle(36, 34-34, 867, 34);
 
         mapa.colisoes[8] = new Rectangle(910, 1321-282, 463, 282);
         mapa.colisoes[9] = new Rectangle(972, 1038-40, 400, 40);
@@ -544,9 +486,9 @@ public class IniciarMapa {
         mapa.colisoes[22] = new Rectangle(1029, 791-195, 8, 195);
 
 
-        mapa.portaLocal[0] = new Portas(-42, 286 - 124, 42, 124, 7, 117, 217-55);
-        mapa.portaLocal[1] = new Portas(1373, 286 - 124, 42, 124, 7, 117, 217-55);
-        mapa.portaLocal[2] = new Portas(457, 1380 - 59, 453, 59, 10, 910, 262-85);
+        mapa.portaLocal[0] = new Portas(-42, 286 - 124, 42, 124, 7, 1300, 217-55);
+        mapa.portaLocal[1] = new Portas(1373, 286 - 124, 42, 124, 12, 75, 300-133);
+        mapa.portaLocal[2] = new Portas(457, 1380 - 59, 453, 59, 10, 1000, 262-85);
 
 
     }
@@ -627,14 +569,383 @@ public class IniciarMapa {
 
 
 
-        mapa.portaLocal[0] = new Portas(-72, 1039 - 205, 75, 205, 5, 117, 217-55);
-        mapa.portaLocal[1] = new Portas(2083, 1044 - 205, 75, 205, 7, 117, 217-55);
-        mapa.portaLocal[2] = new Portas(909, 2182 - 102, 263, 102, 7, 117, 217-55);
-        mapa.portaLocal[3] = new Portas(910, 1 - 102, 263, 102, 9, 117, 217-55);
+        mapa.portaLocal[0] = new Portas(-72, 1039 - 205, 75, 205, 5, 900, 500-55);
+        mapa.portaLocal[1] = new Portas(2083, 1044 - 205, 75, 205, 11, 100, 600-55);
+        mapa.portaLocal[2] = new Portas(909, 2182 - 102, 263, 102, 15, 885, 217-87);
+        mapa.portaLocal[3] = new Portas(910, 1 - 102, 263, 102, 9, 660, 1200-55);
 
 
     }
 
+    public void SalaBiblioteca(Mapa mapa) {
+
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        ObjetoCenario casa1 = new ObjetoCenario(0, 0, 2079, 943, "cidade/biblioteca_Base_parede");
+
+        ObjetoCenario casa2 = new ObjetoCenario(181, 316, 303, 209, "cidade/biblioteca_Base_Estante");
+        ObjetoCenario casa3 = new ObjetoCenario(692, 316, 303, 209, "cidade/biblioteca_Base_Estante");
+        ObjetoCenario casa4 = new ObjetoCenario(181, 183, 303, 209, "cidade/biblioteca_Base_Estante");
+        ObjetoCenario casa5 = new ObjetoCenario(692, 183, 303, 209, "cidade/biblioteca_Base_Estante");
+
+
+
+        //INSTANCIANDO VETORES
+        mapa.texturaLocal = new Texture[1];
+        mapa.spriteLocal = new Sprite[1];
+        mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
+        mapa.colisoes = new Rectangle[11];
+//        mapa.inimigoarray.add(slime);
+//        mapa.inimigoarray.add(slime2);
+//        mapa.inimigoarray.add(ladrao);
+        mapa.portaLocal = new Portas[2];
+
+        mapa.desenhoArray.add(casa1);
+        mapa.desenhoArray.add(casa2);
+        mapa.desenhoArray.add(casa3);
+        mapa.desenhoArray.add(casa4);
+        mapa.desenhoArray.add(casa5);
+
+
+        mapa.desenhoArray.add(jogador);
+
+        //Inicia os inimigos e os coloca no array de desenhos
+        for (Inimigo inimigo : mapa.inimigoarray) {
+            inimigo.iniciar();
+            mapa.desenhoArray.add(inimigo);
+        }
+
+        //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
+        mapa.texturaLocal[0] = new Texture("cidade/biblioteca_Base.png");
+
+
+        //CARREGANDO SPRITES
+        mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+
+
+        //POSICOES DO SPRITE
+        mapa.posicaoSprite[0][0] = 0;
+        mapa.posicaoSprite[0][1] = 0;
+
+
+        //COLOCANDO COLISOES
+        mapa.colisoes[0] = new Rectangle(0, 690-428, 75, 428);
+        mapa.colisoes[1] = new Rectangle(75, 690-285, 391, 285);
+        mapa.colisoes[2] = new Rectangle(694, 610-205, 381, 205);
+        mapa.colisoes[3] = new Rectangle(694, 690-79, 456, 79);
+
+        mapa.colisoes[4] = new Rectangle(1110, 610-610, 40, 610);
+        mapa.colisoes[5] = new Rectangle(40, 32-32, 1110, 32);
+        mapa.colisoes[6] = new Rectangle(0, 131-103, 40, 131);
+
+        mapa.colisoes[7] = new Rectangle(181, 316-45, 285, 45);
+        mapa.colisoes[8] = new Rectangle(181, 183-45, 285, 45);
+        mapa.colisoes[9] = new Rectangle(692, 316-45, 285, 45);
+        mapa.colisoes[10] = new Rectangle(692, 183-45, 285, 45);
+
+
+
+        mapa.portaLocal[0] = new Portas(-40, 261 - 131, 40, 131, 9, 1261, 320-151);
+        mapa.portaLocal[1] = new Portas(466, 737 - 46, 227, 227, 11, 117, 100-55);
+
+
+    }
+
+    public void Calabousso(Mapa mapa) {
+
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1192, 229, "cidade/Calabouco_Frente");
+
+
+
+
+        //INSTANCIANDO VETORES
+        mapa.texturaLocal = new Texture[1];
+        mapa.spriteLocal = new Sprite[1];
+        mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
+        mapa.colisoes = new Rectangle[7];
+//        mapa.inimigoarray.add(slime);
+//        mapa.inimigoarray.add(slime2);
+//        mapa.inimigoarray.add(ladrao);
+        mapa.portaLocal = new Portas[3];
+
+        mapa.desenhoArray.add(casa1);
+
+        mapa.desenhoArray.add(jogador);
+
+        //Inicia os inimigos e os coloca no array de desenhos
+        for (Inimigo inimigo : mapa.inimigoarray) {
+            inimigo.iniciar();
+            mapa.desenhoArray.add(inimigo);
+        }
+
+        //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
+        mapa.texturaLocal[0] = new Texture("cidade/Calabouco_Tudo.png");
+
+
+        //CARREGANDO SPRITES
+        mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+
+
+        //POSICOES DO SPRITE
+        mapa.posicaoSprite[0][0] = 0;
+        mapa.posicaoSprite[0][1] = 0;
+
+
+        //COLOCANDO COLISOES
+        mapa.colisoes[0] = new Rectangle(0, 1192-324, 1192, 324);
+        mapa.colisoes[1] = new Rectangle(0, 867-561, 99, 561);
+        mapa.colisoes[2] = new Rectangle(1092, 867-561, 99, 561);
+
+        mapa.colisoes[3] = new Rectangle(-44, 95-168, 77, 97);
+        mapa.colisoes[4] = new Rectangle(33, 41-41, 421, 41);
+        mapa.colisoes[5] = new Rectangle(770, 41-41, 421, 41);
+        mapa.colisoes[6] = new Rectangle(1135, 168-168, 99, 168);
+
+
+
+        mapa.portaLocal[0] = new Portas(-115, 307 - 214, 116, 214, 15, 1620, 536-87);
+        mapa.portaLocal[1] = new Portas(1192, 306 - 142, 148, 142, 14, 100, 250-87);
+        mapa.portaLocal[2] = new Portas(454, 0 - 142, 323, 142, 11, 1261, 290-151);
+
+
+    }
+
+    public void Labirinto(Mapa mapa)
+    {
+        Slime slime = new Slime(1000, 700, 3, 39, 52, 39, 25);
+        Slime slime2 = new Slime(1025, 735, 3, 39, 52, 39, 25);
+        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39, 1);
+
+        ObjetoCenario parede1 = new ObjetoCenario(245, 1333 - 444, 253, 444, "cidade/Labirinto_Parede1");
+        ObjetoCenario parede2 = new ObjetoCenario(757, 1131 - 207, 389, 207, "cidade/Labirinto_Parede2");
+        ObjetoCenario parede3 = new ObjetoCenario(566, 1131 - 335, 580, 335, "cidade/Labirinto_Parede3");
+        ObjetoCenario parede4 = new ObjetoCenario(756, 1131 - 610, 390, 610, "cidade/Labirinto_Parede4");
+        ObjetoCenario parede5 = new ObjetoCenario(0, 1004 - 544, 819, 544, "cidade/Labirinto_Parede5");
+        ObjetoCenario parede6 = new ObjetoCenario(0, 1334 - 604, 308, 604, "cidade/Labirinto_Parede6");
+        ObjetoCenario parede7 = new ObjetoCenario(214, 450 - 384, 553, 384, "cidade/Labirinto_Parede7");
+        ObjetoCenario parede8 = new ObjetoCenario(755, 811 - 207, 191, 207, "cidade/Labirinto_Parede8");
+        ObjetoCenario parede9 = new ObjetoCenario(908, 455 - 207, 239, 207, "cidade/Labirinto_Parede9");
+        ObjetoCenario parede10 = new ObjetoCenario(1, 829 - 829, 1335, 829, "cidade/Labirinto_Parede10");
+
+
+        //INSTANCIANDO VETORES
+        mapa.texturaLocal = new Texture[1];
+        mapa.spriteLocal = new Sprite[1];
+        mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
+
+        //mapa.inimigoarray.add(slime);
+        //mapa.inimigoarray.add(slime2);
+
+        mapa.desenhoArray.add(parede1);
+        mapa.desenhoArray.add(parede2);
+        mapa.desenhoArray.add(parede3);
+        mapa.desenhoArray.add(parede4);
+        mapa.desenhoArray.add(parede5);
+        mapa.desenhoArray.add(parede6);
+        mapa.desenhoArray.add(parede7);
+        mapa.desenhoArray.add(parede8);
+        mapa.desenhoArray.add(parede9);
+        mapa.desenhoArray.add(parede10);
+
+        mapa.desenhoArray.add(jogador);
+
+        //Inicia os inimigos e os coloca no array de desenhos
+        for (Inimigo inimigo : mapa.inimigoarray) {
+            inimigo.iniciar();
+            mapa.desenhoArray.add(inimigo);
+        }
+
+        //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
+        mapa.texturaLocal[0] = new Texture("cidade/Labirinto.png");
+
+
+        //CARREGANDO SPRITES
+        mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+
+
+        //POSICOES DO SPRITE
+        mapa.posicaoSprite[0][0] = 0;
+        mapa.posicaoSprite[0][1] = 0;
+
+
+        //COLOCANDO COLISOES
+        mapa.colisoes = new Rectangle[24];
+
+        mapa.colisoes[0] = new Rectangle(216, 4, 1120, 63);
+        mapa.colisoes[1] = new Rectangle(0, 478, 63, 537);
+        mapa.colisoes[2] = new Rectangle(1273, 723, 63, 727);
+        mapa.colisoes[3] = new Rectangle(883, 663, 63, 722);
+        mapa.colisoes[4] = new Rectangle(883, 307, 264, 63);
+        mapa.colisoes[5] = new Rectangle(755, 663, 191, 63);
+        mapa.colisoes[6] = new Rectangle(214, 125, 553, 63);
+        mapa.colisoes[7] = new Rectangle(214, 301, 63, 239);
+        mapa.colisoes[8] = new Rectangle(705, 301, 63, 239);
+        mapa.colisoes[9] = new Rectangle(1084, 983, 63, 466);
+        mapa.colisoes[10] = new Rectangle(758, 983, 389, 63);
+        mapa.colisoes[11] = new Rectangle(756, 983, 63, 191);
+        mapa.colisoes[12] = new Rectangle(567, 855, 252, 63);
+        mapa.colisoes[13] = new Rectangle(565, 855, 63, 398);
+        mapa.colisoes[14] = new Rectangle(246, 520, 382, 63);
+        mapa.colisoes[15] = new Rectangle(244, 791, 63, 333);
+        mapa.colisoes[16] = new Rectangle(0, 791, 307, 63);
+        mapa.colisoes[17] = new Rectangle(0, 1185, 63, 457);
+        mapa.colisoes[18] = new Rectangle(245, 1187, 63, 300);
+        mapa.colisoes[19] = new Rectangle(245, 949, 253, 63);
+        mapa.colisoes[20] = new Rectangle(0, 1185, 1335, 63);
+        mapa.colisoes[21] = new Rectangle(1273, 1183, 63, 283);
+        mapa.colisoes[22] = new Rectangle(73, 1183, 153, 117);
+        mapa.colisoes[23] = new Rectangle(955, 70, 311, 74);
+
+        for(Rectangle retangulo : mapa.colisoes)
+        {
+            retangulo.y = retangulo.y - retangulo.height;
+        }
+
+
+        //PORTAS
+        mapa.portaLocal = new Portas[3];
+
+        mapa.portaLocal[0] = new Portas(-63, 728, 62, 250, 10, 1931, 1042 - 203);
+        mapa.portaLocal[1] = new Portas(1336, 900, 62, 177, 13, 562, 100 - 47);
+        mapa.portaLocal[2] = new Portas(63, -58, 154, 63, 12, 550, 700 - 87);
+
+        for(Portas porta : mapa.portaLocal)
+        {
+            porta.colisao.y = porta.colisao.y - porta.colisao.height;
+        }
+    }
+
+
+    public void SalaBauDireito(Mapa mapa) {
+
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1198, 1198, "cidade/SalaBauEsquerdo_Parede");
+
+
+        //INSTANCIANDO VETORES
+        mapa.texturaLocal = new Texture[1];
+        mapa.spriteLocal = new Sprite[1];
+        mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
+        mapa.colisoes = new Rectangle[7];
+//        mapa.inimigoarray.add(slime);
+//        mapa.inimigoarray.add(slime2);
+//        mapa.inimigoarray.add(ladrao);
+        mapa.portaLocal = new Portas[1];
+
+        mapa.desenhoArray.add(casa1);
+
+        mapa.desenhoArray.add(jogador);
+
+        //Inicia os inimigos e os coloca no array de desenhos
+        for (Inimigo inimigo : mapa.inimigoarray) {
+            inimigo.iniciar();
+            mapa.desenhoArray.add(inimigo);
+        }
+
+        //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
+        mapa.texturaLocal[0] = new Texture("cidade/SalaBauEsquerdo.png");
+
+
+        //CARREGANDO SPRITES
+        mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+
+
+        //POSICOES DO SPRITE
+        mapa.posicaoSprite[0][0] = 0;
+        mapa.posicaoSprite[0][1] = 0;
+
+
+        //COLOCANDO COLISOES
+        mapa.colisoes[0] = new Rectangle(0, 582-372, 68, 372);
+        mapa.colisoes[1] = new Rectangle(68, 585-276, 298, 276);
+        mapa.colisoes[2] = new Rectangle(367, 582-357, 437, 357);
+        mapa.colisoes[3] = new Rectangle(367, 137 - 70, 437, 70);
+
+        mapa.colisoes[4] = new Rectangle(835, 307 - 307, 37, 307);
+        mapa.colisoes[5] = new Rectangle(34, 38-38, 839, 38);
+        mapa.colisoes[6] = new Rectangle(-37, 92 -92, 71, 92);
+
+
+
+        mapa.portaLocal[0] = new Portas(-71, 209 - 118, 71, 118, 13, 1100, 306-42);
+
+
+    }
+
+    public void Jardim(Mapa mapa){
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1801, 1801, "cidade/JardimInterno_Parede");
+
+        ObjetoCenario casa2 = new ObjetoCenario(396, 488-65, 425, 166, "cidade/JardimInterno_Vaso1");
+        ObjetoCenario casa3 = new ObjetoCenario(1037, 488-65, 425, 166, "cidade/JardimInterno_Vaso1");
+        ObjetoCenario casa4 = new ObjetoCenario(397, 302-65, 425, 163, "cidade/JardimInterno_Vaso2");
+        ObjetoCenario casa5 = new ObjetoCenario(1055, 302-65, 425, 163, "cidade/JardimInterno_Vaso2");
+
+
+
+        //INSTANCIANDO VETORES
+        mapa.texturaLocal = new Texture[1];
+        mapa.spriteLocal = new Sprite[1];
+        mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
+        mapa.colisoes = new Rectangle[14];
+//        mapa.inimigoarray.add(slime);
+//        mapa.inimigoarray.add(slime2);
+//        mapa.inimigoarray.add(ladrao);
+        mapa.portaLocal = new Portas[2];
+
+        mapa.desenhoArray.add(casa1);
+        mapa.desenhoArray.add(casa2);
+        mapa.desenhoArray.add(casa3);
+        mapa.desenhoArray.add(casa4);
+        mapa.desenhoArray.add(casa5);
+
+
+        mapa.desenhoArray.add(jogador);
+
+        //Inicia os inimigos e os coloca no array de desenhos
+        for (Inimigo inimigo : mapa.inimigoarray) {
+            inimigo.iniciar();
+            mapa.desenhoArray.add(inimigo);
+        }
+
+        //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
+        mapa.texturaLocal[0] = new Texture("cidade/JardimInterno.png");
+
+
+        //CARREGANDO SPRITES
+        mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+
+
+        //POSICOES DO SPRITE
+        mapa.posicaoSprite[0][0] = 0;
+        mapa.posicaoSprite[0][1] = 0;
+
+
+        //COLOCANDO COLISOES
+        mapa.colisoes[0] = new Rectangle(0, 1000-418, 267, 418);
+        mapa.colisoes[1] = new Rectangle(266, 1000-218, 1268, 218);
+        mapa.colisoes[2] = new Rectangle(1534, 1000-418, 266, 418);
+        mapa.colisoes[3] = new Rectangle(-183, 581-318, 64, 318);
+
+        mapa.colisoes[4] = new Rectangle(0, 582-332, 65, 332);
+        mapa.colisoes[5] = new Rectangle(0, 254-54, 200, 54);
+        mapa.colisoes[6] = new Rectangle(201, 254-256, 65, 256);
+        mapa.colisoes[7] = new Rectangle(266, 32-34, 453, 34);
+
+        mapa.colisoes[8] = new Rectangle(1091, 34-34, 443, 34);
+        mapa.colisoes[9] = new Rectangle(1534, 256-256, 267, 256);
+
+        mapa.colisoes[10] = new Rectangle(396, 488-65, 420, 65);
+        mapa.colisoes[11] = new Rectangle(1037, 488-65, 420, 65);
+        mapa.colisoes[12] = new Rectangle(397, 301-65, 420, 65);
+        mapa.colisoes[13] = new Rectangle(1055, 303-65, 420, 65);
+
+
+
+        mapa.portaLocal[0] = new Portas(719, 1 - 34, 375, 34, 10, 1000, 2000 - 102);
+        mapa.portaLocal[1] = new Portas(1801, 582 - 330, 61, 330, 13, 117, 217-55);
+
+    }
 
 
     public void Cidade01(Mapa mapa) {
@@ -803,110 +1114,7 @@ public class IniciarMapa {
 
     }
 
-    public void Labirinto(Mapa mapa)
-    {
-        Slime slime = new Slime(1000, 700, 3, 39, 52, 39, 25);
-        Slime slime2 = new Slime(1025, 735, 3, 39, 52, 39, 25);
-        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39, 1);
 
-        ObjetoCenario parede1 = new ObjetoCenario(245, 1333 - 444, 253, 444, "cidade/Labirinto_Parede1");
-        ObjetoCenario parede2 = new ObjetoCenario(757, 1131 - 207, 389, 207, "cidade/Labirinto_Parede2");
-        ObjetoCenario parede3 = new ObjetoCenario(566, 1131 - 335, 580, 335, "cidade/Labirinto_Parede3");
-        ObjetoCenario parede4 = new ObjetoCenario(756, 1131 - 610, 390, 610, "cidade/Labirinto_Parede4");
-        ObjetoCenario parede5 = new ObjetoCenario(0, 1004 - 544, 819, 544, "cidade/Labirinto_Parede5");
-        ObjetoCenario parede6 = new ObjetoCenario(0, 1334 - 604, 308, 604, "cidade/Labirinto_Parede6");
-        ObjetoCenario parede7 = new ObjetoCenario(214, 450 - 384, 553, 384, "cidade/Labirinto_Parede7");
-        ObjetoCenario parede8 = new ObjetoCenario(755, 811 - 207, 191, 207, "cidade/Labirinto_Parede8");
-        ObjetoCenario parede9 = new ObjetoCenario(908, 455 - 207, 239, 207, "cidade/Labirinto_Parede9");
-        ObjetoCenario parede10 = new ObjetoCenario(1, 829 - 829, 1335, 829, "cidade/Labirinto_Parede10");
-
-
-        //INSTANCIANDO VETORES
-        mapa.texturaLocal = new Texture[1];
-        mapa.spriteLocal = new Sprite[1];
-        mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
-
-        //mapa.inimigoarray.add(slime);
-        //mapa.inimigoarray.add(slime2);
-
-        mapa.desenhoArray.add(parede1);
-        mapa.desenhoArray.add(parede2);
-        mapa.desenhoArray.add(parede3);
-        mapa.desenhoArray.add(parede4);
-        mapa.desenhoArray.add(parede5);
-        mapa.desenhoArray.add(parede6);
-        mapa.desenhoArray.add(parede7);
-        mapa.desenhoArray.add(parede8);
-        mapa.desenhoArray.add(parede9);
-        mapa.desenhoArray.add(parede10);
-
-        mapa.desenhoArray.add(jogador);
-
-        //Inicia os inimigos e os coloca no array de desenhos
-        for (Inimigo inimigo : mapa.inimigoarray) {
-            inimigo.iniciar();
-            mapa.desenhoArray.add(inimigo);
-        }
-
-        //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
-        mapa.texturaLocal[0] = new Texture("cidade/Labirinto.png");
-
-
-        //CARREGANDO SPRITES
-        mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
-
-
-        //POSICOES DO SPRITE
-        mapa.posicaoSprite[0][0] = 0;
-        mapa.posicaoSprite[0][1] = 0;
-
-
-        //COLOCANDO COLISOES
-        mapa.colisoes = new Rectangle[24];
-
-        mapa.colisoes[0] = new Rectangle(216, 4, 1120, 63);
-        mapa.colisoes[1] = new Rectangle(0, 478, 63, 537);
-        mapa.colisoes[2] = new Rectangle(1273, 723, 63, 727);
-        mapa.colisoes[3] = new Rectangle(883, 663, 63, 722);
-        mapa.colisoes[4] = new Rectangle(883, 307, 264, 63);
-        mapa.colisoes[5] = new Rectangle(755, 663, 191, 63);
-        mapa.colisoes[6] = new Rectangle(214, 125, 553, 63);
-        mapa.colisoes[7] = new Rectangle(214, 301, 63, 239);
-        mapa.colisoes[8] = new Rectangle(705, 301, 63, 239);
-        mapa.colisoes[9] = new Rectangle(1084, 983, 63, 466);
-        mapa.colisoes[10] = new Rectangle(758, 983, 389, 63);
-        mapa.colisoes[11] = new Rectangle(756, 983, 63, 191);
-        mapa.colisoes[12] = new Rectangle(567, 855, 252, 63);
-        mapa.colisoes[13] = new Rectangle(565, 855, 63, 398);
-        mapa.colisoes[14] = new Rectangle(246, 520, 382, 63);
-        mapa.colisoes[15] = new Rectangle(244, 791, 63, 333);
-        mapa.colisoes[16] = new Rectangle(0, 791, 307, 63);
-        mapa.colisoes[17] = new Rectangle(0, 1185, 63, 457);
-        mapa.colisoes[18] = new Rectangle(245, 1187, 63, 300);
-        mapa.colisoes[19] = new Rectangle(245, 949, 253, 63);
-        mapa.colisoes[20] = new Rectangle(0, 1185, 1335, 63);
-        mapa.colisoes[21] = new Rectangle(1273, 1183, 63, 283);
-        mapa.colisoes[22] = new Rectangle(73, 1183, 153, 117);
-        mapa.colisoes[23] = new Rectangle(955, 70, 311, 74);
-
-        for(Rectangle retangulo : mapa.colisoes)
-        {
-            retangulo.y = retangulo.y - retangulo.height;
-        }
-
-
-        //PORTAS
-        mapa.portaLocal = new Portas[3];
-
-        mapa.portaLocal[0] = new Portas(-63, 728, 62, 250, 10, 100, 300 - 87);
-        mapa.portaLocal[1] = new Portas(1336, 900, 62, 177, 10, 100, 300 - 87);
-        mapa.portaLocal[2] = new Portas(63, -58, 154, 63, 10, 100, 300 - 87);
-
-        for(Portas porta : mapa.portaLocal)
-        {
-            porta.colisao.y = porta.colisao.y - porta.colisao.height;
-        }
-    }
 
 
 }
