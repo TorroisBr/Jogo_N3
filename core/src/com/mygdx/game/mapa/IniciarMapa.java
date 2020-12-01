@@ -642,10 +642,10 @@ public class IniciarMapa {
         mapa.colisoes[5] = new Rectangle(40, 32-32, 1110, 32);
         mapa.colisoes[6] = new Rectangle(0, 131-103, 40, 131);
 
-        mapa.colisoes[7] = new Rectangle(181, 316-45, 285, 45);
-        mapa.colisoes[8] = new Rectangle(181, 183-45, 285, 45);
-        mapa.colisoes[9] = new Rectangle(692, 316-45, 285, 45);
-        mapa.colisoes[10] = new Rectangle(692, 183-45, 285, 45);
+        mapa.colisoes[7] = new Rectangle(181, 345-45, 285, 45);
+        mapa.colisoes[8] = new Rectangle(181, 212-45, 285, 45);
+        mapa.colisoes[9] = new Rectangle(692, 345-45, 285, 45);
+        mapa.colisoes[10] = new Rectangle(692, 212-45, 285, 45);
 
 
 
