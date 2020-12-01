@@ -7,14 +7,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.item.Arco;
 import com.mygdx.game.item.Espada;
-import com.mygdx.game.MyGdxGame2.*;
 
 import static com.mygdx.game.CameraView.Desenhar;
 import static com.mygdx.game.MyGdxGame2.*;
 
 public class Jogador extends Unidade {
-    public Texture texture[][][];
-    public Sprite sprite[][][];
+    public Texture[][][] texture;
+    public Sprite[][][] sprite;
     public int vida,
                vidaMax;
     public int direcao;
@@ -36,7 +35,7 @@ public class Jogador extends Unidade {
 
 
     //CONSTRUTOR
-    public Jogador(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt, int estado) {
+    public Jogador(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt) {
         this.hitboxDano = new Rectangle(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
         this.hitboxMapa = new Rectangle(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
         this.x = x;
@@ -130,10 +129,7 @@ public class Jogador extends Unidade {
         {
             tempo += Gdx.graphics.getDeltaTime();
             if ((int) (tempo * 100) % 2 == 0) {
-                if (visivel)
-                    visivel = false;
-                else
-                    visivel = true;
+                visivel = !visivel;
             }
         } else if(tempo < 6)
         {
@@ -154,10 +150,7 @@ public class Jogador extends Unidade {
             invencibilidade -= Gdx.graphics.getDeltaTime();
             if ((int) (invencibilidade * 100) % 2 == 0) {
 
-                if (visivel)
-                    visivel = false;
-                else
-                    visivel = true;
+                visivel = !visivel;
 
             }
         } else if (!visivel && estado != -1)
@@ -249,7 +242,7 @@ public class Jogador extends Unidade {
 
 
     //MOVIMENTA O JOGADOR
-    public void Movimento(Rectangle retangulo[]) {
+    public void Movimento(Rectangle[] retangulo) {
         if (movX != 0) {
             x += movX;
             AtualizaRetangulos();
@@ -278,7 +271,7 @@ public class Jogador extends Unidade {
 
     }
 
-    public boolean ColisaoComCenario(Rectangle rectangles[]) {
+    public boolean ColisaoComCenario(Rectangle[] rectangles) {
         for (Rectangle retangulo : rectangles) {
             if (hitboxMapa.overlaps(retangulo))
                 return true;
@@ -290,7 +283,6 @@ public class Jogador extends Unidade {
         hitboxDano.set(x, y, hitboxDano.width, hitboxDano.height);
         hitboxMapa.set(x, y, hitboxMapa.width, hitboxMapa.height);
     }
-
 
     public void animar(boolean loop, float velocidadeAnim) {
         currentFrame += velocidadeAnim;
@@ -304,6 +296,8 @@ public class Jogador extends Unidade {
     }
 
     public void Draw() {
+        if (estado != 1)
+            AtualizarHitboxEspada(0, 0, 0, 0, false);
         Desenhar(x + (int) hitboxDano.getWidth() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getWidth() / 2, y + (int) hitboxDano.getHeight() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getHeight() / 2, sprite[direcao][animAtual][(int) currentFrame], batch, camera);
     }
 

@@ -29,13 +29,15 @@ public class SoundController {
 
     public SoundController()
     {
+        long id;
+
         //Carrega os efeitos sonoros e a musica
         musica = Gdx.audio.newMusic(Gdx.files.internal("musicas/gangstas-paradise-but-only-the-choir-bit-along-with-beats.mp3"));
 
         selecao = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/ONPARE4_00003.wav"));
         selecao2 = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/ONPARE4_00004.wav"));
-        confirmar = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/PL00_U_00042.wav"));
-        voltar = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/PL01_U_00036.wav"));
+        confirmar = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/52_cursol_yoko.wav"));
+        voltar = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/12_cansel.wav"));
         espadada1 = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/fighterSword1.wav"));
         espadada2 = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/fighterSword2.wav"));
         espadada3 = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/goldenSword.wav"));
@@ -116,11 +118,11 @@ public class SoundController {
         {
             case 0:
                 //Toca o som
-                selecao.play();
+                selecao.play(0.25f);
                 break;
 
             case 1:
-                selecao2.play();
+                selecao2.play(0.25f);
                 break;
 
             case 2:

@@ -19,7 +19,7 @@ public class IniciarMapa {
 
         Slime slime = new Slime(1000, 700, 3, 39, 52, 39, 25);
         Slime slime2 = new Slime(1025, 735, 3, 39, 52, 39, 25);
-        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1581, 118, "cidade/esgoto_Parede_01");
 
 
@@ -128,7 +128,7 @@ public class IniciarMapa {
 
     public void Esgoto03(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 482, 0, "cidade/esgoto_Parede_03");
 
 
@@ -185,7 +185,7 @@ public class IniciarMapa {
 
     public void SalaJantar(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1145, 1412, "cidade/SalaDeJantarIncendiada_Parede");
 
 
@@ -242,7 +242,7 @@ public class IniciarMapa {
 
     public void SalaFosso(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1198, 1198, "cidade/SalaDeBaixoDaSalaDeJantar_Parede");
 
 
@@ -304,7 +304,7 @@ public class IniciarMapa {
 
     public void SalaTresPortas(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1198, 1198, "cidade/Sala3Portas_Parede");
 
 
@@ -362,7 +362,7 @@ public class IniciarMapa {
 
     public void SalaBauEsquerdo(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1198, 1198, "cidade/SalaBauEsquerdo_Parede");
         casa1.sprite.flip(true,false);
 
@@ -422,7 +422,7 @@ public class IniciarMapa {
 
     public void SalaSaguao(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 652, 601, "cidade/Parede_de_baixo");
 
 
@@ -496,7 +496,7 @@ public class IniciarMapa {
 
     public void SalaDragao(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 2079, 943, "cidade/SalaDoDragao_Parede");
 
 
@@ -584,7 +584,7 @@ public class IniciarMapa {
 
     public void SalaBiblioteca(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 2079, 943, "cidade/biblioteca_Base_parede");
 
         ObjetoCenario casa2 = new ObjetoCenario(181, 281-6, 285, 6, "cidade/biblioteca_Base_Estante");
@@ -657,7 +657,7 @@ public class IniciarMapa {
 
     public void Calabousso(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1192, 229, "cidade/Calabouco_Frente");
 
 
@@ -719,7 +719,7 @@ public class IniciarMapa {
     {
         Slime slime = new Slime(1000, 700, 3, 39, 52, 39, 25);
         Slime slime2 = new Slime(1025, 735, 3, 39, 52, 39, 25);
-        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39);
 
         ObjetoCenario parede1 = new ObjetoCenario(245, 1333 - 444, 253, 444, "cidade/Labirinto_Parede1");
         ObjetoCenario parede2 = new ObjetoCenario(757, 1131 - 207, 389, 207, "cidade/Labirinto_Parede2");
@@ -823,7 +823,7 @@ public class IniciarMapa {
 
     public void SalaBauDireito(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1198, 1198, "cidade/SalaBauEsquerdo_Parede");
 
 
@@ -878,7 +878,7 @@ public class IniciarMapa {
     }
 
     public void Jardim(Mapa mapa){
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1801, 1801, "cidade/JardimInterno_Parede");
 
         ObjetoCenario casa2 = new ObjetoCenario(396, 488-65, 425, 166, "cidade/JardimInterno_Vaso1");
@@ -957,7 +957,7 @@ public class IniciarMapa {
         //CRIANDO INIMIGOS
         Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
         Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25);
-        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(510, 333 - 113, 161, 113, "hitbox");
 
 

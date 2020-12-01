@@ -4,17 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.unidade.Jogador.*;
-import com.mygdx.game.MyGdxGame2;
 
 import static com.mygdx.game.CameraView.Desenhar;
 import static com.mygdx.game.MyGdxGame2.*;
 
 public class Slime extends Inimigo {
-    Texture texture[][][];
-    public Sprite sprite[][][];
+    Texture[][][] texture;
+    public Sprite[][][] sprite;
     public int dano;
-    public int andar = 0;
     public float tempoAtaque = 0;
 
 
@@ -29,14 +26,6 @@ public class Slime extends Inimigo {
         this.hitboxMapa = new Rectangle(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
         this.dano = 2;
         this.visivel = true;
-    }
-
-    public void morrer() {
-        if (estado == -1) {
-            direcao = 0;
-            animAtual = 4;
-            animar(true, 0.12F);
-        }
     }
 
 
@@ -81,12 +70,7 @@ public class Slime extends Inimigo {
             if (tempo < 2) {
                 tempo += Gdx.graphics.getDeltaTime();
                 if ((int) (tempo * 100) % 2 == 0) {
-
-                    if (visivel)
-                        visivel = false;
-                    else
-                        visivel = true;
-
+                    visivel = !visivel;
                 }
             } else
                 estado = -2;
@@ -103,14 +87,6 @@ public class Slime extends Inimigo {
         }
 
     }
-
-
-    //Atualiza a hitbox do inimigo
-    public void AtualizaRetangulos() {
-        hitboxDano.set(x, y, hitboxDano.getWidth(), hitboxDano.getHeight());
-        hitboxMapa.set(x, y, hitboxMapa.getWidth(), hitboxMapa.getHeight());
-    }
-
 
     //Moviemnta o slime baseado no movX ou movY
 
