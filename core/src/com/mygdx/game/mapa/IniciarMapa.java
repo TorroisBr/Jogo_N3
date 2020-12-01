@@ -367,7 +367,6 @@ public class IniciarMapa {
 
         Ladrao ladrao = new Ladrao(166, 210-26, 0, 56, 126, 56, 39,4);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1198, 1198, "cidade/SalaBauEsquerdo_Parede");
-        casa1.sprite.flip(true,false);
 
 
         //INSTANCIANDO VETORES
@@ -394,7 +393,6 @@ public class IniciarMapa {
 
         //CARREGANDO SPRITES
         mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
-        mapa.spriteLocal[0].flip(true,false);
 
 
         //POSICOES DO SPRITE
@@ -403,15 +401,19 @@ public class IniciarMapa {
 
 
         //COLOCANDO COLISOES
-        mapa.colisoes[0] = new Rectangle(68, 581-358, 438, 358);
-        mapa.colisoes[1] = new Rectangle(501, 581-278, 306, 278);
-        mapa.colisoes[2] = new Rectangle(804, 581-372, 67, 372);
+        mapa.colisoes[0] = new Rectangle(0, 10, 873, 67);
+        mapa.colisoes[1] = new Rectangle(806, 103, 67, 161);
+        mapa.colisoes[2] = new Rectangle(0, 371, 67, 371);
+        mapa.colisoes[3] = new Rectangle(0, 372, 873, 67);
+        mapa.colisoes[4] = new Rectangle(806, 372, 67, 161);
 
-        mapa.colisoes[3] = new Rectangle(843, 121 - 159, 67, 159);
-        mapa.colisoes[4] = new Rectangle(-39, 581 - 583, 67, 583);
-        mapa.colisoes[5] = new Rectangle(28, 28 - 30, 816, 30);
+        mapa.colisoes[5] = new Rectangle(77, 355, 429, 131);
+        mapa.colisoes[6] = new Rectangle(77, 82, 429, 74);
 
-        mapa.colisoes[6] = new Rectangle(68, 140 -75, 438, 75);
+        for(Rectangle retangulo : mapa.colisoes)
+        {
+            retangulo.y = retangulo.y - retangulo.height;
+        }
 
 
 
@@ -844,6 +846,7 @@ public class IniciarMapa {
         Slime slime = new Slime(730, 201-37, 3, 39, 52, 39, 25,2);
         Slime slime1 = new Slime(396, 200-37, 3, 39, 52, 39, 25,1);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1198, 1198, "cidade/SalaBauEsquerdo_Parede");
+        casa1.sprite.flip(true,false);
 
 
         //INSTANCIANDO VETORES
@@ -871,6 +874,7 @@ public class IniciarMapa {
 
         //CARREGANDO SPRITES
         mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+        mapa.spriteLocal[0].flip(true,false);
 
 
         //POSICOES DO SPRITE
@@ -879,14 +883,19 @@ public class IniciarMapa {
 
 
         //COLOCANDO COLISOES
-        mapa.colisoes[0] = new Rectangle(0, 582-372, 68, 372);
-        mapa.colisoes[1] = new Rectangle(68, 585-276, 298, 276);
-        mapa.colisoes[2] = new Rectangle(367, 582-357, 437, 357);
-        mapa.colisoes[3] = new Rectangle(367, 137 - 70, 437, 70);
+        mapa.colisoes[0] = new Rectangle(0, 10, 873, 67);
+        mapa.colisoes[1] = new Rectangle(0, 103, 67, 161);
+        mapa.colisoes[2] = new Rectangle(806, 371, 67, 371);
+        mapa.colisoes[3] = new Rectangle(0, 372, 873, 67);
+        mapa.colisoes[4] = new Rectangle(0, 372, 67, 161);
 
-        mapa.colisoes[4] = new Rectangle(835, 307 - 307, 37, 307);
-        mapa.colisoes[5] = new Rectangle(34, 38-38, 839, 38);
-        mapa.colisoes[6] = new Rectangle(-37, 92 -92, 71, 92);
+        mapa.colisoes[5] = new Rectangle(367, 355, 429, 131);
+        mapa.colisoes[6] = new Rectangle(367, 82, 429, 74);
+
+        for(Rectangle retangulo : mapa.colisoes)
+        {
+            retangulo.y = retangulo.y - retangulo.height;
+        }
 
 
 
@@ -1139,7 +1148,6 @@ public class IniciarMapa {
         mapa.colisoes[7] = new Rectangle(753, 947 - 144, 162, 144);
 
         mapa.portaLocal[0] = new Portas(35, 909 - 87, 50, 50, 0, 100, 890 - 76);
-
 
     }
 

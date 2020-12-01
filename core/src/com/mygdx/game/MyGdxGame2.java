@@ -390,25 +390,27 @@ public class MyGdxGame2 extends Game {
 
             renderer.begin(ShapeRenderer.ShapeType.Filled);
 
-//
-//            for(Rectangle retangulo : mapas[fundoatual].colisoes)
-//            {
-//                renderer.rect(retangulo.x, retangulo.y, retangulo.getWidth(), retangulo.getHeight());
-//            }
-//
-//            for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
-//                renderer.rect(inimigo.hitboxMapa.x, inimigo.hitboxMapa.y, inimigo.hitboxMapa.getWidth(), inimigo.hitboxMapa.getHeight());
-//
-//            }
-//
-//            for (Portas portas : mapas[fundoatual].portaLocal) {
-//                renderer.rect(portas.colisao.x, portas.colisao.y, portas.colisao.getWidth(), portas.colisao.getHeight());
-//
-//            }
-//            renderer.rect(ladrao.espada.hitbox.x, ladrao.espada.hitbox.y, ladrao.espada.hitbox.getWidth(), ladrao.espada.hitbox.getHeight());
-//            renderer.rect(jogador.espada.hitbox.x, jogador.espada.hitbox.y, jogador.espada.hitbox.getWidth(), jogador.espada.hitbox.getHeight());
-//            renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
-//            renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
+
+            /*
+            for(Rectangle retangulo : mapas[fundoatual].colisoes)
+            {
+                renderer.rect(retangulo.x, retangulo.y, retangulo.getWidth(), retangulo.getHeight());
+            }
+
+            for (Inimigo inimigo : mapas[fundoatual].inimigoarray) {
+                renderer.rect(inimigo.hitboxMapa.x, inimigo.hitboxMapa.y, inimigo.hitboxMapa.getWidth(), inimigo.hitboxMapa.getHeight());
+
+            }
+
+            for (Portas portas : mapas[fundoatual].portaLocal) {
+               renderer.rect(portas.colisao.x, portas.colisao.y, portas.colisao.getWidth(), portas.colisao.getHeight());
+
+            }
+            renderer.rect(ladrao.espada.hitbox.x, ladrao.espada.hitbox.y, ladrao.espada.hitbox.getWidth(), ladrao.espada.hitbox.getHeight());
+            renderer.rect(jogador.espada.hitbox.x, jogador.espada.hitbox.y, jogador.espada.hitbox.getWidth(), jogador.espada.hitbox.getHeight());
+            renderer.rect(jogador.hitboxMapa.x, jogador.hitboxMapa.y, jogador.hitboxMapa.getWidth(), jogador.hitboxMapa.getHeight());
+            renderer.rect(jogador.hitboxDano.x, jogador.hitboxDano.y, jogador.hitboxDano.getWidth(), jogador.hitboxDano.getHeight());
+            */
 
 
             renderer.end();

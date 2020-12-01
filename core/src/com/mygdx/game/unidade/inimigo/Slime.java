@@ -233,9 +233,9 @@ public class Slime extends Inimigo {
     @Override
     public void Andar() {
         AtualizaRetangulos();
-        DanoEspada();
         Seguir();
         Move(mapas[fundoatual].colisoes);
+        DanoEspada();
 
         if (tempoAtaque < 2)
             tempoAtaque += Gdx.graphics.getDeltaTime();
