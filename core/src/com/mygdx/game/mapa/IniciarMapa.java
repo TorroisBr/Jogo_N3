@@ -233,9 +233,9 @@ public class IniciarMapa {
 
 
         //PORTAS
-        mapa.portaLocal[0] = new Portas(1146, 531 - 78, 89, 78, 10, 79, 1039-205);
+        mapa.portaLocal[0] = new Portas(1146, 531 - 78, 89, 78, 10, 79, 1100-205);
         mapa.portaLocal[1] = new Portas(398, 1 - 78, 334, 78, 6, 557, 1009 - 102);
-        mapa.portaLocal[2] = new Portas(225, 1268 - 89, 132, 89, 4, 174, 152 - 75);
+        mapa.portaLocal[2] = new Portas(225, 1268 - 89, 132, 89, 4, 200, 152 - 75);
 
     }
 
@@ -353,7 +353,7 @@ public class IniciarMapa {
 
 
         //PORTAS
-        mapa.portaLocal[0] = new Portas(314, 1001 - 72, 340, 72, 6, 450, 70);
+        mapa.portaLocal[0] = new Portas(314, 1001 - 72, 340, 72, 6, 600, 70);
         mapa.portaLocal[1] = new Portas(-103, 220 - 218, 103, 218, 8, 737, 208 - 87);
         mapa.portaLocal[2] = new Portas(1548, 218 - 218, 103, 218, 9, 100, 302 - 71);
 
@@ -466,7 +466,7 @@ public class IniciarMapa {
         mapa.colisoes[4] = new Rectangle(144, 972-376, 8, 376);
         mapa.colisoes[5] = new Rectangle(0, 892-605, 74, 905);
         mapa.colisoes[6] = new Rectangle(0, 162-162, 36, 162);
-        mapa.colisoes[7] = new Rectangle(36, 34-34, 503, 34);
+        mapa.colisoes[7] = new Rectangle(36, 34-34, 867, 34);
 
         mapa.colisoes[8] = new Rectangle(910, 1321-282, 463, 282);
         mapa.colisoes[9] = new Rectangle(972, 1038-40, 400, 40);
@@ -486,9 +486,9 @@ public class IniciarMapa {
         mapa.colisoes[22] = new Rectangle(1029, 791-195, 8, 195);
 
 
-        mapa.portaLocal[0] = new Portas(-42, 286 - 124, 42, 124, 7, 117, 217-55);
-        mapa.portaLocal[1] = new Portas(1373, 286 - 124, 42, 124, 12, 75, 261-133);
-        mapa.portaLocal[2] = new Portas(457, 1380 - 59, 453, 59, 10, 910, 262-85);
+        mapa.portaLocal[0] = new Portas(-42, 286 - 124, 42, 124, 7, 1300, 217-55);
+        mapa.portaLocal[1] = new Portas(1373, 286 - 124, 42, 124, 12, 75, 300-133);
+        mapa.portaLocal[2] = new Portas(457, 1380 - 59, 453, 59, 10, 1000, 262-85);
 
 
     }
@@ -569,10 +569,10 @@ public class IniciarMapa {
 
 
 
-        mapa.portaLocal[0] = new Portas(-72, 1039 - 205, 75, 205, 5, 117, 217-55);
-        mapa.portaLocal[1] = new Portas(2083, 1044 - 205, 75, 205, 11, 117, 217-55);
+        mapa.portaLocal[0] = new Portas(-72, 1039 - 205, 75, 205, 5, 900, 500-55);
+        mapa.portaLocal[1] = new Portas(2083, 1044 - 205, 75, 205, 11, 100, 600-55);
         mapa.portaLocal[2] = new Portas(909, 2182 - 102, 263, 102, 15, 885, 217-87);
-        mapa.portaLocal[3] = new Portas(910, 1 - 102, 263, 102, 9, 117, 217-55);
+        mapa.portaLocal[3] = new Portas(910, 1 - 102, 263, 102, 9, 660, 1200-55);
 
 
     }
@@ -644,8 +644,8 @@ public class IniciarMapa {
 
 
 
-        mapa.portaLocal[0] = new Portas(-40, 261 - 131, 40, 131, 9, 1261, 290-151);
-        mapa.portaLocal[1] = new Portas(466, 733 - 227, 737, 277, 11, 117, 217-55);
+        mapa.portaLocal[0] = new Portas(-40, 261 - 131, 40, 131, 9, 1261, 320-151);
+        mapa.portaLocal[1] = new Portas(466, 737 - 46, 227, 227, 11, 117, 100-55);
 
 
     }
@@ -807,7 +807,7 @@ public class IniciarMapa {
 
         mapa.portaLocal[0] = new Portas(-63, 728, 62, 250, 10, 1931, 1042 - 203);
         mapa.portaLocal[1] = new Portas(1336, 900, 62, 177, 13, 562, 100 - 47);
-        mapa.portaLocal[2] = new Portas(63, -58, 154, 63, 12, 100, 300 - 87);
+        mapa.portaLocal[2] = new Portas(63, -58, 154, 63, 12, 550, 700 - 87);
 
         for(Portas porta : mapa.portaLocal)
         {

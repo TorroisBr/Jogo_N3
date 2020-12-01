@@ -55,7 +55,7 @@ public class MyGdxGame2 extends Game {
     public static ShapeRenderer renderer;
 
     public static int tela = 0;
-    public static int fundoatual = 0;
+    public static int fundoatual = 9;
     public static int selecao = 0;
     public static OrthographicCamera camera,
             cameraHUD;
@@ -77,7 +77,7 @@ public class MyGdxGame2 extends Game {
     public void create() {
         //LISTA COM OS MAPAS
         iniciarMapa = new IniciarMapa();
-        jogador = new Jogador(500, 500, 0, 56, 126, 56, 39, 1);
+        jogador = new Jogador(636, 176-90, 0, 56, 126, 56, 39, 1);
 
         //INICIANDO CADA MAPA
         mapaB01 = new Mapa();
@@ -193,7 +193,9 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void render() {
-
+        for (Portas porta : mapas[fundoatual].portaLocal) {
+            porta.conferindoInteracao(jogador);
+        }
         //Menu inicial
         if (tela == 0 || tela == 1 || tela == 2) {
             Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -341,9 +343,7 @@ public class MyGdxGame2 extends Game {
             }
 
             //Faz as portas conferirem a colisao com o jogador
-            for (Portas porta : mapas[fundoatual].portaLocal) {
-                porta.conferindoInteracao(jogador);
-            }
+
 
             //Faz com que o renderer e o batch acopanhem a camera
             renderer.setProjectionMatrix(camera.combined);
