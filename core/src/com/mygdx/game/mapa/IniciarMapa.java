@@ -587,10 +587,10 @@ public class IniciarMapa {
         Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 2079, 943, "cidade/biblioteca_Base_parede");
 
-        ObjetoCenario casa2 = new ObjetoCenario(181, 316, 303, 209, "cidade/biblioteca_Base_Estante");
-        ObjetoCenario casa3 = new ObjetoCenario(692, 316, 303, 209, "cidade/biblioteca_Base_Estante");
-        ObjetoCenario casa4 = new ObjetoCenario(181, 183, 303, 209, "cidade/biblioteca_Base_Estante");
-        ObjetoCenario casa5 = new ObjetoCenario(692, 183, 303, 209, "cidade/biblioteca_Base_Estante");
+        ObjetoCenario casa2 = new ObjetoCenario(181, 281-6, 285, 6, "cidade/biblioteca_Base_Estante");
+        ObjetoCenario casa3 = new ObjetoCenario(694, 146-6, 285, 6, "cidade/biblioteca_Base_Estante");
+        ObjetoCenario casa4 = new ObjetoCenario(181, 146-6, 285, 6, "cidade/biblioteca_Base_Estante");
+        ObjetoCenario casa5 = new ObjetoCenario(694, 281-6, 285, 6, "cidade/biblioteca_Base_Estante");
 
 
 
@@ -642,10 +642,10 @@ public class IniciarMapa {
         mapa.colisoes[5] = new Rectangle(40, 32-32, 1110, 32);
         mapa.colisoes[6] = new Rectangle(0, 131-103, 40, 131);
 
-        mapa.colisoes[7] = new Rectangle(181, 345-45, 285, 45);
-        mapa.colisoes[8] = new Rectangle(181, 212-45, 285, 45);
-        mapa.colisoes[9] = new Rectangle(692, 345-45, 285, 45);
-        mapa.colisoes[10] = new Rectangle(692, 212-45, 285, 45);
+        mapa.colisoes[7] = new Rectangle(181, 281-6, 285, 6);
+        mapa.colisoes[8] = new Rectangle(694, 146-6, 285, 6);
+        mapa.colisoes[9] = new Rectangle(181, 146-6, 285, 6);
+        mapa.colisoes[10] = new Rectangle(694, 281-6, 285, 6);
 
 
 
