@@ -325,6 +325,9 @@ System.out.println(pontoExtras);
                         case 2:
                             inimigo.LevandoDano();
                             break;
+                        case 3:
+                            inimigo.Parado();
+                            break;
                     }
 
                 }
@@ -342,6 +345,9 @@ System.out.println(pontoExtras);
                             break;
                         case 2:
                             inimigo.LevandoDano();
+                            break;
+                        case 3:
+                            inimigo.Parado();
                             break;
                     }
 

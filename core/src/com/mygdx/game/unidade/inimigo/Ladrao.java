@@ -28,7 +28,7 @@ public class Ladrao extends Inimigo {
         this.direcao = direcao;
         this.vida = 30;
         this.velo = velo;
-        this.estado = 0;
+        this.estado = 3;
         this.visivel = true;
         this.ponto=15;
     }
@@ -47,8 +47,6 @@ public class Ladrao extends Inimigo {
             espada.hitbox.y = hitboxDano.y + y;
             espada.hitbox.width = hitboxDano.getWidth() + larg;
             espada.hitbox.height = hitboxDano.getHeight() + alt;
-
-
         }
 
     }
@@ -115,34 +113,54 @@ public class Ladrao extends Inimigo {
         double distanciaX = X - JX;
         double distanciaY = Y - JY;
 
+        double distancia = Math.sqrt(((distanciaX * distanciaX) + (distanciaY * distanciaY)));
 
-        if (Math.sqrt(((distanciaX * distanciaX) + (distanciaY * distanciaY))) < (R + JR + 80.0F)) {
-            estado = 1;
-            currentFrame = 0;
-            animAtual = 2;
-            tempo = 0;
+        if(estado == 3)
+        {
+            if (distancia < (R + JR + 700.0F)) {
+                estado = 0;
+                currentFrame = 0;
+                animAtual = 1;
+            }
+        }
+        else
+        {
+            if (distancia < (R + JR + 40.0F)) {
+                estado = 1;
+                currentFrame = 0;
+                animAtual = 2;
+                tempo = 0;
 
-            switch ((int) (Math.random() * 2)) {
-                case 0:
-                    soundController.tocarSom(4);
-                    break;
+                switch ((int) (Math.random() * 2))
+                {
+                    case 0:
+                        soundController.tocarSom(4);
+                        break;
 
-                case 1:
-                    soundController.tocarSom(5);
-                    break;
+                    case 1:
+                        soundController.tocarSom(5);
+                        break;
+                }
+
+                if (y > jogador.y + 2) {
+                    direcao = 0;
+                } else if (y < jogador.y - 2) {
+
+                    direcao = 2;
+                } else if (x > jogador.x + 2) {
+                    direcao = 1;
+
+                } else {
+                    direcao = 3;
+
+                }
             }
 
-            if (y > jogador.y + 2) {
-                direcao = 0;
-            } else if (y < jogador.y - 2) {
-
-                direcao = 2;
-            } else if (x > jogador.x + 2) {
-                direcao = 1;
-
-            } else {
-                direcao = 3;
-
+            if (distancia > (R + JR + 800.0F)) {
+                estado = 3;
+                currentFrame = 0;
+                animAtual = 0;
+                tempo = 0;
             }
         }
     }
@@ -173,6 +191,13 @@ public class Ladrao extends Inimigo {
         }
     }
 
+    @Override
+    public void Parado()
+    {
+        AtualizaRetangulos();
+        DanoEspada();
+        ConferirAtaque();
+    }
 
     @Override
     public void Andar() {
@@ -185,8 +210,6 @@ public class Ladrao extends Inimigo {
             tempoAtaque += Gdx.graphics.getDeltaTime();
         else
             ConferirAtaque();
-
-
     }
 
     @Override

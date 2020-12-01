@@ -23,7 +23,7 @@ public class Slime extends Inimigo {
         this.direcao = direcao;
         this.vida = 30;
         this.velo = velo;
-        this.estado = 0;
+        this.estado = 3;
         this.hitboxDano = new Rectangle(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
         this.hitboxMapa = new Rectangle(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
         this.dano = 2;
@@ -174,7 +174,6 @@ public class Slime extends Inimigo {
         }
     }
 
-
     public void ConferirAtaque() {
         double JX = jogador.x + jogador.hitboxMapa.getWidth() / 2;
         double JY = jogador.y + jogador.hitboxMapa.getHeight() / 2;
@@ -185,54 +184,82 @@ public class Slime extends Inimigo {
         double distanciaX = X - JX;
         double distanciaY = Y - JY;
 
+        double distancia = Math.sqrt(((distanciaX * distanciaX) + (distanciaY * distanciaY)));
 
-        if (Math.sqrt(((distanciaX * distanciaX) + (distanciaY * distanciaY))) < (R + JR + 60.0F)) {
-            estado = 1;
-            currentFrame = 0;
-            animAtual = 2;
-            tempo = 0;
+        if(estado == 3)
+        {
+            if (distancia < (R + JR + 700.0F)) {
+                estado = 0;
+                currentFrame = 0;
+                animAtual = 1;
+                tempo = 0;
+            }
+        }
+        else
+        {
+            if (distancia < (R + JR + 60.0F)) {
+                estado = 1;
+                currentFrame = 0;
+                animAtual = 2;
+                tempo = 0;
 
-            switch ((int) (Math.random() * 6)) {
-                case 0:
-                    soundController.tocarSom(9);
-                    break;
+                switch ((int) (Math.random() * 6))
+                {
+                    case 0:
+                        soundController.tocarSom(9);
+                        break;
 
-                case 1:
-                    soundController.tocarSom(10);
-                    break;
+                    case 1:
+                        soundController.tocarSom(10);
+                        break;
 
-                case 2:
-                    soundController.tocarSom(11);
-                    break;
+                    case 2:
+                        soundController.tocarSom(11);
+                        break;
 
-                case 22:
-                    soundController.tocarSom(12);
-                    break;
+                    case 22:
+                        soundController.tocarSom(12);
+                        break;
 
-                case 4:
-                    soundController.tocarSom(13);
-                    break;
+                    case 4:
+                        soundController.tocarSom(13);
+                        break;
 
-                case 5:
-                    soundController.tocarSom(14);
-                    break;
+                    case 5:
+                        soundController.tocarSom(14);
+                        break;
+                }
+
+                if (y > jogador.y + 2) {
+                    direcao = 0;
+                } else if (y < jogador.y - 2) {
+
+                    direcao = 2;
+                } else if (x > jogador.x + 2) {
+                    direcao = 1;
+
+                } else {
+                    direcao = 3;
+
+                }
             }
 
-            if (y > jogador.y + 2) {
-                direcao = 0;
-            } else if (y < jogador.y - 2) {
-
-                direcao = 2;
-            } else if (x > jogador.x + 2) {
-                direcao = 1;
-
-            } else {
-                direcao = 3;
-
+            if (distancia > (R + JR + 800.0F)) {
+                estado = 3;
+                currentFrame = 0;
+                animAtual = 0;
+                tempo = 0;
             }
         }
     }
 
+    @Override
+    public void Parado()
+    {
+        AtualizaRetangulos();
+        DanoEspada();
+        ConferirAtaque();
+    }
 
     @Override
     public void Andar() {
@@ -245,8 +272,6 @@ public class Slime extends Inimigo {
             tempoAtaque += Gdx.graphics.getDeltaTime();
         else
             ConferirAtaque();
-
-
     }
 
     @Override

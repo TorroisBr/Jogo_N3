@@ -23,6 +23,8 @@ public abstract class Inimigo extends Unidade {
     protected boolean pontoExtra=true;
     public int ponto;
 
+    public abstract void Parado();
+
     public abstract void Andar();
 
     public abstract void Atacar();

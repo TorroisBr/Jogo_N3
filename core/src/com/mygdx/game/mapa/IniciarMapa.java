@@ -169,9 +169,9 @@ public class IniciarMapa {
         mapa.colisoes[1] = new Rectangle(79, 723 - 323, 324, 323);
 
 
-        mapa.colisoes[2] = new Rectangle(440, 400 - 392, 58, 392);
+        mapa.colisoes[2] = new Rectangle(404, 400 - 392, 58, 392);
 
-        mapa.colisoes[3] = new Rectangle(0, 157 - 204, 47, 204);
+        mapa.colisoes[3] = new Rectangle(0, 157 - 204, 79, 204);
 
         mapa.colisoes[4] = new Rectangle(0, 26 - 46, 170, 46);
         mapa.colisoes[5] = new Rectangle(308, 26 - 46, 203, 46);
@@ -231,10 +231,10 @@ public class IniciarMapa {
         mapa.colisoes[1] = new Rectangle(360, 1410-307, 698, 307);
         mapa.colisoes[2] = new Rectangle(1057, 1109 - 577, 89, 577);
 
-        mapa.colisoes[3] = new Rectangle(1089, 452 - 453, 89, 423);
+        mapa.colisoes[3] = new Rectangle(1057, 452 - 453, 89, 423);
         mapa.colisoes[4] = new Rectangle(755, 29 - 31, 334, 31);
         mapa.colisoes[5] = new Rectangle(41, 29 - 31, 356, 31);
-        mapa.colisoes[6] = new Rectangle(-47, 1413 - 1415, 89, 1415);
+        mapa.colisoes[6] = new Rectangle(0, 1413 - 1415, 85, 1415);
 
 
         //PORTAS
@@ -292,8 +292,8 @@ public class IniciarMapa {
         mapa.colisoes[4] = new Rectangle(220, 437 - 241, 285, 241);
         mapa.colisoes[5] = new Rectangle(735, 437 - 241, 285, 241);
 
-        mapa.colisoes[6] = new Rectangle(0, 1199 - 1199, 46, 1199);
-        mapa.colisoes[7] = new Rectangle(1153, 1199 - 1199, 46, 1199);
+        mapa.colisoes[6] = new Rectangle(0, 1199 - 1199, 74, 1199);
+        mapa.colisoes[7] = new Rectangle(1120, 1199 - 1199, 74, 1199);
 
         mapa.colisoes[8] = new Rectangle(46, 34 - 117, 420, 117);
         mapa.colisoes[9] = new Rectangle(733, 34 - 117, 420, 117);
@@ -351,8 +351,8 @@ public class IniciarMapa {
         mapa.colisoes[2] = new Rectangle(0, 830 - 610, 80, 610);
         mapa.colisoes[3] = new Rectangle(1468, 830 - 610, 80, 610);
 
-        mapa.colisoes[4] = new Rectangle(-32, 53 - 151, 80, 151);
-        mapa.colisoes[5] = new Rectangle(47, 53 - 90, 1499, 90);
+        mapa.colisoes[4] = new Rectangle(0, 53 - 151, 80, 151);
+        mapa.colisoes[5] = new Rectangle(47, 33 - 90, 1499, 90);
         mapa.colisoes[6] = new Rectangle(1466, 53 - 151, 80, 151);
 
 
@@ -432,7 +432,7 @@ public class IniciarMapa {
         mapa.texturaLocal = new Texture[1];
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
-        mapa.colisoes = new Rectangle[23];
+        mapa.colisoes = new Rectangle[22];
         mapa.portaLocal = new Portas[3];
 
         mapa.desenhoArray.add(casa1);
@@ -465,7 +465,7 @@ public class IniciarMapa {
         mapa.colisoes[3] = new Rectangle(0, 972-80, 152, 80);
         mapa.colisoes[4] = new Rectangle(144, 972-376, 8, 376);
         mapa.colisoes[5] = new Rectangle(0, 892-605, 74, 905);
-        mapa.colisoes[6] = new Rectangle(0, 162-162, 36, 162);
+        mapa.colisoes[6] = new Rectangle(0, 162-162, 74, 162);
         mapa.colisoes[7] = new Rectangle(36, 34-34, 867, 34);
 
         mapa.colisoes[8] = new Rectangle(910, 1321-282, 463, 282);
@@ -474,16 +474,15 @@ public class IniciarMapa {
         mapa.colisoes[11] = new Rectangle(1214, 975-80, 158, 80);
         mapa.colisoes[12] = new Rectangle(1214, 975-380, 8, 380);
         mapa.colisoes[13] = new Rectangle(1298, 895-605, 74, 895);
-        mapa.colisoes[14] = new Rectangle(1336, 162-162, 36, 162);
+        mapa.colisoes[14] = new Rectangle(1298, 162-162, 74, 162);
         mapa.colisoes[15] = new Rectangle(833, 34-34, 539, 34);
 
         mapa.colisoes[16] = new Rectangle(325, 820-230, 8, 230);
-        mapa.colisoes[17] = new Rectangle(333, 820-28, 58, 28);
+        mapa.colisoes[17] = new Rectangle(336, 820-28, 710, 28);
         mapa.colisoes[18] = new Rectangle(392, 848-28, 66, 28);
         mapa.colisoes[19] = new Rectangle(458, 889-40, 450, 40);
         mapa.colisoes[20] = new Rectangle(909, 848-28, 66, 28);
-        mapa.colisoes[21] = new Rectangle(975, 820-28, 61, 28);
-        mapa.colisoes[22] = new Rectangle(1029, 791-195, 8, 195);
+        mapa.colisoes[21] = new Rectangle(1029, 791-195, 8, 195);
 
 
         mapa.portaLocal[0] = new Portas(-42, 286 - 124, 42, 124, 7, 1300, 217-55);
@@ -647,9 +646,9 @@ public class IniciarMapa {
         mapa.colisoes[2] = new Rectangle(694, 610-205, 381, 205);
         mapa.colisoes[3] = new Rectangle(694, 690-79, 456, 79);
 
-        mapa.colisoes[4] = new Rectangle(1110, 610-610, 40, 610);
+        mapa.colisoes[4] = new Rectangle(1075, 610-610, 40, 610);
         mapa.colisoes[5] = new Rectangle(40, 32-32, 1110, 32);
-        mapa.colisoes[6] = new Rectangle(0, 131-103, 40, 131);
+        mapa.colisoes[6] = new Rectangle(0, 131-103, 75, 131);
 
         mapa.colisoes[7] = new Rectangle(181, 281-6, 285, 6);
         mapa.colisoes[8] = new Rectangle(694, 146-6, 285, 6);
@@ -713,10 +712,10 @@ public class IniciarMapa {
         mapa.colisoes[1] = new Rectangle(0, 867-561, 99, 561);
         mapa.colisoes[2] = new Rectangle(1092, 867-561, 99, 561);
 
-        mapa.colisoes[3] = new Rectangle(-44, 95-168, 77, 97);
+        mapa.colisoes[3] = new Rectangle(0, 168-168, 99, 168);
         mapa.colisoes[4] = new Rectangle(33, 41-41, 421, 41);
         mapa.colisoes[5] = new Rectangle(770, 41-41, 421, 41);
-        mapa.colisoes[6] = new Rectangle(1135, 168-168, 99, 168);
+        mapa.colisoes[6] = new Rectangle(1092, 168-168, 99, 168);
 
 
 
@@ -915,7 +914,7 @@ public class IniciarMapa {
         ObjetoCenario casa2 = new ObjetoCenario(396, 488-65, 425, 166, "cidade/JardimInterno_Vaso1");
         ObjetoCenario casa3 = new ObjetoCenario(1037, 488-65, 425, 166, "cidade/JardimInterno_Vaso1");
         ObjetoCenario casa4 = new ObjetoCenario(397, 302-65, 425, 163, "cidade/JardimInterno_Vaso2");
-        ObjetoCenario casa5 = new ObjetoCenario(1055, 302-65, 425, 163, "cidade/JardimInterno_Vaso2");
+        ObjetoCenario casa5 = new ObjetoCenario(1037, 302-65, 425, 163, "cidade/JardimInterno_Vaso2");
 
 
 
@@ -976,7 +975,7 @@ public class IniciarMapa {
         mapa.colisoes[10] = new Rectangle(396, 488-65, 420, 65);
         mapa.colisoes[11] = new Rectangle(1037, 488-65, 420, 65);
         mapa.colisoes[12] = new Rectangle(397, 301-65, 420, 65);
-        mapa.colisoes[13] = new Rectangle(1055, 303-65, 420, 65);
+        mapa.colisoes[13] = new Rectangle(1037, 303-65, 420, 65);
 
 
 
