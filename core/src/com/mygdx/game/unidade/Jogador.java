@@ -10,12 +10,13 @@ import com.mygdx.game.item.Espada;
 
 import static com.mygdx.game.CameraView.Desenhar;
 import static com.mygdx.game.MyGdxGame2.*;
+import static com.mygdx.game.controladores.PontosController.*;
 
 public class Jogador extends Unidade {
     public Texture[][][] texture;
     public Sprite[][][] sprite;
     public int vida,
-               vidaMax;
+            vidaMax;
     public int direcao;
     public int velo;
     public float movX = 0, movY = 0;
@@ -27,6 +28,7 @@ public class Jogador extends Unidade {
     public float tempo = 0;
     public boolean teclaEspadaApertada = false;
     public float invencibilidade = 0;
+
 
 
     //CRIANDO ESPADA
@@ -45,6 +47,7 @@ public class Jogador extends Unidade {
         this.vida = vidaMax;
         this.velo = 5;
         this.estado = 0;
+
     }
 
 
@@ -73,13 +76,10 @@ public class Jogador extends Unidade {
     public void tomarDano(int dano) {
         vida -= dano;
 
-        if(vida > 0)
-        {
+        if (vida > 0) {
             soundController.tocarSom(7);
-        }
-        else
-        {
-            soundController.tocarSom(18 );
+        } else {
+            soundController.tocarSom(18);
         }
     }
 
@@ -116,6 +116,7 @@ public class Jogador extends Unidade {
                 tempo = 0;
                 estado = -1;
                 animAtual = 5;
+                vida=0;
             }
 
         }
@@ -124,28 +125,26 @@ public class Jogador extends Unidade {
     public void morrendo() {
         if (tempo < 2) {
             tempo += Gdx.graphics.getDeltaTime();
-        }
-        else if (tempo < 4)
-        {
+        } else if (tempo < 4) {
             tempo += Gdx.graphics.getDeltaTime();
             if ((int) (tempo * 100) % 2 == 0) {
                 visivel = !visivel;
             }
-        } else if(tempo < 6)
-        {
+        } else if (tempo < 6) {
             tempo += Gdx.graphics.getDeltaTime();
             visivel = false;
-        }
-        else
-            System.exit(0);
+        } else
+            tela = 4;
+
+        //System.exit(0);
 
     }
 
 
     //input movimento
     public void input() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.L))
-            fundoatual=3;
+        if (Gdx.input.isKeyJustPressed(Input.Keys.L))
+            fundoatual = 3;
         if (invencibilidade > 0) {
             invencibilidade -= Gdx.graphics.getDeltaTime();
             if ((int) (invencibilidade * 100) % 2 == 0) {
@@ -159,8 +158,7 @@ public class Jogador extends Unidade {
         if (estado != 1 && estado != 2 && estado != 3 && estado != -1) {
             //ATAQUE
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && !teclaEspadaApertada) {
-                switch ((int) (Math.random() * 2))
-                {
+                switch ((int) (Math.random() * 2)) {
                     case 0:
                         soundController.tocarSom(6);
                         break;
@@ -169,6 +167,7 @@ public class Jogador extends Unidade {
                         soundController.tocarSom(17);
                         break;
                 }
+                quantidadeHits++;
 
                 teclaEspadaApertada = true;
                 Espadada();

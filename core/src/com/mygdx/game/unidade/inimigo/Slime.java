@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Rectangle;
 
 import static com.mygdx.game.CameraView.Desenhar;
 import static com.mygdx.game.MyGdxGame2.*;
+import static com.mygdx.game.controladores.PontosController.*;
+
 
 public class Slime extends Inimigo {
     Texture[][][] texture;
@@ -15,7 +17,7 @@ public class Slime extends Inimigo {
     public float tempoAtaque = 0;
 
 
-    public Slime(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt,int velo) {
+    public Slime(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt, int velo) {
         this.x = x;
         this.y = y;
         this.direcao = direcao;
@@ -26,15 +28,17 @@ public class Slime extends Inimigo {
         this.hitboxMapa = new Rectangle(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
         this.dano = 2;
         this.visivel = true;
+        this.ponto=10;
     }
 
 
     public void ColisaoPlayer() {
-        if (hitboxMapa.overlaps(jogador.hitboxMapa) && jogador.estado != 3 && jogador.estado != -1 && jogador.invencibilidade<=0) {
+        if (hitboxMapa.overlaps(jogador.hitboxMapa) && jogador.estado != 3 && jogador.estado != -1 && jogador.invencibilidade <= 0) {
             jogador.tempo = 0;
             //SO PERMITE QUE ACERTE O JOGADOR EM UM FRAME
             jogador.estado = 3;
             jogador.tomarDano(dano);
+            pontoExtra=false;
             switch (direcao) {
                 case 0:
                     jogador.direcao = 2;
@@ -72,8 +76,9 @@ public class Slime extends Inimigo {
                 if ((int) (tempo * 100) % 2 == 0) {
                     visivel = !visivel;
                 }
-            } else
+            } else {
                 estado = -2;
+            }
         }
     }
 
@@ -187,8 +192,7 @@ public class Slime extends Inimigo {
             animAtual = 2;
             tempo = 0;
 
-            switch ((int) (Math.random() * 6))
-            {
+            switch ((int) (Math.random() * 6)) {
                 case 0:
                     soundController.tocarSom(9);
                     break;

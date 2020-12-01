@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.unidade.Unidade;
 
 import static com.mygdx.game.MyGdxGame2.*;
+import static com.mygdx.game.controladores.PontosController.*;
+
 
 public abstract class Inimigo extends Unidade {
 
@@ -18,7 +20,8 @@ public abstract class Inimigo extends Unidade {
     public int movX, movY;
     public int animAtual = 1;
     public float currentFrame = 0;
-
+    protected boolean pontoExtra=true;
+    public int ponto;
 
     public abstract void Andar();
 
@@ -29,6 +32,7 @@ public abstract class Inimigo extends Unidade {
     public abstract void morrendo();
 
     public void tomarDano(int dano) {
+        hitsAcertado++;
         vida -= dano;
 
     }
@@ -104,12 +108,17 @@ public abstract class Inimigo extends Unidade {
                 estado = -1;
                 soundController.tocarSom(16);
 
-                if (this instanceof Ladrao)
+                if (this instanceof Ladrao) {
+                    ladraoMortos++;
                     animAtual = 4;
+                }
                 if (this instanceof Slime) {
                     direcao = 0;
                     animAtual = 5;
+                    slimeMortos++;
+
                 }
+                Drop();
             }
 
         }
@@ -147,6 +156,10 @@ public abstract class Inimigo extends Unidade {
     }
 
     public void Drop() {
+        if (this.pontoExtra) {
+            pontoExtras += this.velo*ponto;
+        }
+
         //Pegar itens da lista de itens do GameController
     }
 

@@ -23,6 +23,7 @@ import com.mygdx.game.unidade.inimigo.Slime;
 import java.util.Iterator;
 
 import static com.mygdx.game.CameraView.*;
+import static com.mygdx.game.controladores.PontosController.*;
 
 public class MyGdxGame2 extends Game {
     public static Mapa[] mapas;
@@ -44,7 +45,7 @@ public class MyGdxGame2 extends Game {
     public Mapa mapaCalabousso;
     public Mapa mapaJardim;
 
-
+    public static float tempoJogando;
 
     public static IniciarMapa iniciarMapa;
     public static int telaLarg = 1280, telaAlt = 720;
@@ -69,6 +70,7 @@ public class MyGdxGame2 extends Game {
             spacePress = false,
             backspacePress = false;
 
+
     //Musicas e efeitos sonoros
     public static SoundController soundController;
 
@@ -76,8 +78,7 @@ public class MyGdxGame2 extends Game {
     public void create() {
         //LISTA COM OS MAPAS
         iniciarMapa = new IniciarMapa();
-        jogador = new Jogador(636, 176-90, 0, 56, 126, 56, 39);
-
+        jogador = new Jogador(636, 176 - 90, 0, 56, 126, 56, 39);
         //INICIANDO CADA MAPA
         mapaB01 = new Mapa();
         mapaB02 = new Mapa();
@@ -93,9 +94,9 @@ public class MyGdxGame2 extends Game {
         mapaDragao = new Mapa();
         mapaLabirinto = new Mapa();
         mapaBiblioteca = new Mapa();
-        mapaCalabousso=new Mapa();
-        mapaBauDireito=new Mapa();
-        mapaJardim=new Mapa();
+        mapaCalabousso = new Mapa();
+        mapaBauDireito = new Mapa();
+        mapaJardim = new Mapa();
 
 
         //ALOCANDO ARRAY
@@ -120,11 +121,6 @@ public class MyGdxGame2 extends Game {
         mapas[15] = mapaJardim;
 
 
-
-
-
-
-
         iniciarMapa.Cidade01(mapas[0]);
         iniciarMapa.Cidade02(mapas[1]);
         iniciarMapa.Esgoto01(mapas[2]);
@@ -141,11 +137,6 @@ public class MyGdxGame2 extends Game {
         iniciarMapa.Calabousso(mapas[13]);
         iniciarMapa.SalaBauDireito(mapas[14]);
         iniciarMapa.Jardim(mapas[15]);
-
-
-
-
-
 
 
         //BATCH OBJETO QUE DESENHA precisa de um tipo Sprite
@@ -180,6 +171,7 @@ public class MyGdxGame2 extends Game {
 
         soundController.tocarMusica(0);
 
+        criarFonte();
     }
 
     @Override
@@ -190,12 +182,35 @@ public class MyGdxGame2 extends Game {
 
     }
 
+
     @Override
     public void render() {
+System.out.println(pontoExtras);
+
+        if (tela == 4) {
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+            cameraHUD.position.x = telaLarg / 2;
+            cameraHUD.position.y = telaAlt / 2;
+            cameraHUD.update();
+            batch.setProjectionMatrix(cameraHUD.combined);
+
+            batch.begin();
+            menuPrincipal.Draw(tela, selecao);
+            exibir();
+            batch.end();
+
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
+                System.exit(0);
+        }
+
         for (Portas porta : mapas[fundoatual].portaLocal) {
             porta.conferindoInteracao(jogador);
         }
         //Menu inicial
+
+
         if (tela == 0 || tela == 1 || tela == 2) {
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -286,6 +301,7 @@ public class MyGdxGame2 extends Game {
 
         //Tela principal do jogo
         if (tela == 3) {
+            tempoJogando += Gdx.graphics.getDeltaTime();
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             Mover();

@@ -9,6 +9,8 @@ import com.mygdx.game.item.Espada;
 import static com.mygdx.game.CameraView.Desenhar;
 import static com.mygdx.game.MyGdxGame2.*;
 import static com.mygdx.game.MyGdxGame2.fundoatual;
+import static com.mygdx.game.controladores.PontosController.*;
+
 
 public class Ladrao extends Inimigo {
     public Texture[][][] texture;
@@ -18,7 +20,7 @@ public class Ladrao extends Inimigo {
 
     public Espada espada = new Espada("FROSTMOURNE", 0, 0, 3, 10, 320);
 
-    public Ladrao(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt,int velo) {
+    public Ladrao(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt, int velo) {
         this.hitboxDano = new Rectangle(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
         this.hitboxMapa = new Rectangle(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
         this.x = x;
@@ -28,6 +30,7 @@ public class Ladrao extends Inimigo {
         this.velo = velo;
         this.estado = 0;
         this.visivel = true;
+        this.ponto=15;
     }
 
     public void AtualizarHitboxEspada(int x, int y, float larg, float alt, boolean ativo) {
@@ -119,8 +122,7 @@ public class Ladrao extends Inimigo {
             animAtual = 2;
             tempo = 0;
 
-            switch ((int) (Math.random() * 2))
-            {
+            switch ((int) (Math.random() * 2)) {
                 case 0:
                     soundController.tocarSom(4);
                     break;
@@ -151,6 +153,7 @@ public class Ladrao extends Inimigo {
             //SO PERMITE QUE ACERTE O JOGADOR EM UM FRAME
             jogador.estado = 3;
             jogador.tomarDano(espada.dano);
+            pontoExtra=false;
             switch (direcao) {
                 case 0:
                     jogador.direcao = 2;
@@ -238,15 +241,14 @@ public class Ladrao extends Inimigo {
     public void morrendo() {
         if (tempo < 2) {
             tempo += Gdx.graphics.getDeltaTime();
-        }
-        else if (tempo < 4)
-        {
+        } else if (tempo < 4) {
             tempo += Gdx.graphics.getDeltaTime();
             if ((int) (tempo * 100) % 2 == 0) {
                 visivel = !visivel;
             }
-        } else
+        } else {
             estado = -2;
+        }
     }
 
     @Override
