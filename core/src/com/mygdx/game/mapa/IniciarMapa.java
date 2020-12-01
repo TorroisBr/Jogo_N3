@@ -17,9 +17,10 @@ public class IniciarMapa {
 
     public void Esgoto01(Mapa mapa) {
 
-        Slime slime = new Slime(1000, 700, 3, 39, 52, 39, 25);
-        Slime slime2 = new Slime(1025, 735, 3, 39, 52, 39, 25);
-        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39);
+        Slime slime = new Slime(22, 158-38, 3, 39, 52, 39, 25,2);
+        Slime slime2 = new Slime(411, 329-38, 3, 39, 52, 39, 25,1);
+        Slime slime3 = new Slime(746, 156-38, 3, 39, 52, 39, 25,3);
+
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1581, 118, "cidade/esgoto_Parede_01");
 
 
@@ -31,6 +32,7 @@ public class IniciarMapa {
 
         mapa.inimigoarray.add(slime);
         mapa.inimigoarray.add(slime2);
+        mapa.inimigoarray.add(slime3);
 
         mapa.portaLocal = new Portas[1];
 
@@ -71,9 +73,8 @@ public class IniciarMapa {
 
     public void Esgoto02(Mapa mapa) {
 
-        Slime slime = new Slime(500, 300, 3, 39, 52, 39, 25);
-        Slime slime2 = new Slime(100, 400, 3, 39, 52, 39, 25);
-        Slime slime3 = new Slime(1000, 500, 3, 39, 52, 39, 25);
+        Slime slime = new Slime(65, 186-50, 3, 39, 52, 39, 25,2);
+        Ladrao ladrao = new Ladrao(674, 362-34, 0, 56, 126, 56, 39,4);
 
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1449, 113, "cidade/esgoto_Parede_02");
 
@@ -85,8 +86,8 @@ public class IniciarMapa {
         mapa.colisoes = new Rectangle[3];
 
         mapa.inimigoarray.add(slime);
-        mapa.inimigoarray.add(slime2);
-        mapa.inimigoarray.add(slime3);
+        mapa.inimigoarray.add(ladrao);
+
 
         mapa.portaLocal = new Portas[2];
 
@@ -128,7 +129,7 @@ public class IniciarMapa {
 
     public void Esgoto03(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
+        Ladrao ladrao = new Ladrao(204, 391-44, 0, 56, 126, 56, 39,4);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 482, 0, "cidade/esgoto_Parede_03");
 
 
@@ -137,8 +138,6 @@ public class IniciarMapa {
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[6];
-//        mapa.inimigoarray.add(slime);
-//        mapa.inimigoarray.add(slime2);
         mapa.inimigoarray.add(ladrao);
         mapa.portaLocal = new Portas[2];
 
@@ -185,7 +184,11 @@ public class IniciarMapa {
 
     public void SalaJantar(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
+        Slime slime = new Slime(193, 1077-47, 3, 39, 52, 39, 25,2);
+        Ladrao ladrao = new Ladrao(825, 902-47, 0, 56, 126, 56, 39,4);
+        Ladrao ladrao1 = new Ladrao(329, 510-47, 0, 56, 126, 56, 39,3);
+        Ladrao ladrao2 = new Ladrao(803, 264-47, 0, 56, 126, 56, 39,2);
+
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1145, 1412, "cidade/SalaDeJantarIncendiada_Parede");
 
 
@@ -194,9 +197,10 @@ public class IniciarMapa {
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[7];
-//        mapa.inimigoarray.add(slime);
-//        mapa.inimigoarray.add(slime2);
-        //mapa.inimigoarray.add(ladrao);
+        mapa.inimigoarray.add(slime);
+        mapa.inimigoarray.add(ladrao2);
+        mapa.inimigoarray.add(ladrao1);
+        mapa.inimigoarray.add(ladrao);
         mapa.portaLocal = new Portas[3];
 
         mapa.desenhoArray.add(casa1);
@@ -242,7 +246,8 @@ public class IniciarMapa {
 
     public void SalaFosso(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
+        Slime slime = new Slime(1058, 902-43, 3, 39, 52, 39, 25,2);
+        Ladrao ladrao = new Ladrao(105, 506-21, 0, 56, 126, 56, 39,4);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1198, 1198, "cidade/SalaDeBaixoDaSalaDeJantar_Parede");
 
 
@@ -251,8 +256,7 @@ public class IniciarMapa {
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[10];
-//        mapa.inimigoarray.add(slime);
-//        mapa.inimigoarray.add(slime2);
+        mapa.inimigoarray.add(slime);
         mapa.inimigoarray.add(ladrao);
         mapa.portaLocal = new Portas[2];
 
@@ -304,7 +308,7 @@ public class IniciarMapa {
 
     public void SalaTresPortas(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
+        Ladrao ladrao = new Ladrao(363, 372-79, 0, 56, 126, 56, 39,4);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1198, 1198, "cidade/Sala3Portas_Parede");
 
 
@@ -313,8 +317,7 @@ public class IniciarMapa {
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[7];
-//        mapa.inimigoarray.add(slime);
-//        mapa.inimigoarray.add(slime2);
+
         mapa.inimigoarray.add(ladrao);
         mapa.portaLocal = new Portas[3];
 
@@ -362,7 +365,7 @@ public class IniciarMapa {
 
     public void SalaBauEsquerdo(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
+        Ladrao ladrao = new Ladrao(166, 210-26, 0, 56, 126, 56, 39,4);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1198, 1198, "cidade/SalaBauEsquerdo_Parede");
         casa1.sprite.flip(true,false);
 
@@ -372,9 +375,7 @@ public class IniciarMapa {
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[7];
-//        mapa.inimigoarray.add(slime);
-//        mapa.inimigoarray.add(slime2);
-//        mapa.inimigoarray.add(ladrao);
+        mapa.inimigoarray.add(ladrao);
         mapa.portaLocal = new Portas[1];
 
         mapa.desenhoArray.add(casa1);
@@ -422,7 +423,6 @@ public class IniciarMapa {
 
     public void SalaSaguao(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 652, 601, "cidade/Parede_de_baixo");
 
 
@@ -431,9 +431,6 @@ public class IniciarMapa {
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[23];
-//        mapa.inimigoarray.add(slime);
-//        mapa.inimigoarray.add(slime2);
-//        mapa.inimigoarray.add(ladrao);
         mapa.portaLocal = new Portas[3];
 
         mapa.desenhoArray.add(casa1);
@@ -496,7 +493,13 @@ public class IniciarMapa {
 
     public void SalaDragao(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
+        Slime slime = new Slime(1253, 1312-68, 3, 39, 52, 39, 25,2);
+        Slime slime1 = new Slime(1153, 1059-68, 3, 39, 52, 39, 25,1);
+        Slime slime2 = new Slime(712, 783-68, 3, 39, 52, 39, 25,2);
+
+        Ladrao ladrao = new Ladrao(718, 1322-68, 0, 56, 126, 56, 39,4);
+        Ladrao ladrao1 = new Ladrao(834, 1059-69, 0, 56, 126, 56, 39,3);
+        Ladrao ladrao2 = new Ladrao(1277, 781-68, 0, 56, 126, 56, 39,2);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 2079, 943, "cidade/SalaDoDragao_Parede");
 
 
@@ -505,9 +508,13 @@ public class IniciarMapa {
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[28];
-//        mapa.inimigoarray.add(slime);
-//        mapa.inimigoarray.add(slime2);
-//        mapa.inimigoarray.add(ladrao);
+        mapa.inimigoarray.add(slime);
+        mapa.inimigoarray.add(slime2);
+        mapa.inimigoarray.add(slime1);
+        mapa.inimigoarray.add(ladrao);
+        mapa.inimigoarray.add(ladrao1);
+        mapa.inimigoarray.add(ladrao2);
+
         mapa.portaLocal = new Portas[4];
 
         mapa.desenhoArray.add(casa1);
@@ -584,7 +591,8 @@ public class IniciarMapa {
 
     public void SalaBiblioteca(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
+        Ladrao ladrao = new Ladrao(269, 395-38, 0, 56, 126, 56, 39,4);
+        Ladrao ladrao1 = new Ladrao(876, 261-38, 0, 56, 126, 56, 39,3);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 2079, 943, "cidade/biblioteca_Base_parede");
 
         ObjetoCenario casa2 = new ObjetoCenario(181, 281-6, 285, 6, "cidade/biblioteca_Base_Estante");
@@ -599,9 +607,8 @@ public class IniciarMapa {
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[11];
-//        mapa.inimigoarray.add(slime);
-//        mapa.inimigoarray.add(slime2);
-//        mapa.inimigoarray.add(ladrao);
+        mapa.inimigoarray.add(ladrao);
+        mapa.inimigoarray.add(ladrao1);
         mapa.portaLocal = new Portas[2];
 
         mapa.desenhoArray.add(casa1);
@@ -657,10 +664,11 @@ public class IniciarMapa {
 
     public void Calabousso(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
+        Slime slime = new Slime(928, 751-42, 3, 39, 52, 39, 25,2);
+        Slime slime1 = new Slime(838, 822-42, 3, 39, 52, 39, 25,2);
+        Slime slime2 = new Slime(130, 770-42, 3, 39, 52, 39, 25,1);
+
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1192, 229, "cidade/Calabouco_Frente");
-
-
 
 
         //INSTANCIANDO VETORES
@@ -668,9 +676,11 @@ public class IniciarMapa {
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[7];
-//        mapa.inimigoarray.add(slime);
-//        mapa.inimigoarray.add(slime2);
-//        mapa.inimigoarray.add(ladrao);
+        mapa.inimigoarray.add(slime);
+        mapa.inimigoarray.add(slime2);
+        mapa.inimigoarray.add(slime1);
+
+
         mapa.portaLocal = new Portas[3];
 
         mapa.desenhoArray.add(casa1);
@@ -710,16 +720,19 @@ public class IniciarMapa {
 
         mapa.portaLocal[0] = new Portas(-115, 307 - 214, 116, 214, 15, 1620, 536-87);
         mapa.portaLocal[1] = new Portas(1192, 306 - 142, 148, 142, 14, 100, 250-87);
-        mapa.portaLocal[2] = new Portas(454, 0 - 142, 323, 142, 11, 1261, 290-151);
+        mapa.portaLocal[2] = new Portas(454, 0 - 142, 323, 142, 11, 1214, 898-126);
 
 
     }
 
     public void Labirinto(Mapa mapa)
     {
-        Slime slime = new Slime(1000, 700, 3, 39, 52, 39, 25);
-        Slime slime2 = new Slime(1025, 735, 3, 39, 52, 39, 25);
-        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39);
+        Slime slime = new Slime(381, 1050-36, 3, 39, 52, 39, 25,2);
+        Slime slime1 = new Slime(994, 882-36, 3, 39, 52, 39, 25,2);
+        Slime slime2 = new Slime(812, 136-36, 3, 39, 52, 39, 25,1);
+        Ladrao ladrao = new Ladrao(124, 1042-38, 0, 56, 126, 56, 39,4);
+        Ladrao ladrao1 = new Ladrao(471, 320-38, 0, 56, 126, 56, 39,3);
+        Ladrao ladrao2 = new Ladrao(1088, 157-38, 0, 56, 126, 56, 39,4);
 
         ObjetoCenario parede1 = new ObjetoCenario(245, 1333 - 444, 253, 444, "cidade/Labirinto_Parede1");
         ObjetoCenario parede2 = new ObjetoCenario(757, 1131 - 207, 389, 207, "cidade/Labirinto_Parede2");
@@ -738,8 +751,13 @@ public class IniciarMapa {
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
 
-        //mapa.inimigoarray.add(slime);
-        //mapa.inimigoarray.add(slime2);
+        mapa.inimigoarray.add(slime);
+        mapa.inimigoarray.add(slime1);
+        mapa.inimigoarray.add(slime2);
+        mapa.inimigoarray.add(ladrao);
+        mapa.inimigoarray.add(ladrao1);
+        mapa.inimigoarray.add(ladrao2);
+
 
         mapa.desenhoArray.add(parede1);
         mapa.desenhoArray.add(parede2);
@@ -823,7 +841,8 @@ public class IniciarMapa {
 
     public void SalaBauDireito(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
+        Slime slime = new Slime(730, 201-37, 3, 39, 52, 39, 25,2);
+        Slime slime1 = new Slime(396, 200-37, 3, 39, 52, 39, 25,1);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1198, 1198, "cidade/SalaBauEsquerdo_Parede");
 
 
@@ -832,9 +851,8 @@ public class IniciarMapa {
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[7];
-//        mapa.inimigoarray.add(slime);
-//        mapa.inimigoarray.add(slime2);
-//        mapa.inimigoarray.add(ladrao);
+        mapa.inimigoarray.add(slime);
+        mapa.inimigoarray.add(slime1);
         mapa.portaLocal = new Portas[1];
 
         mapa.desenhoArray.add(casa1);
@@ -878,7 +896,11 @@ public class IniciarMapa {
     }
 
     public void Jardim(Mapa mapa){
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
+        Slime slime = new Slime(1235, 708-41, 3, 39, 52, 39, 25,1);
+        Slime slime1 = new Slime(892, 409-41, 3, 39, 52, 39, 25,2);
+        Slime slime2 = new Slime(479, 700-41, 3, 39, 52, 39, 25,1);
+        Slime slime3 = new Slime(117, 489-41, 3, 39, 52, 39, 25,2);
+
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1801, 1801, "cidade/JardimInterno_Parede");
 
         ObjetoCenario casa2 = new ObjetoCenario(396, 488-65, 425, 166, "cidade/JardimInterno_Vaso1");
@@ -893,9 +915,11 @@ public class IniciarMapa {
         mapa.spriteLocal = new Sprite[1];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[14];
-//        mapa.inimigoarray.add(slime);
-//        mapa.inimigoarray.add(slime2);
-//        mapa.inimigoarray.add(ladrao);
+        mapa.inimigoarray.add(slime);
+        mapa.inimigoarray.add(slime2);
+        mapa.inimigoarray.add(slime3);
+        mapa.inimigoarray.add(slime1);
+
         mapa.portaLocal = new Portas[2];
 
         mapa.desenhoArray.add(casa1);
@@ -955,9 +979,9 @@ public class IniciarMapa {
 
     public void Cidade01(Mapa mapa) {
         //CRIANDO INIMIGOS
-        Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25);
-        Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25);
-        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39);
+        Slime slime = new Slime(600, 600, 3, 39, 52, 39, 25,0);
+        Slime slime2 = new Slime(0, 0, 3, 39, 52, 39, 25,0);
+        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39,0);
         ObjetoCenario casa1 = new ObjetoCenario(510, 333 - 113, 161, 113, "hitbox");
 
 
@@ -1032,8 +1056,8 @@ public class IniciarMapa {
     }
 
     public void Cidade02(Mapa mapa) {
-        Slime slime3 = new Slime(600, 600, 3, 39, 52, 39, 25);
-        Slime slime4 = new Slime(0, 0, 3, 39, 52, 39, 25);
+        Slime slime3 = new Slime(600, 600, 3, 39, 52, 39, 25,0);
+        Slime slime4 = new Slime(0, 0, 3, 39, 52, 39, 25,0);
 //INSTANCIANDO VETORES
         mapa.texturaLocal = new Texture[9];
         mapa.spriteLocal = new Sprite[9];

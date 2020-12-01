@@ -15,12 +15,12 @@ public class Slime extends Inimigo {
     public float tempoAtaque = 0;
 
 
-    public Slime(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt) {
+    public Slime(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt,int velo) {
         this.x = x;
         this.y = y;
         this.direcao = direcao;
         this.vida = 30;
-        this.velo = 2;
+        this.velo = velo;
         this.estado = 0;
         this.hitboxDano = new Rectangle(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
         this.hitboxMapa = new Rectangle(x, y, HitBoxMapaLarg, HitBoxMapaAlt);

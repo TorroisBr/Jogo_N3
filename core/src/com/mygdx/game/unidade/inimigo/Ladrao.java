@@ -16,16 +16,16 @@ public class Ladrao extends Inimigo {
     public float tempoAtaque = 0;
 
 
-    public Espada espada = new Espada("FROSTMOURNE", 0, 0, 4, 10, 320);
+    public Espada espada = new Espada("FROSTMOURNE", 0, 0, 3, 10, 320);
 
-    public Ladrao(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt) {
+    public Ladrao(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt,int velo) {
         this.hitboxDano = new Rectangle(x, y, HitBoxDanoLarg, HitBoxDanoAlt);
         this.hitboxMapa = new Rectangle(x, y, HitBoxMapaLarg, HitBoxMapaAlt);
         this.x = x;
         this.y = y;
         this.direcao = direcao;
         this.vida = 30;
-        this.velo = 4;
+        this.velo = velo;
         this.estado = 0;
         this.visivel = true;
     }
