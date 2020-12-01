@@ -19,7 +19,7 @@ public class IniciarMapa {
 
         Slime slime = new Slime(1000, 700, 3, 39, 52, 39, 25);
         Slime slime2 = new Slime(1025, 735, 3, 39, 52, 39, 25);
-        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(800, 800, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 1581, 118, "cidade/esgoto_Parede_01");
 
 
@@ -128,7 +128,7 @@ public class IniciarMapa {
 
     public void Esgoto03(Mapa mapa) {
 
-        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39, 1);
+        Ladrao ladrao = new Ladrao(200, 50, 0, 56, 126, 56, 39);
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 482, 0, "cidade/esgoto_Parede_03");
 
 

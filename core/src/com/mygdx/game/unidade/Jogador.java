@@ -304,6 +304,8 @@ public class Jogador extends Unidade {
     }
 
     public void Draw() {
+        if (estado != 1)
+            AtualizarHitboxEspada(0, 0, 0, 0, false);
         Desenhar(x + (int) hitboxDano.getWidth() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getWidth() / 2, y + (int) hitboxDano.getHeight() / 2 - (int) sprite[direcao][animAtual][(int) currentFrame].getHeight() / 2, sprite[direcao][animAtual][(int) currentFrame], batch, camera);
     }
 
