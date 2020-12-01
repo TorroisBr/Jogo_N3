@@ -123,6 +123,18 @@ public class Ladrao extends Inimigo {
             currentFrame = 0;
             animAtual = 2;
             tempo = 0;
+
+            switch ((int) (Math.random() * 2))
+            {
+                case 0:
+                    soundController.tocarSom(4);
+                    break;
+
+                case 1:
+                    soundController.tocarSom(17);
+                    break;
+            }
+
             if (y > jogador.y + 2) {
                 direcao = 0;
             } else if (y < jogador.y - 2) {

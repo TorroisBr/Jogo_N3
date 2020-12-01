@@ -104,6 +104,7 @@ public abstract class Inimigo extends Unidade {
                 currentFrame = 0;
                 tempo = 0;
                 estado = -1;
+                soundController.tocarSom(16);
 
                 if (this instanceof Ladrao)
                     animAtual = 4;
@@ -143,6 +144,7 @@ public abstract class Inimigo extends Unidade {
             if (this instanceof Ladrao)
                 animAtual = 3;
 
+            soundController.tocarSom(15);
         }
     }
 

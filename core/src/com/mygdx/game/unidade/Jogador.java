@@ -73,6 +73,15 @@ public class Jogador extends Unidade {
     //RECEBE DANO
     public void tomarDano(int dano) {
         vida -= dano;
+
+        if(vida > 0)
+        {
+            soundController.tocarSom(7);
+        }
+        else
+        {
+            soundController.tocarSom(18 );
+        }
     }
 
     public void levandoDano() {
@@ -154,10 +163,20 @@ public class Jogador extends Unidade {
         } else if (!visivel && estado != -1)
             visivel = true;
 
-
         if (estado != 1 && estado != 2 && estado != 3 && estado != -1) {
             //ATAQUE
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && !teclaEspadaApertada) {
+                switch ((int) (Math.random() * 2))
+                {
+                    case 0:
+                        soundController.tocarSom(6);
+                        break;
+
+                    case 1:
+                        soundController.tocarSom(17);
+                        break;
+                }
+
                 teclaEspadaApertada = true;
                 Espadada();
             }

@@ -196,6 +196,29 @@ public class MyGdxGame2 extends Game {
                     soundController.tocarSom(1);
                 }
 
+                if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && !spacePress) {
+                    switch (selecao) {
+                        case 0:
+                            tela = 3;
+                            jogador.teclaEspadaApertada = true;
+                            soundController.tocarSom(8);
+                            soundController.tocarMusica(2);
+                            break;
+                        case 1:
+                            tela = 1;
+                            soundController.tocarSom(2);
+                            soundController.tocarMusica(1);
+                            break;
+                        case 2:
+                            tela = 2;
+                            soundController.tocarSom(2);
+                            break;
+                        case 3:
+                            System.exit(0);
+                            break;
+                    }
+                }
+
                 if (!Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                     downPress = false;
                 }
@@ -208,31 +231,12 @@ public class MyGdxGame2 extends Game {
                 if (!Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) {
                     backspacePress = false;
                 }
-
-                if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && !spacePress) {
-                    switch (selecao) {
-                        case 0:
-                            tela = 3;
-                            jogador.teclaEspadaApertada = true;
-                            soundController.tocarMusica(-1);
-                            break;
-                        case 1:
-                            tela = 1;
-                            soundController.tocarMusica(1);
-                            break;
-                        case 2:
-                            tela = 2;
-                            break;
-                        case 3:
-                            System.exit(0);
-                            break;
-                    }
-                }
             }
 
             if (tela == 1) {
                 if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && !backspacePress) {
                     tela = 0;
+                    soundController.tocarSom(3);
                     soundController.tocarMusica(0);
                     backspacePress = true;
                 }
@@ -244,6 +248,7 @@ public class MyGdxGame2 extends Game {
             if (tela == 2) {
                 if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && !backspacePress) {
                     tela = 0;
+                    soundController.tocarSom(3);
                     backspacePress = true;
                 }
                 if (!Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) {
@@ -326,7 +331,6 @@ public class MyGdxGame2 extends Game {
             mapas[fundoatual].desenhoArray.sort();
 
             batch.begin();
-            System.out.println(fundoatual);
 
             MapaDesenhar(mapas[fundoatual]);
 

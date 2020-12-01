@@ -210,6 +210,34 @@ public class Slime extends Inimigo {
             currentFrame = 0;
             animAtual = 2;
             tempo = 0;
+
+            switch ((int) (Math.random() * 6))
+            {
+                case 0:
+                    soundController.tocarSom(9);
+                    break;
+
+                case 1:
+                    soundController.tocarSom(10);
+                    break;
+
+                case 2:
+                    soundController.tocarSom(11);
+                    break;
+
+                case 22:
+                    soundController.tocarSom(12);
+                    break;
+
+                case 4:
+                    soundController.tocarSom(13);
+                    break;
+
+                case 5:
+                    soundController.tocarSom(14);
+                    break;
+            }
+
             if (y > jogador.y + 2) {
                 direcao = 0;
             } else if (y < jogador.y - 2) {
