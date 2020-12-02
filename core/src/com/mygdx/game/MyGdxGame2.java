@@ -19,6 +19,7 @@ import com.mygdx.game.unidade.Unidade;
 import com.mygdx.game.unidade.inimigo.Inimigo;
 import com.mygdx.game.unidade.inimigo.Ladrao;
 import com.mygdx.game.unidade.inimigo.Slime;
+import com.mygdx.game.unidade.ovoDragao;
 
 import java.util.Iterator;
 
@@ -402,6 +403,11 @@ public class MyGdxGame2 extends Game {
                 if (unidade instanceof ObjetoCenario) {
                     ObjetoCenario objeto = (ObjetoCenario) unidade;
                     Desenhar((int) objeto.hitboxDano.x, (int) objeto.hitboxDano.y, objeto.sprite, batch, camera);
+                }
+                if (unidade instanceof ovoDragao && totalInimigosMortos >= 37) {
+                    ovoDragao objeto = (ovoDragao) unidade;
+                    Desenhar((int) objeto.hitboxDano.x, (int) objeto.hitboxDano.y, objeto.sprite, batch, camera);
+                    objeto.colisao();
                 }
             }
 
