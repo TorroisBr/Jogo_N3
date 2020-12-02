@@ -186,30 +186,7 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void render() {
-        if (tela == 4) {
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-            cameraHUD.position.x = telaLarg / 2;
-            cameraHUD.position.y = telaAlt / 2;
-            cameraHUD.update();
-            batch.setProjectionMatrix(cameraHUD.combined);
-
-            batch.begin();
-            menuPrincipal.Draw(tela, selecao);
-            exibir();
-            batch.end();
-
-            if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
-                System.exit(0);
-        }
-
-        for (Portas porta : mapas[fundoatual].portaLocal) {
-            porta.conferindoInteracao(jogador);
-        }
         //Menu inicial
-
-
         if (tela == 0 || tela == 1 || tela == 2) {
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -248,7 +225,6 @@ public class MyGdxGame2 extends Game {
                         case 1:
                             tela = 1;
                             soundController.tocarSom(2);
-                            soundController.tocarMusica(1);
                             break;
                         case 2:
                             tela = 2;
@@ -278,7 +254,6 @@ public class MyGdxGame2 extends Game {
                 if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && !backspacePress) {
                     tela = 0;
                     soundController.tocarSom(3);
-                    soundController.tocarMusica(0);
                     backspacePress = true;
                 }
                 if (!Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) {
@@ -303,9 +278,14 @@ public class MyGdxGame2 extends Game {
             tempoJogando += Gdx.graphics.getDeltaTime();
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            Mover();
+
+            //Faz as portas conferirem a colisao com o jogador
+            for (Portas porta : mapas[fundoatual].portaLocal) {
+                porta.conferindoInteracao(jogador);
+            }
 
             //METODO DE MOVIMENTO
+            Mover();
             jogador.Movimento(mapas[fundoatual].colisoes);
 
             //VERIFICA QUAL O TIPO DE INIMIGO E O MOVIMENTA
@@ -331,7 +311,7 @@ public class MyGdxGame2 extends Game {
 
                 }
                 if (inimigo instanceof Ladrao) {
-                    System.out.println(inimigo.estado);
+                    //System.out.println(inimigo.estado);
                     switch (inimigo.estado) {
 
                         case -1:
@@ -368,9 +348,6 @@ public class MyGdxGame2 extends Game {
                     iter.remove();
             }
 
-            //Faz as portas conferirem a colisao com o jogador
-
-
             //Faz com que o renderer e o batch acopanhem a camera
             renderer.setProjectionMatrix(camera.combined);
             batch.setProjectionMatrix(camera.combined);
@@ -404,10 +381,17 @@ public class MyGdxGame2 extends Game {
                     ObjetoCenario objeto = (ObjetoCenario) unidade;
                     Desenhar((int) objeto.hitboxDano.x, (int) objeto.hitboxDano.y, objeto.sprite, batch, camera);
                 }
-                if (unidade instanceof ovoDragao && totalInimigosMortos >= 37) {
+
+                if (unidade instanceof ovoDragao) {
                     ovoDragao objeto = (ovoDragao) unidade;
-                    Desenhar((int) objeto.hitboxDano.x, (int) objeto.hitboxDano.y, objeto.sprite, batch, camera);
-                    objeto.colisao();
+                    objeto.Draw();
+
+                    if(totalInimigosMortos >= 37)
+                    {
+                        objeto.estado = 1;
+                        objeto.estado = 1;
+                        objeto.colisao();
+                    }
                 }
             }
 
@@ -417,8 +401,16 @@ public class MyGdxGame2 extends Game {
 
             renderer.begin(ShapeRenderer.ShapeType.Filled);
 
-
             /*
+            for (Unidade unidade : mapas[fundoatual].desenhoArray)
+            {
+                if (unidade instanceof ovoDragao)
+                {
+                    ovoDragao objeto = (ovoDragao) unidade;
+                    renderer.rect(objeto.hitboxDano.x, objeto.hitboxDano.y, objeto.hitboxDano.getWidth(), objeto.hitboxDano.getHeight());
+                }
+            }
+
             for(Rectangle retangulo : mapas[fundoatual].colisoes)
             {
                 renderer.rect(retangulo.x, retangulo.y, retangulo.getWidth(), retangulo.getHeight());
@@ -455,11 +447,29 @@ public class MyGdxGame2 extends Game {
             hud.Draw();
 
             batch.end();
+        }
 
+        //Tela de pontuacao
+        if (tela == 4) {
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+            cameraHUD.position.x = telaLarg / 2;
+            cameraHUD.position.y = telaAlt / 2;
+            cameraHUD.update();
+            batch.setProjectionMatrix(cameraHUD.combined);
+
+            batch.begin();
+            menuPrincipal.Draw(tela, selecao);
+            exibir();
+            batch.end();
+
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
+                System.exit(0);
         }
     }
 
-    @Override   //metodo dispose deleta as texturas e exclui os objetos
+    @Override   //Metodo dispose deleta as texturas e exclui os objetos
     public void dispose() {
         renderer.dispose();
         batch.dispose();
@@ -469,7 +479,6 @@ public class MyGdxGame2 extends Game {
     public void MapaDesenhar(Mapa mapa) {
         for (int i = 0; i < mapa.spriteLocal.length; i++) {
             Desenhar(mapa.posicaoSprite[i][0], mapa.posicaoSprite[i][1], mapa.spriteLocal[i], batch, camera);
-
         }
     }
 

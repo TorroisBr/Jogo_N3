@@ -25,7 +25,10 @@ public class SoundController {
                   inimigoDano,
                   inimigoMorre,
                   espadada4,
-                  severinoMorre;
+                  severinoMorre,
+                  pontos1,
+                  pontos2,
+                  naoAcabou;
 
     public SoundController()
     {
@@ -53,6 +56,9 @@ public class SoundController {
         inimigoMorre = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/enemyDies.wav"));
         espadada4 = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/masterSword.wav"));
         severinoMorre = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/PL01_U_00040.wav"));
+        pontos1 = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/CD_00016.wav"));
+        pontos2 = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/CD_00017.wav"));
+        naoAcabou = Gdx.audio.newSound(Gdx.files.internal("efeitos_sonoros/PL01_U_00036.wav"));
     }
 
     public void tocarMusica(int som)
@@ -88,11 +94,11 @@ public class SoundController {
                     musica.stop();
                 }
 
-                musica = Gdx.audio.newMusic(Gdx.files.internal("musicas/PanificadoraAlfa-RemixbyAtilaKw.mp3"));
+                musica = Gdx.audio.newMusic(Gdx.files.internal("musicas/mega-man-x6-ost-stage-clear-zero-theme.mp3"));
 
-                musica.setVolume(0.25f);
+                musica.setVolume(0.5f);
 
-                musica.setLooping(true);
+                musica.setLooping(false);
                 musica.play();
                 break;
 
@@ -191,6 +197,18 @@ public class SoundController {
 
             case 18:
                 severinoMorre.play();
+                break;
+
+            case 19:
+                pontos1.play();
+                break;
+
+            case 20:
+                pontos2.play();
+                break;
+
+            case 21:
+                naoAcabou.play();
                 break;
         }
     }

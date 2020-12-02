@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.unidade.ObjetoCenario;
+import com.mygdx.game.unidade.Unidade;
 import com.mygdx.game.unidade.inimigo.Inimigo;
 import com.mygdx.game.unidade.inimigo.Ladrao;
 import com.mygdx.game.unidade.inimigo.Slime;
@@ -517,10 +518,10 @@ public class IniciarMapa {
         mapa.inimigoarray.add(ladrao);
         mapa.inimigoarray.add(ladrao1);
         mapa.inimigoarray.add(ladrao2);
-        mapa.objetosLocal=new ovoDragao[1];
+        mapa.objetosLocal=new Unidade[1];
         mapa.portaLocal = new Portas[4];
 
-        mapa.objetosLocal[0]=new ovoDragao (1013,1091-64,50,50);
+        mapa.objetosLocal[0] = new ovoDragao (2080 / 2 - 32,2078 / 2 - 40,64,80);
 
         mapa.desenhoArray.add(casa1);
 

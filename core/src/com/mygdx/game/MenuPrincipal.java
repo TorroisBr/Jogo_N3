@@ -76,8 +76,11 @@ public class MenuPrincipal {
         if (tela == 2) {
             batch.draw(sprite[11], 0, 0);
         }
+
         if (tela == 4)
+        {
             batch.draw(sprite[0], 0, 0);
+        }
 
     }
 }

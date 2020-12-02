@@ -120,6 +120,7 @@ public class Ladrao extends Inimigo {
                 estado = 0;
                 currentFrame = 0;
                 animAtual = 1;
+                tempo = 0;
             }
         }
         else

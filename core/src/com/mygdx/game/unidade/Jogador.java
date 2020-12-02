@@ -134,7 +134,11 @@ public class Jogador extends Unidade {
             tempo += Gdx.graphics.getDeltaTime();
             visivel = false;
         } else
+        {
+            soundController.tocarMusica(-1);
+            soundController.tocarSom(21);
             tela = 4;
+        }
 
         //System.exit(0);
 

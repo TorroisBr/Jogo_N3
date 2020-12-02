@@ -12,7 +12,6 @@ public abstract class Unidade implements Comparable{
     public int x;
     public int y;
     public Rectangle hitboxDano;
-    public int HitBoxDanoLarg, HitBoxDanoAlt;
     public boolean visivel;
     public int estado;
 
