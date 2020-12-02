@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -386,8 +387,7 @@ public class MyGdxGame2 extends Game {
                     ovoDragao objeto = (ovoDragao) unidade;
                     objeto.Draw();
 
-                    if(totalInimigosMortos >= 37)
-                    {
+                    if (totalInimigosMortos >= 37) {
                         objeto.estado = 1;
                         objeto.estado = 1;
                         objeto.colisao();
@@ -473,7 +473,14 @@ public class MyGdxGame2 extends Game {
     public void dispose() {
         renderer.dispose();
         batch.dispose();
+
+        for (Texture unidade : mapas[fundoatual].texturaLocal) {
+            unidade.dispose();
+        }
+        font.dispose();
+
     }
+
 
     //METODO DE DESNHAR O MAPA (passa o proprio mapa)
     public void MapaDesenhar(Mapa mapa) {
