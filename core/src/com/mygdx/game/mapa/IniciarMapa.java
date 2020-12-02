@@ -195,8 +195,8 @@ public class IniciarMapa {
 
 
         //INSTANCIANDO VETORES
-        mapa.texturaLocal = new Texture[1];
-        mapa.spriteLocal = new Sprite[1];
+        mapa.texturaLocal = new Texture[9];
+        mapa.spriteLocal = new Sprite[9];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[7];
         mapa.inimigoarray.add(slime);
@@ -216,16 +216,56 @@ public class IniciarMapa {
         }
 
         //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
-        mapa.texturaLocal[0] = new Texture("cidade/SalaDeJantarIncendiada.png");
+        mapa.texturaLocal[0] = new Texture("cidade/SalaDeJantarIncendiada_07.png");
+        mapa.texturaLocal[1] = new Texture("cidade/SalaDeJantarIncendiada_08.png");
+        mapa.texturaLocal[2] = new Texture("cidade/SalaDeJantarIncendiada_09.png");
+        mapa.texturaLocal[3] = new Texture("cidade/SalaDeJantarIncendiada_04.png");
+        mapa.texturaLocal[4] = new Texture("cidade/SalaDeJantarIncendiada_05.png");
+        mapa.texturaLocal[5] = new Texture("cidade/SalaDeJantarIncendiada_06.png");
+        mapa.texturaLocal[6] = new Texture("cidade/SalaDeJantarIncendiada_01.png");
+        mapa.texturaLocal[7] = new Texture("cidade/SalaDeJantarIncendiada_02.png");
+        mapa.texturaLocal[8] = new Texture("cidade/SalaDeJantarIncendiada_03.png");
 
 
         //CARREGANDO SPRITES
         mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+        mapa.spriteLocal[1] = new Sprite(mapa.texturaLocal[1]);
+        mapa.spriteLocal[2] = new Sprite(mapa.texturaLocal[2]);
+        mapa.spriteLocal[3] = new Sprite(mapa.texturaLocal[3]);
+        mapa.spriteLocal[4] = new Sprite(mapa.texturaLocal[4]);
+        mapa.spriteLocal[5] = new Sprite(mapa.texturaLocal[5]);
+        mapa.spriteLocal[6] = new Sprite(mapa.texturaLocal[6]);
+        mapa.spriteLocal[7] = new Sprite(mapa.texturaLocal[7]);
+        mapa.spriteLocal[8] = new Sprite(mapa.texturaLocal[8]);
 
 
         //POSICOES DO SPRITE
         mapa.posicaoSprite[0][0] = 0;
         mapa.posicaoSprite[0][1] = 0;
+
+        mapa.posicaoSprite[1][0] = 0 + mapa.texturaLocal[0].getWidth();
+        mapa.posicaoSprite[1][1] = 0;
+
+        mapa.posicaoSprite[2][0] = mapa.posicaoSprite[1][0] + mapa.texturaLocal[1].getWidth();
+        mapa.posicaoSprite[2][1] = 0;
+
+        mapa.posicaoSprite[3][0] = 0;
+        mapa.posicaoSprite[3][1] = 0 + mapa.texturaLocal[0].getHeight();
+
+        mapa.posicaoSprite[4][0] = 0 + mapa.texturaLocal[3].getWidth();
+        mapa.posicaoSprite[4][1] = 0 + mapa.texturaLocal[1].getHeight();
+
+        mapa.posicaoSprite[5][0] = mapa.posicaoSprite[4][0] + mapa.texturaLocal[4].getWidth();
+        mapa.posicaoSprite[5][1] = 0 + mapa.texturaLocal[2].getHeight();
+
+        mapa.posicaoSprite[6][0] = 0;
+        mapa.posicaoSprite[6][1] = mapa.posicaoSprite[3][1] + mapa.texturaLocal[3].getHeight();
+
+        mapa.posicaoSprite[7][0] = 0 + mapa.texturaLocal[6].getWidth();
+        mapa.posicaoSprite[7][1] = mapa.posicaoSprite[4][1] + mapa.texturaLocal[4].getHeight();
+
+        mapa.posicaoSprite[8][0] = mapa.posicaoSprite[7][0] + mapa.texturaLocal[7].getWidth();
+        mapa.posicaoSprite[8][1] = mapa.posicaoSprite[5][1] + mapa.texturaLocal[5].getHeight();
 
 
         //COLOCANDO COLISOES
@@ -254,8 +294,8 @@ public class IniciarMapa {
 
 
         //INSTANCIANDO VETORES
-        mapa.texturaLocal = new Texture[1];
-        mapa.spriteLocal = new Sprite[1];
+        mapa.texturaLocal = new Texture[9];
+        mapa.spriteLocal = new Sprite[9];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[10];
         mapa.inimigoarray.add(slime);
@@ -273,16 +313,56 @@ public class IniciarMapa {
         }
 
         //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
-        mapa.texturaLocal[0] = new Texture("cidade/SalaDeBaixoDaSalaDeJantar.png");
+        mapa.texturaLocal[0] = new Texture("cidade/SalaDeBaixoDaSalaDeJantar_07.png");
+        mapa.texturaLocal[1] = new Texture("cidade/SalaDeBaixoDaSalaDeJantar_08.png");
+        mapa.texturaLocal[2] = new Texture("cidade/SalaDeBaixoDaSalaDeJantar_09.png");
+        mapa.texturaLocal[3] = new Texture("cidade/SalaDeBaixoDaSalaDeJantar_04.png");
+        mapa.texturaLocal[4] = new Texture("cidade/SalaDeBaixoDaSalaDeJantar_05.png");
+        mapa.texturaLocal[5] = new Texture("cidade/SalaDeBaixoDaSalaDeJantar_06.png");
+        mapa.texturaLocal[6] = new Texture("cidade/SalaDeBaixoDaSalaDeJantar_01.png");
+        mapa.texturaLocal[7] = new Texture("cidade/SalaDeBaixoDaSalaDeJantar_02.png");
+        mapa.texturaLocal[8] = new Texture("cidade/SalaDeBaixoDaSalaDeJantar_03.png");
 
 
         //CARREGANDO SPRITES
         mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+        mapa.spriteLocal[1] = new Sprite(mapa.texturaLocal[1]);
+        mapa.spriteLocal[2] = new Sprite(mapa.texturaLocal[2]);
+        mapa.spriteLocal[3] = new Sprite(mapa.texturaLocal[3]);
+        mapa.spriteLocal[4] = new Sprite(mapa.texturaLocal[4]);
+        mapa.spriteLocal[5] = new Sprite(mapa.texturaLocal[5]);
+        mapa.spriteLocal[6] = new Sprite(mapa.texturaLocal[6]);
+        mapa.spriteLocal[7] = new Sprite(mapa.texturaLocal[7]);
+        mapa.spriteLocal[8] = new Sprite(mapa.texturaLocal[8]);
 
 
         //POSICOES DO SPRITE
         mapa.posicaoSprite[0][0] = 0;
         mapa.posicaoSprite[0][1] = 0;
+
+        mapa.posicaoSprite[1][0] = 0 + mapa.texturaLocal[0].getWidth();
+        mapa.posicaoSprite[1][1] = 0;
+
+        mapa.posicaoSprite[2][0] = mapa.posicaoSprite[1][0] + mapa.texturaLocal[1].getWidth();
+        mapa.posicaoSprite[2][1] = 0;
+
+        mapa.posicaoSprite[3][0] = 0;
+        mapa.posicaoSprite[3][1] = 0 + mapa.texturaLocal[0].getHeight();
+
+        mapa.posicaoSprite[4][0] = 0 + mapa.texturaLocal[3].getWidth();
+        mapa.posicaoSprite[4][1] = 0 + mapa.texturaLocal[1].getHeight();
+
+        mapa.posicaoSprite[5][0] = mapa.posicaoSprite[4][0] + mapa.texturaLocal[4].getWidth();
+        mapa.posicaoSprite[5][1] = 0 + mapa.texturaLocal[2].getHeight();
+
+        mapa.posicaoSprite[6][0] = 0;
+        mapa.posicaoSprite[6][1] = mapa.posicaoSprite[3][1] + mapa.texturaLocal[3].getHeight();
+
+        mapa.posicaoSprite[7][0] = 0 + mapa.texturaLocal[6].getWidth();
+        mapa.posicaoSprite[7][1] = mapa.posicaoSprite[4][1] + mapa.texturaLocal[4].getHeight();
+
+        mapa.posicaoSprite[8][0] = mapa.posicaoSprite[7][0] + mapa.texturaLocal[7].getWidth();
+        mapa.posicaoSprite[8][1] = mapa.posicaoSprite[5][1] + mapa.texturaLocal[5].getHeight();
 
 
         //COLOCANDO COLISOES
@@ -315,8 +395,8 @@ public class IniciarMapa {
 
 
         //INSTANCIANDO VETORES
-        mapa.texturaLocal = new Texture[1];
-        mapa.spriteLocal = new Sprite[1];
+        mapa.texturaLocal = new Texture[4];
+        mapa.spriteLocal = new Sprite[4];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[7];
 
@@ -334,16 +414,31 @@ public class IniciarMapa {
         }
 
         //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
-        mapa.texturaLocal[0] = new Texture("cidade/Sala3Portas.png");
+        mapa.texturaLocal[0] = new Texture("cidade/Sala3Portas_03.png");
+        mapa.texturaLocal[1] = new Texture("cidade/Sala3Portas_04.png");
+        mapa.texturaLocal[2] = new Texture("cidade/Sala3Portas_01.png");
+        mapa.texturaLocal[3] = new Texture("cidade/Sala3Portas_02.png");
 
 
         //CARREGANDO SPRITES
         mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+        mapa.spriteLocal[1] = new Sprite(mapa.texturaLocal[1]);
+        mapa.spriteLocal[2] = new Sprite(mapa.texturaLocal[2]);
+        mapa.spriteLocal[3] = new Sprite(mapa.texturaLocal[3]);
 
 
         //POSICOES DO SPRITE
         mapa.posicaoSprite[0][0] = 0;
         mapa.posicaoSprite[0][1] = 0;
+
+        mapa.posicaoSprite[1][0] = 0 + mapa.texturaLocal[0].getWidth();
+        mapa.posicaoSprite[1][1] = 0;
+
+        mapa.posicaoSprite[2][0] = 0;
+        mapa.posicaoSprite[2][1] = 0 + mapa.texturaLocal[0].getHeight();
+
+        mapa.posicaoSprite[3][0] = 0 + mapa.texturaLocal[0].getWidth();
+        mapa.posicaoSprite[3][1] = 0 + mapa.texturaLocal[0].getHeight();
 
 
         //COLOCANDO COLISOES
@@ -431,8 +526,8 @@ public class IniciarMapa {
 
 
         //INSTANCIANDO VETORES
-        mapa.texturaLocal = new Texture[1];
-        mapa.spriteLocal = new Sprite[1];
+        mapa.texturaLocal = new Texture[9];
+        mapa.spriteLocal = new Sprite[9];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[22];
         mapa.portaLocal = new Portas[3];
@@ -448,16 +543,56 @@ public class IniciarMapa {
         }
 
         //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
-        mapa.texturaLocal[0] = new Texture("cidade/Primeiro_andar.png");
+        mapa.texturaLocal[0] = new Texture("cidade/Primeiro_andar_07.png");
+        mapa.texturaLocal[1] = new Texture("cidade/Primeiro_andar_08.png");
+        mapa.texturaLocal[2] = new Texture("cidade/Primeiro_andar_09.png");
+        mapa.texturaLocal[3] = new Texture("cidade/Primeiro_andar_04.png");
+        mapa.texturaLocal[4] = new Texture("cidade/Primeiro_andar_05.png");
+        mapa.texturaLocal[5] = new Texture("cidade/Primeiro_andar_06.png");
+        mapa.texturaLocal[6] = new Texture("cidade/Primeiro_andar_01.png");
+        mapa.texturaLocal[7] = new Texture("cidade/Primeiro_andar_02.png");
+        mapa.texturaLocal[8] = new Texture("cidade/Primeiro_andar_03.png");
 
 
         //CARREGANDO SPRITES
         mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+        mapa.spriteLocal[1] = new Sprite(mapa.texturaLocal[1]);
+        mapa.spriteLocal[2] = new Sprite(mapa.texturaLocal[2]);
+        mapa.spriteLocal[3] = new Sprite(mapa.texturaLocal[3]);
+        mapa.spriteLocal[4] = new Sprite(mapa.texturaLocal[4]);
+        mapa.spriteLocal[5] = new Sprite(mapa.texturaLocal[5]);
+        mapa.spriteLocal[6] = new Sprite(mapa.texturaLocal[6]);
+        mapa.spriteLocal[7] = new Sprite(mapa.texturaLocal[7]);
+        mapa.spriteLocal[8] = new Sprite(mapa.texturaLocal[8]);
 
 
         //POSICOES DO SPRITE
         mapa.posicaoSprite[0][0] = 0;
         mapa.posicaoSprite[0][1] = 0;
+
+        mapa.posicaoSprite[1][0] = 0 + mapa.texturaLocal[0].getWidth();
+        mapa.posicaoSprite[1][1] = 0;
+
+        mapa.posicaoSprite[2][0] = mapa.posicaoSprite[1][0] + mapa.texturaLocal[1].getWidth();
+        mapa.posicaoSprite[2][1] = 0;
+
+        mapa.posicaoSprite[3][0] = 0;
+        mapa.posicaoSprite[3][1] = 0 + mapa.texturaLocal[0].getHeight();
+
+        mapa.posicaoSprite[4][0] = 0 + mapa.texturaLocal[3].getWidth();
+        mapa.posicaoSprite[4][1] = 0 + mapa.texturaLocal[1].getHeight();
+
+        mapa.posicaoSprite[5][0] = mapa.posicaoSprite[4][0] + mapa.texturaLocal[4].getWidth();
+        mapa.posicaoSprite[5][1] = 0 + mapa.texturaLocal[2].getHeight();
+
+        mapa.posicaoSprite[6][0] = 0;
+        mapa.posicaoSprite[6][1] = mapa.posicaoSprite[3][1] + mapa.texturaLocal[3].getHeight();
+
+        mapa.posicaoSprite[7][0] = 0 + mapa.texturaLocal[6].getWidth();
+        mapa.posicaoSprite[7][1] = mapa.posicaoSprite[4][1] + mapa.texturaLocal[4].getHeight();
+
+        mapa.posicaoSprite[8][0] = mapa.posicaoSprite[7][0] + mapa.texturaLocal[7].getWidth();
+        mapa.posicaoSprite[8][1] = mapa.posicaoSprite[5][1] + mapa.texturaLocal[5].getHeight();
 
 
         //COLOCANDO COLISOES
@@ -508,8 +643,8 @@ public class IniciarMapa {
 
 
         //INSTANCIANDO VETORES
-        mapa.texturaLocal = new Texture[1];
-        mapa.spriteLocal = new Sprite[1];
+        mapa.texturaLocal = new Texture[9];
+        mapa.spriteLocal = new Sprite[9];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[28];
         mapa.inimigoarray.add(slime);
@@ -534,16 +669,56 @@ public class IniciarMapa {
         }
         mapa.desenhoArray.add(mapa.objetosLocal[0]);
         //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
-        mapa.texturaLocal[0] = new Texture("cidade/SalaDoDragao.png");
+        mapa.texturaLocal[0] = new Texture("cidade/SalaDoDragao_07.png");
+        mapa.texturaLocal[1] = new Texture("cidade/SalaDoDragao_08.png");
+        mapa.texturaLocal[2] = new Texture("cidade/SalaDoDragao_09.png");
+        mapa.texturaLocal[3] = new Texture("cidade/SalaDoDragao_04.png");
+        mapa.texturaLocal[4] = new Texture("cidade/SalaDoDragao_05.png");
+        mapa.texturaLocal[5] = new Texture("cidade/SalaDoDragao_06.png");
+        mapa.texturaLocal[6] = new Texture("cidade/SalaDoDragao_01.png");
+        mapa.texturaLocal[7] = new Texture("cidade/SalaDoDragao_02.png");
+        mapa.texturaLocal[8] = new Texture("cidade/SalaDoDragao_03.png");
 
 
         //CARREGANDO SPRITES
         mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+        mapa.spriteLocal[1] = new Sprite(mapa.texturaLocal[1]);
+        mapa.spriteLocal[2] = new Sprite(mapa.texturaLocal[2]);
+        mapa.spriteLocal[3] = new Sprite(mapa.texturaLocal[3]);
+        mapa.spriteLocal[4] = new Sprite(mapa.texturaLocal[4]);
+        mapa.spriteLocal[5] = new Sprite(mapa.texturaLocal[5]);
+        mapa.spriteLocal[6] = new Sprite(mapa.texturaLocal[6]);
+        mapa.spriteLocal[7] = new Sprite(mapa.texturaLocal[7]);
+        mapa.spriteLocal[8] = new Sprite(mapa.texturaLocal[8]);
 
 
         //POSICOES DO SPRITE
         mapa.posicaoSprite[0][0] = 0;
         mapa.posicaoSprite[0][1] = 0;
+
+        mapa.posicaoSprite[1][0] = 0 + mapa.texturaLocal[0].getWidth();
+        mapa.posicaoSprite[1][1] = 0;
+
+        mapa.posicaoSprite[2][0] = mapa.posicaoSprite[1][0] + mapa.texturaLocal[1].getWidth();
+        mapa.posicaoSprite[2][1] = 0;
+
+        mapa.posicaoSprite[3][0] = 0;
+        mapa.posicaoSprite[3][1] = 0 + mapa.texturaLocal[0].getHeight();
+
+        mapa.posicaoSprite[4][0] = 0 + mapa.texturaLocal[3].getWidth();
+        mapa.posicaoSprite[4][1] = 0 + mapa.texturaLocal[1].getHeight();
+
+        mapa.posicaoSprite[5][0] = mapa.posicaoSprite[4][0] + mapa.texturaLocal[4].getWidth();
+        mapa.posicaoSprite[5][1] = 0 + mapa.texturaLocal[2].getHeight();
+
+        mapa.posicaoSprite[6][0] = 0;
+        mapa.posicaoSprite[6][1] = mapa.posicaoSprite[3][1] + mapa.texturaLocal[3].getHeight();
+
+        mapa.posicaoSprite[7][0] = 0 + mapa.texturaLocal[6].getWidth();
+        mapa.posicaoSprite[7][1] = mapa.posicaoSprite[4][1] + mapa.texturaLocal[4].getHeight();
+
+        mapa.posicaoSprite[8][0] = mapa.posicaoSprite[7][0] + mapa.texturaLocal[7].getWidth();
+        mapa.posicaoSprite[8][1] = mapa.posicaoSprite[5][1] + mapa.texturaLocal[5].getHeight();
 
 
         //COLOCANDO COLISOES
@@ -753,8 +928,8 @@ public class IniciarMapa {
 
 
         //INSTANCIANDO VETORES
-        mapa.texturaLocal = new Texture[1];
-        mapa.spriteLocal = new Sprite[1];
+        mapa.texturaLocal = new Texture[9];
+        mapa.spriteLocal = new Sprite[9];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
 
         mapa.inimigoarray.add(slime);
@@ -785,16 +960,56 @@ public class IniciarMapa {
         }
 
         //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
-        mapa.texturaLocal[0] = new Texture("cidade/Labirinto.png");
+        mapa.texturaLocal[0] = new Texture("cidade/Labirinto_07.png");
+        mapa.texturaLocal[1] = new Texture("cidade/Labirinto_08.png");
+        mapa.texturaLocal[2] = new Texture("cidade/Labirinto_09.png");
+        mapa.texturaLocal[3] = new Texture("cidade/Labirinto_04.png");
+        mapa.texturaLocal[4] = new Texture("cidade/Labirinto_05.png");
+        mapa.texturaLocal[5] = new Texture("cidade/Labirinto_06.png");
+        mapa.texturaLocal[6] = new Texture("cidade/Labirinto_01.png");
+        mapa.texturaLocal[7] = new Texture("cidade/Labirinto_02.png");
+        mapa.texturaLocal[8] = new Texture("cidade/Labirinto_03.png");
 
 
         //CARREGANDO SPRITES
         mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+        mapa.spriteLocal[1] = new Sprite(mapa.texturaLocal[1]);
+        mapa.spriteLocal[2] = new Sprite(mapa.texturaLocal[2]);
+        mapa.spriteLocal[3] = new Sprite(mapa.texturaLocal[3]);
+        mapa.spriteLocal[4] = new Sprite(mapa.texturaLocal[4]);
+        mapa.spriteLocal[5] = new Sprite(mapa.texturaLocal[5]);
+        mapa.spriteLocal[6] = new Sprite(mapa.texturaLocal[6]);
+        mapa.spriteLocal[7] = new Sprite(mapa.texturaLocal[7]);
+        mapa.spriteLocal[8] = new Sprite(mapa.texturaLocal[8]);
 
 
         //POSICOES DO SPRITE
         mapa.posicaoSprite[0][0] = 0;
         mapa.posicaoSprite[0][1] = 0;
+
+        mapa.posicaoSprite[1][0] = 0 + mapa.texturaLocal[0].getWidth();
+        mapa.posicaoSprite[1][1] = 0;
+
+        mapa.posicaoSprite[2][0] = mapa.posicaoSprite[1][0] + mapa.texturaLocal[1].getWidth();
+        mapa.posicaoSprite[2][1] = 0;
+
+        mapa.posicaoSprite[3][0] = 0;
+        mapa.posicaoSprite[3][1] = 0 + mapa.texturaLocal[0].getHeight();
+
+        mapa.posicaoSprite[4][0] = 0 + mapa.texturaLocal[3].getWidth();
+        mapa.posicaoSprite[4][1] = 0 + mapa.texturaLocal[1].getHeight();
+
+        mapa.posicaoSprite[5][0] = mapa.posicaoSprite[4][0] + mapa.texturaLocal[4].getWidth();
+        mapa.posicaoSprite[5][1] = 0 + mapa.texturaLocal[2].getHeight();
+
+        mapa.posicaoSprite[6][0] = 0;
+        mapa.posicaoSprite[6][1] = mapa.posicaoSprite[3][1] + mapa.texturaLocal[3].getHeight();
+
+        mapa.posicaoSprite[7][0] = 0 + mapa.texturaLocal[6].getWidth();
+        mapa.posicaoSprite[7][1] = mapa.posicaoSprite[4][1] + mapa.texturaLocal[4].getHeight();
+
+        mapa.posicaoSprite[8][0] = mapa.posicaoSprite[7][0] + mapa.texturaLocal[7].getWidth();
+        mapa.posicaoSprite[8][1] = mapa.posicaoSprite[5][1] + mapa.texturaLocal[5].getHeight();
 
 
         //COLOCANDO COLISOES
@@ -924,8 +1139,8 @@ public class IniciarMapa {
 
 
         //INSTANCIANDO VETORES
-        mapa.texturaLocal = new Texture[1];
-        mapa.spriteLocal = new Sprite[1];
+        mapa.texturaLocal = new Texture[9];
+        mapa.spriteLocal = new Sprite[9];
         mapa.posicaoSprite = new int[mapa.spriteLocal.length][2];
         mapa.colisoes = new Rectangle[14];
         mapa.inimigoarray.add(slime);
@@ -951,16 +1166,56 @@ public class IniciarMapa {
         }
 
         //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
-        mapa.texturaLocal[0] = new Texture("cidade/JardimInterno.png");
+        mapa.texturaLocal[0] = new Texture("cidade/JardimInterno_07.png");
+        mapa.texturaLocal[1] = new Texture("cidade/JardimInterno_08.png");
+        mapa.texturaLocal[2] = new Texture("cidade/JardimInterno_09.png");
+        mapa.texturaLocal[3] = new Texture("cidade/JardimInterno_04.png");
+        mapa.texturaLocal[4] = new Texture("cidade/JardimInterno_05.png");
+        mapa.texturaLocal[5] = new Texture("cidade/JardimInterno_06.png");
+        mapa.texturaLocal[6] = new Texture("cidade/JardimInterno_01.png");
+        mapa.texturaLocal[7] = new Texture("cidade/JardimInterno_02.png");
+        mapa.texturaLocal[8] = new Texture("cidade/JardimInterno_03.png");
 
 
         //CARREGANDO SPRITES
         mapa.spriteLocal[0] = new Sprite(mapa.texturaLocal[0]);
+        mapa.spriteLocal[1] = new Sprite(mapa.texturaLocal[1]);
+        mapa.spriteLocal[2] = new Sprite(mapa.texturaLocal[2]);
+        mapa.spriteLocal[3] = new Sprite(mapa.texturaLocal[3]);
+        mapa.spriteLocal[4] = new Sprite(mapa.texturaLocal[4]);
+        mapa.spriteLocal[5] = new Sprite(mapa.texturaLocal[5]);
+        mapa.spriteLocal[6] = new Sprite(mapa.texturaLocal[6]);
+        mapa.spriteLocal[7] = new Sprite(mapa.texturaLocal[7]);
+        mapa.spriteLocal[8] = new Sprite(mapa.texturaLocal[8]);
 
 
         //POSICOES DO SPRITE
         mapa.posicaoSprite[0][0] = 0;
         mapa.posicaoSprite[0][1] = 0;
+
+        mapa.posicaoSprite[1][0] = 0 + mapa.texturaLocal[0].getWidth();
+        mapa.posicaoSprite[1][1] = 0;
+
+        mapa.posicaoSprite[2][0] = mapa.posicaoSprite[1][0] + mapa.texturaLocal[1].getWidth();
+        mapa.posicaoSprite[2][1] = 0;
+
+        mapa.posicaoSprite[3][0] = 0;
+        mapa.posicaoSprite[3][1] = 0 + mapa.texturaLocal[0].getHeight();
+
+        mapa.posicaoSprite[4][0] = 0 + mapa.texturaLocal[3].getWidth();
+        mapa.posicaoSprite[4][1] = 0 + mapa.texturaLocal[1].getHeight();
+
+        mapa.posicaoSprite[5][0] = mapa.posicaoSprite[4][0] + mapa.texturaLocal[4].getWidth();
+        mapa.posicaoSprite[5][1] = 0 + mapa.texturaLocal[2].getHeight();
+
+        mapa.posicaoSprite[6][0] = 0;
+        mapa.posicaoSprite[6][1] = mapa.posicaoSprite[3][1] + mapa.texturaLocal[3].getHeight();
+
+        mapa.posicaoSprite[7][0] = 0 + mapa.texturaLocal[6].getWidth();
+        mapa.posicaoSprite[7][1] = mapa.posicaoSprite[4][1] + mapa.texturaLocal[4].getHeight();
+
+        mapa.posicaoSprite[8][0] = mapa.posicaoSprite[7][0] + mapa.texturaLocal[7].getWidth();
+        mapa.posicaoSprite[8][1] = mapa.posicaoSprite[5][1] + mapa.texturaLocal[5].getHeight();
 
 
         //COLOCANDO COLISOES
