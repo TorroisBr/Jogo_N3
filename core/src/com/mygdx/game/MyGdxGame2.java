@@ -185,8 +185,6 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void render() {
-System.out.println(pontoExtras);
-
         if (tela == 4) {
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -332,6 +330,7 @@ System.out.println(pontoExtras);
 
                 }
                 if (inimigo instanceof Ladrao) {
+                    System.out.println(inimigo.estado);
                     switch (inimigo.estado) {
 
                         case -1:

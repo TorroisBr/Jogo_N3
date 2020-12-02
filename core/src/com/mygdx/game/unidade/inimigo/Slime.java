@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Rectangle;
 
 import static com.mygdx.game.CameraView.Desenhar;
 import static com.mygdx.game.MyGdxGame2.*;
-import static com.mygdx.game.controladores.PontosController.*;
 
 
 public class Slime extends Inimigo {

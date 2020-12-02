@@ -9,7 +9,6 @@ import com.mygdx.game.item.Espada;
 import static com.mygdx.game.CameraView.Desenhar;
 import static com.mygdx.game.MyGdxGame2.*;
 import static com.mygdx.game.MyGdxGame2.fundoatual;
-import static com.mygdx.game.controladores.PontosController.*;
 
 
 public class Ladrao extends Inimigo {
