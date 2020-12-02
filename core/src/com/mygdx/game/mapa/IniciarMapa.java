@@ -7,6 +7,7 @@ import com.mygdx.game.unidade.ObjetoCenario;
 import com.mygdx.game.unidade.inimigo.Inimigo;
 import com.mygdx.game.unidade.inimigo.Ladrao;
 import com.mygdx.game.unidade.inimigo.Slime;
+import com.mygdx.game.unidade.ovoDragao;
 
 import static com.mygdx.game.MyGdxGame2.jogador;
 
@@ -504,6 +505,7 @@ public class IniciarMapa {
         ObjetoCenario casa1 = new ObjetoCenario(0, 0, 2079, 943, "cidade/SalaDoDragao_Parede");
 
 
+
         //INSTANCIANDO VETORES
         mapa.texturaLocal = new Texture[1];
         mapa.spriteLocal = new Sprite[1];
@@ -515,8 +517,10 @@ public class IniciarMapa {
         mapa.inimigoarray.add(ladrao);
         mapa.inimigoarray.add(ladrao1);
         mapa.inimigoarray.add(ladrao2);
-
+        mapa.objetosLocal=new ovoDragao[1];
         mapa.portaLocal = new Portas[4];
+
+        mapa.objetosLocal[0]=new ovoDragao (1013,1091-64,50,50);
 
         mapa.desenhoArray.add(casa1);
 
@@ -527,7 +531,7 @@ public class IniciarMapa {
             inimigo.iniciar();
             mapa.desenhoArray.add(inimigo);
         }
-
+        mapa.desenhoArray.add(mapa.objetosLocal[0]);
         //IMPORTANDO IMAGENS (IMPORTAR NESSA ORDEM) COM IMAGENS
         mapa.texturaLocal[0] = new Texture("cidade/SalaDoDragao.png");
 
