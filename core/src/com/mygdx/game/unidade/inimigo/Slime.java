@@ -15,7 +15,6 @@ public class Slime extends Inimigo {
     public int dano;
     public float tempoAtaque = 0;
 
-
     public Slime(int x, int y, int direcao, int HitBoxDanoLarg, int HitBoxDanoAlt, int HitBoxMapaLarg, int HitBoxMapaAlt, int velo) {
         this.x = x;
         this.y = y;
@@ -28,8 +27,27 @@ public class Slime extends Inimigo {
         this.dano = 1;
         this.visivel = true;
         this.ponto=10;
+
+        this.respawnX = x;
+        this.respawnY = y;
+        this.respawnDirecao = direcao;
     }
 
+    @Override
+    public void respawn()
+    {
+        x = respawnX;
+        y = respawnY;
+        direcao = respawnDirecao;
+        vida = 30;
+        estado = 3;
+        pontoExtra = true;
+        visivel = true;
+        animAtual = 1;
+        currentFrame = 0;
+        tempo = 0;
+        AtualizaRetangulos();
+    }
 
     public void ColisaoPlayer() {
         if (hitboxMapa.overlaps(jogador.hitboxMapa) && jogador.estado != 3 && jogador.estado != -1 && jogador.invencibilidade <= 0) {

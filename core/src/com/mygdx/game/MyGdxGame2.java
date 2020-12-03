@@ -72,7 +72,8 @@ public class MyGdxGame2 extends Game {
     public static boolean downPress = false,
             upPress = false,
             spacePress = false,
-            backspacePress = false;
+            backspacePress = false,
+            acertoAtaque = false;
 
 
     //Musicas e efeitos sonoros
@@ -82,7 +83,7 @@ public class MyGdxGame2 extends Game {
     public void create() {
         //LISTA COM OS MAPAS
         iniciarMapa = new IniciarMapa();
-        jogador = new Jogador(636, 176 - 90, 0, 56, 126, 56, 39);
+        jogador = new Jogador(636, 176 - 90, 2, 56, 126, 56, 39);
         //INICIANDO CADA MAPA
         mapaB01 = new Mapa();
         mapaB02 = new Mapa();
@@ -386,12 +387,14 @@ public class MyGdxGame2 extends Game {
 
             }
 
+            /*
             //FOR QUE REMOVE O INIMIGO DOS ARRAYS SE ELE ESTIVER MORTO
             for (Iterator<Inimigo> iter = mapas[fundoatual].inimigoarray.iterator(); iter.hasNext(); ) {
                 Inimigo enemy = iter.next();
                 if (enemy.estado == -2)
                     iter.remove();
             }
+            */
 
             for (Iterator<Unidade> iter = mapas[fundoatual].desenhoArray.iterator(); iter.hasNext(); ) {
                 Unidade enemy = iter.next();
@@ -514,7 +517,52 @@ public class MyGdxGame2 extends Game {
             batch.end();
 
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
-                System.exit(0);
+            {
+                jogador.x = 636;
+                jogador.y = 176 - 90;
+                jogador.AtualizaRetangulos();
+                jogador.vida = jogador.vidaMax;
+                jogador.direcao = 2;
+                jogador.movX = 0;
+                jogador.movY = 0;
+                jogador.currentFrame = 0;
+                jogador.animAtual = 1;
+                jogador.tempo = 0;
+                jogador.invencibilidade = 0;
+                jogador.estado = 0;
+
+                fundoatual = 9;
+
+                DefinirLimites(mapas[fundoatual].spriteLocal, mapas[fundoatual].posicaoSprite);
+
+                for(Mapa mapa: mapas)
+                {
+                    for(Inimigo inimigo: mapa.inimigoarray)
+                    {
+                        inimigo.respawn();
+                    }
+
+                    for (Iterator<Unidade> iter = mapa.desenhoArray.iterator(); iter.hasNext(); ) {
+                        Unidade enemy = iter.next();
+
+                        if(enemy instanceof Inimigo)
+                            iter.remove();
+                    }
+
+                    for (Inimigo inimigo : mapa.inimigoarray) {
+                        inimigo.iniciar();
+                        mapa.desenhoArray.add(inimigo);
+                    }
+                }
+
+                reiniciarPontos();
+                tempoJogando = 0;
+
+                soundController.tocarMusica(0);
+
+                tela = 0;
+                selecao = 0;
+            }
         }
     }
 

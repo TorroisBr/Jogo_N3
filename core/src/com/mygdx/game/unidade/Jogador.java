@@ -170,6 +170,7 @@ public class Jogador extends Unidade {
                         break;
                 }
                 quantidadeHits++;
+                acertoAtaque = true;
 
                 teclaEspadaApertada = true;
                 Espadada();

@@ -30,6 +30,26 @@ public class Ladrao extends Inimigo {
         this.estado = 3;
         this.visivel = true;
         this.ponto=15;
+
+        this.respawnX = x;
+        this.respawnY = y;
+        this.respawnDirecao = direcao;
+    }
+
+    @Override
+    public void respawn()
+    {
+        x = respawnX;
+        y = respawnY;
+        direcao = respawnDirecao;
+        vida = 30;
+        estado = 3;
+        pontoExtra = true;
+        visivel = true;
+        animAtual = 1;
+        currentFrame = 0;
+        tempo = 0;
+        AtualizaRetangulos();
     }
 
     public void AtualizarHitboxEspada(int x, int y, float larg, float alt, boolean ativo) {

@@ -27,6 +27,24 @@ public class PontosController {
 
     public static BitmapFont font;
 
+    public static void reiniciarPontos()
+    {
+        totalInimigosMortos = 0;
+        ladraoMortos = 0;
+        slimeMortos = 0;
+        inimigosMortos = 0;
+        quantidadeHits = 0;
+        hitsAcertado = 0;
+        trocasSalas = 0;
+        pontosVida = 0;
+        pontoVidaExtra = 0;
+        pontoExtras = 0;
+        total = 0;
+        tempoPontuacao = 0;
+        tempoPontuacao2 = 0;
+        sonsTocados = 0;
+    }
+
     public static void exibir() {
 
         //Definir os pontos

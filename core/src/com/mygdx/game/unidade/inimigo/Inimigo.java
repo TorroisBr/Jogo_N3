@@ -23,6 +23,12 @@ public abstract class Inimigo extends Unidade {
     protected boolean pontoExtra=true;
     public int ponto;
 
+    public int respawnX,
+               respawnY,
+               respawnDirecao;
+
+    public abstract void respawn();
+
     public abstract void Parado();
 
     public abstract void Andar();
@@ -34,9 +40,12 @@ public abstract class Inimigo extends Unidade {
     public abstract void morrendo();
 
     public void tomarDano(int dano) {
-        hitsAcertado++;
+        if(acertoAtaque)
+        {
+            hitsAcertado++;
+            acertoAtaque = false;
+        }
         vida -= dano;
-
     }
 
     public void Move(Rectangle[] retangulo) {
