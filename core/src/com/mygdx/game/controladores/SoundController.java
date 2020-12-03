@@ -32,8 +32,6 @@ public class SoundController {
 
     public SoundController()
     {
-        long id;
-
         //Carrega os efeitos sonoros e a musica
         musica = Gdx.audio.newMusic(Gdx.files.internal("musicas/gangstas-paradise-but-only-the-choir-bit-along-with-beats.mp3"));
 

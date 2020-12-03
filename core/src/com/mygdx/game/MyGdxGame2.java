@@ -56,7 +56,9 @@ public class MyGdxGame2 extends Game {
     public static SpriteBatch batch;
     public static ShapeRenderer renderer;
 
-    public static int tela = 0;
+    public static int tela = -1;
+    public static float tempoTransicao = 0;
+    public static float transicaoAlpha = 1;
     public static int fundoatual = 9;
     public static int selecao = 0;
     public static OrthographicCamera camera,
@@ -187,6 +189,52 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void render() {
+        //Logo da Bergamota
+        if(tela == -1)
+        {
+            Gdx.gl.glClearColor(1, 1, 1, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+            batch.begin();
+            menuPrincipal.Draw(tela, selecao);
+            batch.end();
+
+            if(tempoTransicao <= 0)
+            {
+                //System.out.println("\n\nAlpha: " +transicaoAlpha + "\nTempo: " + tempoTransicao);
+                transicaoAlpha -= 1 * Gdx.graphics.getDeltaTime();
+
+                if(transicaoAlpha < 0)
+                {
+                    transicaoAlpha = 0;
+                    tempoTransicao += Gdx.graphics.getDeltaTime();
+                }
+            }
+            else if (tempoTransicao < 4)
+            {
+                tempoTransicao += Gdx.graphics.getDeltaTime();
+                if(tempoTransicao >= 4)
+                {
+                    transicaoAlpha = 0;
+                }
+            }
+            else
+            {
+                if(transicaoAlpha >= 1)
+                {
+                    tela = 0;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && !spacePress)
+            {
+                tela = 0;
+                transicaoAlpha = 0;
+                tempoTransicao = 4;
+                spacePress = true;
+            }
+        }
+
         //Menu inicial
         if (tela == 0 || tela == 1 || tela == 2) {
             Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -225,10 +273,12 @@ public class MyGdxGame2 extends Game {
                             break;
                         case 1:
                             tela = 1;
+                            spacePress = true;
                             soundController.tocarSom(2);
                             break;
                         case 2:
                             tela = 2;
+                            spacePress = true;
                             soundController.tocarSom(2);
                             break;
                         case 3:
@@ -388,7 +438,6 @@ public class MyGdxGame2 extends Game {
                     objeto.Draw();
 
                     if (totalInimigosMortos >= 37) {
-                        objeto.estado = 1;
                         objeto.estado = 1;
                         objeto.colisao();
                     }
