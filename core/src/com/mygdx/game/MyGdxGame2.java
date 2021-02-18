@@ -81,6 +81,9 @@ public class MyGdxGame2 extends Game {
 
     @Override
     public void create() {
+        //Titulo da janela
+        Gdx.graphics.setTitle("Sensato's: Espólios Temporais");
+
         //LISTA COM OS MAPAS
         iniciarMapa = new IniciarMapa();
         jogador = new Jogador(636, 176 - 90, 2, 56, 126, 56, 39);
